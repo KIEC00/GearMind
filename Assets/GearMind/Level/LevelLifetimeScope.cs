@@ -1,0 +1,10 @@
+using VContainer;
+using VContainer.Unity;
+
+namespace Assets.GearMind.Level
+{
+    public class LevelLifetimeScope : LifetimeScope
+    {
+        protected override void Configure(IContainerBuilder builder) { }
+    }
+}
