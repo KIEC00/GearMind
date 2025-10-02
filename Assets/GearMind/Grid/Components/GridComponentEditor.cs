@@ -25,8 +25,6 @@ namespace Assets.GearMind.Grid.Components
                 OnAfterDeserialize();
                 _debugLastSize = Size;
             }
-            if (Camera == null)
-                Camera = Camera.main;
         }
 
         private void OnDrawGizmos()
@@ -37,8 +35,7 @@ namespace Assets.GearMind.Grid.Components
                 GizmosDrawGrid(Color.green, Color.red);
             if (_debugGridMouseOver && Application.isPlaying)
             {
-                var camera = Camera == null ? Camera.main : Camera;
-                var cell = ScreenToCell(Mouse.current.position.ReadValue(), camera);
+                var cell = ScreenToCell(Mouse.current.position.ReadValue(), Camera.main);
                 if (cell.HasValue)
                     GizmosDrawCell(cell.Value, true, Color.yellow);
             }
@@ -46,7 +43,7 @@ namespace Assets.GearMind.Grid.Components
 
         private void GizmosDrawCell(Vector2Int cell, bool fill, Color color)
         {
-            var cellSize = new Vector3(CellWorldSize, CellWorldSize, 0);
+            var cellSize = new Vector3(CellScale, CellScale, 0);
             var cellCenter = CellToWorld(cell);
             Gizmos.color = color;
             if (fill)

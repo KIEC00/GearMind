@@ -8,9 +8,9 @@ namespace Assets.GearMind.Grid
     {
         public bool IsPositionInBounds(Vector2Int position) =>
             position.x >= 0
-            && position.x < _cells.Size.width
+            && position.x < _table.Size.width
             && position.y >= 0
-            && position.y < _cells.Size.height;
+            && position.y < _table.Size.height;
 
         public bool CanAddItem(GridItem item, Vector2Int position)
         {
@@ -27,10 +27,10 @@ namespace Assets.GearMind.Grid
 
         public bool CanAddCell(Cell cell, Vector2Int cellPosition)
         {
-            var gridCell = _cells[cellPosition.x, cellPosition.y];
+            var gridCell = _table[cellPosition.x, cellPosition.y];
 
             var flags = cell.Flags;
-            var combinedFlags = CombineFlags(gridCell);
+            var combinedFlags = gridCell.CombineFlags();
 
             if (flags.HasFlag(CellFlags.Solid) && combinedFlags.HasFlag(CellFlags.Solid))
                 return false;
@@ -39,7 +39,7 @@ namespace Assets.GearMind.Grid
             if (requireAttachFlags == CellFlags.None)
                 return true;
 
-            var attachMask = (CellFlags)((int)requireAttachFlags << 4);
+            var attachMask = (CellFlags)((int)requireAttachFlags >> 4);
 
             var combinedAttachableFlags = combinedFlags & CellFlags.AttachableAll;
             if ((attachMask & combinedAttachableFlags) == CellFlags.None)
@@ -61,46 +61,40 @@ namespace Assets.GearMind.Grid
                 var current = stack.Pop();
                 foreach (var cell in current.Cells)
                 {
-                    var cellPosition = _itemPositions[current] + cell.Position;
-                    var gridCell = _cells[cellPosition.x, cellPosition.y];
+                    var cellPosition = current.Position + cell.Position;
+                    var gridCell = _table[cellPosition.x, cellPosition.y];
 
-                    var attachableFlags = cell.Flags & CellFlags.AttachableAll;
-                    if (attachableFlags == CellFlags.None)
-                        continue;
-
-                    var requireAttachMask = (CellFlags)((int)attachableFlags >> 4);
-
-                    var combinedFlags = CombineFlags(
+                    var combinedFlags = Cell.CombineFlags(
                         gridCell
-                            .Records.Where(record => !targets.Contains(record.Item))
+                            .Where(record => !targets.Contains(record.Item))
                             .Select(record => record.Cell.Flags)
                     );
 
-                    var provideAttachMask = requireAttachMask & combinedFlags;
-                    var provideAttachOtherFlags = attachableFlags & combinedFlags;
-                    var provideAttachOtherMask = (CellFlags)((int)provideAttachOtherFlags >> 4);
-                    var selfProvideAttachMask = provideAttachMask & provideAttachOtherMask;
+                    var selfProvideAttachMask = cell.Flags.GetAttachableMask();
+                    var otherProvideAttachMask = combinedFlags.GetAttachableMask();
+                    var otherRequireAttachFlags = combinedFlags.GetRequireAttachMask();
 
-                    if (selfProvideAttachMask != 0)
+                    var onlySelfProvideAttachMask =
+                        selfProvideAttachMask & ~otherProvideAttachMask & otherRequireAttachFlags;
+
+                    if (onlySelfProvideAttachMask == CellFlags.None)
                         continue;
 
-                    foreach (var record in gridCell.Records)
+                    foreach (var record in gridCell)
                     {
-                        if (targets.Contains(record.Item))
+                        var item = record.Item;
+                        if (targets.Contains(item))
                             continue;
-                        if ((record.Cell.Flags & selfProvideAttachMask) != 0)
-                            stack.Push(record.Item);
+                        var requireAttachMask = record.Cell.Flags.GetRequireAttachMask();
+                        if ((requireAttachMask & onlySelfProvideAttachMask) == CellFlags.None)
+                            continue;
+                        stack.Push(item);
+                        targets.Add(item);
                     }
                 }
             }
 
             return targets;
         }
-
-        public CellFlags CombineFlags(IReadOnlyGridCell gridCell) =>
-            CombineFlags(gridCell.Records.Select(record => record.Cell.Flags));
-
-        public CellFlags CombineFlags(IEnumerable<CellFlags> flags) =>
-            flags.Aggregate(CellFlags.None, (acc, flag) => acc | flag);
     }
 }

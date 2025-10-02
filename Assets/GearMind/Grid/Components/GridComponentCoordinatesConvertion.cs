@@ -4,9 +4,6 @@ namespace Assets.GearMind.Grid.Components
 {
     public partial class GridComponent
     {
-        [field: SerializeField]
-        public Camera Camera { get; private set; }
-
         public Vector2Int? ScreenToCell(Vector2 screenPosition, Camera camera)
         {
             var planePosition = ScreenToPlane(screenPosition, camera);
@@ -32,19 +29,19 @@ namespace Assets.GearMind.Grid.Components
             var center = WorldCenter;
 
             var cell = new Vector2Int(
-                (int)Mathf.Floor(worldPosition.x - center.x + gridExtends.x / CellWorldSize),
-                (int)Mathf.Floor(worldPosition.y - center.y + gridExtends.y / CellWorldSize)
+                (int)Mathf.Floor(worldPosition.x - center.x + gridExtends.x / CellScale),
+                (int)Mathf.Floor(worldPosition.y - center.y + gridExtends.y / CellScale)
             );
             return Cells.IsPositionInBounds(cell) ? cell : null;
         }
 
         public Vector3 CellToWorld(Vector2Int cellPosition)
         {
-            var cellExtents = 0.5f * CellWorldSize;
+            var cellExtents = 0.5f * CellScale;
             var gridExtends = WorldExtends;
             var localPosition = new Vector3(
-                cellPosition.x * CellWorldSize - gridExtends.x + cellExtents,
-                cellPosition.y * CellWorldSize - gridExtends.y + cellExtents
+                cellPosition.x * CellScale - gridExtends.x + cellExtents,
+                cellPosition.y * CellScale - gridExtends.y + cellExtents
             );
             return WorldCenter + localPosition;
         }

@@ -24,6 +24,17 @@ namespace Assets.Utils.Runtime
 
         public Table(int width, int height) => _cells = new T[width, height];
 
+        public Table<T> Fill(Func<int, int, T> valueFactory)
+        {
+            var (w, h) = Size;
+            for (int x = 0; x < w; x++)
+            for (int y = 0; y < h; y++)
+                _cells[x, y] = valueFactory(x, y);
+            return this;
+        }
+
+        public Table<T> Fill(Func<T> valueFactory) => Fill((_, __) => valueFactory());
+
         public Table(T[,] cells)
         {
             _cells = new T[cells.GetLength(0), cells.GetLength(1)];

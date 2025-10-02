@@ -1,32 +1,57 @@
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Assets.GearMind.Grid
 {
-    public readonly struct GridItemRecord
+    public readonly struct CellRecord
     {
-        public readonly GridItem Item;
-        public readonly Cell Cell;
+        public Cell Cell => Item.Cells[CellIndex];
+        public GridItem Item { get; }
+        public int CellIndex { get; }
 
-        public GridItemRecord(GridItem item, Cell cell)
+        public CellRecord(GridItem item, int cellIndex)
         {
             Item = item;
-            Cell = cell;
+            CellIndex = cellIndex;
         }
     }
 
-    public interface IReadOnlyGridCell
+    public interface IReadOnlyGridCell : IReadOnlyList<CellRecord>
     {
-        IReadOnlyCollection<GridItemRecord> Records { get; }
+        public CellRecord? GetSolidRecord();
+        public CellFlags CombineFlags();
     }
 
     public class GridCell : IReadOnlyGridCell
     {
-        public IReadOnlyCollection<GridItemRecord> Records => _records;
+        public int Count => _records.Count;
 
-        private readonly List<GridItemRecord> _records = new();
+        public CellRecord this[int index]
+        {
+            get => _records[index];
+            set => _records[index] = value;
+        }
 
-        public void Add(GridItem item, Cell cell) => _records.Add(new(item, cell));
+        private readonly List<CellRecord> _records = new();
 
-        public void Remove(GridItem item, Cell cell) => _records.Remove(new(item, cell));
+        public void Add(CellRecord record) => _records.Add(record);
+
+        public void Remove(CellRecord record) => _records.Remove(record);
+
+        public CellRecord? GetSolidRecord()
+        {
+            foreach (var record in _records)
+                if (record.Cell.IsSolid)
+                    return record;
+            return null;
+        }
+
+        public CellFlags CombineFlags() =>
+            Cell.CombineFlags(_records.Select(record => record.Cell.Flags));
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+        public IEnumerator<CellRecord> GetEnumerator() => _records.GetEnumerator();
     }
 }
