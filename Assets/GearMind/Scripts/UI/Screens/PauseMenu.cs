@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Assets.GearMind.Scripts.UI
+namespace Assets.GearMind.Scripts.UI.Screens
 {
     public class PauseMenu : MonoBehaviour
     {
