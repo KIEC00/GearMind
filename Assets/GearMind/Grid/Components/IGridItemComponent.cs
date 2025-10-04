@@ -5,6 +5,7 @@ namespace Assets.GearMind.Grid.Components
     public interface IGridItemComponent
     {
         public IEnumerable<Cell> Cells { get; }
+        public bool Dynamic { get; }
     }
 
     public interface IRotatable

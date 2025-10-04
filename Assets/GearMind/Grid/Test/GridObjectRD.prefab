@@ -9,6 +9,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3424958223189345264, guid: 3828b9503e1025547a238f98f71c7d31, type: 3}
+      propertyPath: _dynamic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3424958223189345264, guid: 3828b9503e1025547a238f98f71c7d31, type: 3}
       propertyPath: _sphereRequiredAttachTop
       value: 1
       objectReference: {fileID: 0}
@@ -54,7 +58,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8361619884619087318, guid: 3828b9503e1025547a238f98f71c7d31, type: 3}
       propertyPath: m_Name
-      value: GridObjectR
+      value: GridObjectRD
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

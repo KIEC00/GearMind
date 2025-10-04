@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using EditorAttributes;
+using Mono.Cecil.Cil;
 using UnityEngine;
 
 namespace Assets.GearMind.Grid.Components
@@ -30,6 +31,22 @@ namespace Assets.GearMind.Grid.Components
                 return false;
             var gridItem = new GridItem(itemComponent.Cells, position, itemComponent);
             var added = Cells.AddItem(gridItem, position);
+            if (added)
+                _itemComponents.Add(itemComponent, gridItem);
+            return added;
+        }
+
+        public bool AddItem(
+            IGridItemComponent itemComponent,
+            Vector2Int position,
+            out IEnumerable<GridItem> attachedTo
+        )
+        {
+            attachedTo = null;
+            if (_itemComponents.ContainsKey(itemComponent))
+                return false;
+            var gridItem = new GridItem(itemComponent.Cells, position, itemComponent);
+            var added = Cells.AddItem(gridItem, position, out attachedTo);
             if (added)
                 _itemComponents.Add(itemComponent, gridItem);
             return added;

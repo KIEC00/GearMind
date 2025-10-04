@@ -11,6 +11,10 @@ public class TestGridItem : AbstractGridItemComponent, IRotatable
     private bool _sphereRequiredAttachTop = false;
 
     [SerializeField]
+    private bool _dynamic = false;
+    public override bool Dynamic => _dynamic;
+
+    [SerializeField]
     private GameObject _sphere;
 
     public override IEnumerable<Cell> Cells => GetCells();

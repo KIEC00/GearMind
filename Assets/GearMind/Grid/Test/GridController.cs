@@ -1,8 +1,8 @@
+using System.Linq;
 using Assets.GearMind.Grid.Components;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(GridComponent))]
 public class GridController : MonoBehaviour
 {
     [SerializeField]
@@ -23,7 +23,7 @@ public class GridController : MonoBehaviour
         if (_selectedObject == null)
             return;
         _selectedObject.transform.rotation = Quaternion.identity;
-        _selectedObjectPreview = Instantiate(prefab, Vector3.zero, Quaternion.identity);
+        _selectedObjectPreview = Instantiate(prefab, transform);
         var physics = _selectedObjectPreview.GetComponentInChildren<Rigidbody2D>();
         if (physics)
             physics.simulated = false;
@@ -35,6 +35,8 @@ public class GridController : MonoBehaviour
             SelectObject(_objects[0]);
         else if (Keyboard.current.digit2Key.wasPressedThisFrame)
             SelectObject(_objects[1]);
+        else if (Keyboard.current.digit3Key.wasPressedThisFrame)
+            SelectObject(_objects[2]);
         else if (Keyboard.current.escapeKey.wasPressedThisFrame)
             SelectObject(null);
     }
@@ -74,10 +76,17 @@ public class GridController : MonoBehaviour
         var position = _grid.CellToWorld(cellPos.Value);
         if (!_grid.CanAddItem(_selectedObject, cellPos.Value))
             return;
-        var item = Instantiate(_selectedObject);
+        var item = Instantiate(_selectedObject, _grid.transform);
+        if (item.Dynamic)
+        {
+            _grid.AddItem(item, cellPos.Value, out var attachedTo);
+            var attachTo = attachedTo?.FirstOrDefault()?.Component;
+            if (attachTo != null)
+                item.transform.SetParent(((MonoBehaviour)attachTo).transform);
+        }
+        else
+            _grid.AddItem(item, cellPos.Value);
         item.transform.position = position;
-
-        _grid.AddItem(item, cellPos.Value);
     }
 
     private void HandleDelete()
@@ -86,7 +95,11 @@ public class GridController : MonoBehaviour
             return;
         var mouse = Mouse.current.position.ReadValue();
         var gridPosition = _grid.ScreenToCell(mouse, Camera.main);
+        if (!gridPosition.HasValue)
+            return;
         var item = _grid.GetSolidItemAt(gridPosition.Value);
+        if (item == null)
+            return;
         var removedItems = _grid.RemoveItemsRecursive(item);
         if (removedItems == null)
             return;

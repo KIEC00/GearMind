@@ -7,6 +7,8 @@ namespace Assets.GearMind.Grid.Components
     {
         public abstract IEnumerable<Cell> Cells { get; }
 
+        public abstract bool Dynamic { get; }
+
 #if UNITY_EDITOR
         [Header("Debug")]
         [SerializeField]

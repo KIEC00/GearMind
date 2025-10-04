@@ -25,30 +25,56 @@ namespace Assets.GearMind.Grid
             return true;
         }
 
+        public bool CanAddItem(
+            GridItem item,
+            Vector2Int position,
+            out IEnumerable<GridItem> attachedItems
+        )
+        {
+            attachedItems = null;
+            if (!CanAddItem(item, position))
+                return false;
+            attachedItems = item.Cells.SelectMany(cell =>
+                GetCellAttachedTo(cell.Flags, this[position + cell.Position])
+            );
+            return true;
+        }
+
         public bool CanAddCell(Cell cell, Vector2Int cellPosition)
         {
-            var gridCell = _table[cellPosition.x, cellPosition.y];
+            var gridCell = this[cellPosition.x, cellPosition.y];
 
             var flags = cell.Flags;
             var combinedFlags = gridCell.CombineFlags();
 
-            if (flags.HasFlag(CellFlags.Solid) && combinedFlags.HasFlag(CellFlags.Solid))
+            if (flags.IsSolid() && combinedFlags.IsSolid())
                 return false;
 
-            var requireAttachFlags = flags & CellFlags.RequireAttachAll;
-            if (requireAttachFlags == CellFlags.None)
+            var requireAttachMask = flags.GetRequireAttachMask();
+            if (requireAttachMask == 0)
                 return true;
 
-            var attachMask = (CellFlags)((int)requireAttachFlags >> 4);
-
-            var combinedAttachableFlags = combinedFlags & CellFlags.AttachableAll;
-            if ((attachMask & combinedAttachableFlags) == CellFlags.None)
+            var combinedAttachableMask = combinedFlags.GetAttachableMask();
+            if ((requireAttachMask & combinedAttachableMask) == CellFlags.None)
                 return false;
 
             return true;
         }
 
-        public IReadOnlyCollection<GridItem> GetRecursiveRemoveTargets(GridItem itemToRemove)
+        public IEnumerable<GridItem> GetCellAttachedTo(CellFlags flags, IReadOnlyGridCell gridCell)
+        {
+            var requireAttachMask = flags.GetRequireAttachMask();
+            if (requireAttachMask == 0)
+                yield break;
+            foreach (var record in gridCell)
+            {
+                var attachableMask = record.Cell.Flags.GetAttachableMask();
+                if ((requireAttachMask & attachableMask) != CellFlags.None)
+                    yield return record.Item;
+            }
+        }
+
+        private IReadOnlyCollection<GridItem> GetRecursiveRemoveTargets(GridItem itemToRemove)
         {
             var stack = new Stack<GridItem>();
             var targets = new HashSet<GridItem>();

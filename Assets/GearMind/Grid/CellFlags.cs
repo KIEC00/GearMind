@@ -27,6 +27,8 @@ namespace Assets.GearMind.Grid
 
     public static class CellFlagsExtensions
     {
+        public static bool IsSolid(this CellFlags cellFlags) => (cellFlags & CellFlags.Solid) != 0;
+
         public static CellFlags GetAttachableMask(this CellFlags flags) =>
             flags & CellFlags.AttachableAll;
 
