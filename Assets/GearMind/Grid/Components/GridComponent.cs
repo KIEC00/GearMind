@@ -64,11 +64,19 @@ namespace Assets.GearMind.Grid.Components
         {
             if (!_itemComponents.TryGetValue(itemComponent, out var gridItem))
                 return null;
-            return Cells.RemoveItemsRecursive(gridItem);
+            var targets = Cells.RemoveItemsRecursive(gridItem);
+            foreach (var target in targets)
+                _itemComponents.Remove(target.Component);
+            return targets;
         }
 
-        public IReadOnlyCollection<GridItem> RemoveItemsRecursive(GridItem item) =>
-            Cells.RemoveItemsRecursive(item);
+        public IReadOnlyCollection<GridItem> RemoveItemsRecursive(GridItem item)
+        {
+            var targets = Cells.RemoveItemsRecursive(item);
+            foreach (var target in targets)
+                _itemComponents.Remove(target.Component);
+            return targets;
+        }
 
         public GridItem GetSolidItemAt(Vector2Int position) =>
             Cells[position.x, position.y].GetSolidRecord()?.Item;
