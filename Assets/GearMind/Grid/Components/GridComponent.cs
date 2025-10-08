@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using EditorAttributes;
-using Mono.Cecil.Cil;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Assets.GearMind.Grid.Components
 {
@@ -13,6 +13,9 @@ namespace Assets.GearMind.Grid.Components
 
         [field: SerializeField, Clamp(0.01f, 100f, 0.01f, 100f)]
         public float CellScale { get; private set; } = 1f;
+
+        [SerializeField]
+        private GridCanvas _gridCanvas;
 
         public Vector3 WorldCenter => transform.position;
         public Vector2 WorldSize => (Vector2)Size * CellScale;
@@ -87,7 +90,6 @@ namespace Assets.GearMind.Grid.Components
         public void OnAfterDeserialize() => Cells = new Grid(Size.x, Size.y);
 
         public void OnBeforeSerialize() { }
-
 
         //Test
         public IEnumerable<GridItem> GetAllItems()

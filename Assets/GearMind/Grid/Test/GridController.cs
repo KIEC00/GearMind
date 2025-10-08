@@ -1,18 +1,23 @@
 using System.Linq;
-using UnityEngine;
-using UnityEngine.InputSystem;
 using Assets.GearMind.Grid;
 using Assets.GearMind.Grid.Components;
+using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GridController : MonoBehaviour
 {
-    [SerializeField] private GridComponent _grid;
-    [SerializeField] private AbstractGridItemComponent[] _objects;
-   
+    [SerializeField]
+    private GridComponent _grid;
+
+    [SerializeField]
+    private AbstractGridItemComponent[] _objects;
+
+    [SerializeField]
+    private GridCanvas _gridCanvas;
+
     private AbstractGridItemComponent _selectedPrefab;
     private AbstractGridItemComponent _flyingObject;
     private bool _isDragging = false;
-
 
     // Поиск префабов
     public void StartPlacingObject(AbstractGridItemComponent prefab)
@@ -31,12 +36,11 @@ public class GridController : MonoBehaviour
         }
     }
 
-
-
     // Перемещение/размещение
     private void UpdateFlyingObject()
     {
-        if (!_flyingObject) return;
+        if (!_flyingObject)
+            return;
 
         var mouse = Mouse.current.position.ReadValue();
         var mousePlane = _grid.ScreenToPlane(mouse, Camera.main);
@@ -49,13 +53,22 @@ public class GridController : MonoBehaviour
 
         _flyingObject.gameObject.SetActive(true);
 
-        var cellPos = _grid.ScreenToCell(mouse, Camera.main);
-        var targetPos = cellPos.HasValue ? _grid.CellToWorld(cellPos.Value) : mousePlane.Value;
-        _flyingObject.transform.position = targetPos;
+        _flyingObject.transform.position = mousePlane.Value;
 
-        bool canPlace = cellPos.HasValue && _grid.CanAddItem(_flyingObject, cellPos.Value);
-        foreach (var renderer in _flyingObject.GetComponentsInChildren<Renderer>())
-            renderer.material.color = canPlace ? Color.green : Color.red;
+        var cellPos = _grid.ScreenToCell(mouse, Camera.main);
+        var canPlace = cellPos.HasValue && _grid.CanAddItem(_flyingObject, cellPos.Value);
+        if (cellPos.HasValue)
+        {
+            _gridCanvas.ShowCursor(
+                cellPos.Value,
+                _flyingObject.Cells,
+                canPlace ? CursorType.Ok : CursorType.Error
+            );
+        }
+        else
+        {
+            _gridCanvas.HideCursor();
+        }
 
         if (!_isDragging && canPlace && Mouse.current.leftButton.wasPressedThisFrame)
             PlaceFlyingObject(cellPos.Value);
@@ -63,7 +76,8 @@ public class GridController : MonoBehaviour
 
     private void PlaceFlyingObject(Vector2Int cellPos)
     {
-        if (!_flyingObject) return;
+        if (!_flyingObject)
+            return;
 
         AddItem(_flyingObject, cellPos);
         PrepareGrid(_flyingObject);
@@ -115,7 +129,7 @@ public class GridController : MonoBehaviour
         }
         else
             _grid.AddItem(item, cellPosition);
-        
+
         var position = _grid.CellToWorld(cellPosition);
         item.transform.position = position;
         return true;
@@ -123,7 +137,8 @@ public class GridController : MonoBehaviour
 
     private void HandleRotate()
     {
-        if (!_flyingObject || !Keyboard.current.rKey.wasPressedThisFrame) return;
+        if (!_flyingObject || !Keyboard.current.rKey.wasPressedThisFrame)
+            return;
         (_flyingObject as IRotatable)?.Rotate();
     }
 
@@ -143,9 +158,7 @@ public class GridController : MonoBehaviour
         _isDragging = false;
     }
 
-    
-
-    // Drag & Drop 
+    // Drag & Drop
     private GridItem GetSolidItemAt(Vector2 screenPosition)
     {
         var cellPos = _grid.ScreenToCell(screenPosition, Camera.main);
@@ -161,7 +174,7 @@ public class GridController : MonoBehaviour
 
         var mouse = Mouse.current.position.ReadValue();
         var cellItem = GetSolidItemAt(mouse);
-        
+
         if (cellItem != null)
         {
             _isDragging = true;
@@ -186,11 +199,12 @@ public class GridController : MonoBehaviour
 
         _isDragging = false;
 
-        if (!_flyingObject) return;
+        if (!_flyingObject)
+            return;
 
         var mouse = Mouse.current.position.ReadValue();
         var cellPos = _grid.ScreenToCell(mouse, Camera.main);
-        
+
         if (cellPos.HasValue && AddItem(_flyingObject, cellPos.Value))
         {
             PrepareGrid(_flyingObject);
@@ -202,7 +216,6 @@ public class GridController : MonoBehaviour
 
         _flyingObject = null;
     }
-
 
     private void Update()
     {
