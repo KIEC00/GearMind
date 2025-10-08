@@ -87,5 +87,12 @@ namespace Assets.GearMind.Grid.Components
         public void OnAfterDeserialize() => Cells = new Grid(Size.x, Size.y);
 
         public void OnBeforeSerialize() { }
+
+
+        //Test
+        public IEnumerable<GridItem> GetAllItems()
+        {
+            return _itemComponents.Values.ToList();
+        }
     }
 }
