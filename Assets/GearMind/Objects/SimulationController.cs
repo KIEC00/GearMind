@@ -15,14 +15,13 @@ public class SimulationManager : MonoBehaviour
     [SerializeField]
     private bool _preventEditDuringSimulation = true;
 
-
+    public bool IsSimulating => _isSimulating;
 
     private readonly Dictionary<GameObject, GameObjectState> _sceneState = new();
     private readonly HashSet<GameObject> _objects = new();
+    private readonly List<GameObject> _objectsToDestroy = new(); 
 
     private bool _isSimulating = false;
-
-    
 
     void Awake()
     {
@@ -30,12 +29,12 @@ public class SimulationManager : MonoBehaviour
         if (_stopButton) _stopButton.onClick.AddListener(StopSimulation);
     }
 
-
     [Serializable]
     private class GameObjectState
     {
         public Vector3 Position;
         public Quaternion Rotation;
+        public bool IsPlacedOnGrid; 
 
         public RigidbodyState RigidbodyState;
         public ColliderState[] ColliderStates;
@@ -58,13 +57,16 @@ public class SimulationManager : MonoBehaviour
         public bool IsTrigger;
     }
 
-
-
     public void SaveSceneState()
     {
         _sceneState.Clear();
         _objects.Clear();
+        _objectsToDestroy.Clear();
 
+
+        var gridItems = _gridComponent?.GetAllItems()?.Select(item => item.Component as MonoBehaviour) 
+            ?? Array.Empty<MonoBehaviour>();
+        var placedObjects = new HashSet<GameObject>(gridItems.Where(x => x != null).Select(x => x.gameObject));
 
         var allRigidbodies = FindObjectsOfType<Rigidbody>(true);
         foreach (var rb in allRigidbodies)
@@ -72,10 +74,13 @@ public class SimulationManager : MonoBehaviour
             var rbObject = rb.gameObject;
             if (_sceneState.ContainsKey(rbObject)) continue;
 
+            bool isPlacedOnGrid = placedObjects.Contains(rbObject);
+
             var state = new GameObjectState
             {
                 Position = rbObject.transform.position,
                 Rotation = rbObject.transform.rotation,
+                IsPlacedOnGrid = isPlacedOnGrid,
                 RigidbodyState = new RigidbodyState
                 {
                     Velocity = rb.linearVelocity,
@@ -90,6 +95,12 @@ public class SimulationManager : MonoBehaviour
 
             _sceneState.Add(rbObject, state);
             _objects.Add(rbObject);
+
+
+            if (!isPlacedOnGrid)
+            {
+                _objectsToDestroy.Add(rbObject);
+            }
         }
 
         var allGridItems = FindObjectsOfType<AbstractGridItemComponent>(true);
@@ -98,10 +109,13 @@ public class SimulationManager : MonoBehaviour
             var gridObject = gridItem.gameObject;
             if (_sceneState.ContainsKey(gridObject)) continue;
 
+            bool isPlacedOnGrid = placedObjects.Contains(gridObject);
+
             var state = new GameObjectState
             {
                 Position = gridObject.transform.position,
                 Rotation = gridObject.transform.rotation,
+                IsPlacedOnGrid = isPlacedOnGrid,
                 RigidbodyState = null,
                 ColliderStates = gridObject.GetComponents<Collider>()
                                    .Select(c => new ColliderState { Collider = c, Enabled = c.enabled, IsTrigger = c.isTrigger })
@@ -110,6 +124,12 @@ public class SimulationManager : MonoBehaviour
 
             _sceneState.Add(gridObject, state);
             _objects.Add(gridObject);
+
+
+            if (!isPlacedOnGrid)
+            {
+                _objectsToDestroy.Add(gridObject);
+            }
         }
     }
 
@@ -119,6 +139,16 @@ public class SimulationManager : MonoBehaviour
 
         SaveSceneState();
 
+
+        foreach (var objToDestroy in _objectsToDestroy)
+        {
+            if (objToDestroy != null)
+            {
+                Destroy(objToDestroy);
+            }
+        }
+        _objectsToDestroy.Clear();
+
         if (_gridController != null && _preventEditDuringSimulation)
             _gridController.enabled = false; // Хрень, переделать
 
@@ -126,6 +156,9 @@ public class SimulationManager : MonoBehaviour
         {
             var go = kv.Key;
             var state = kv.Value;
+
+
+            if (go == null) continue;
 
             if (state.ColliderStates != null)
             {
@@ -182,6 +215,4 @@ public class SimulationManager : MonoBehaviour
 
         _isSimulating = false;
     }
-
 }
-

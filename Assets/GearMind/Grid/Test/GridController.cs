@@ -1,68 +1,75 @@
-using System;
-using System.Collections;
 using System.Linq;
-using Assets.GearMind.Grid;
-using Assets.GearMind.Grid.Components;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Assets.GearMind.Grid;
+using Assets.GearMind.Grid.Components;
 
 public class GridController : MonoBehaviour
 {
-    [SerializeField]
-    private GridComponent _grid;
-
-    [SerializeField]
-    private AbstractGridItemComponent[] _objects;
-
+    [SerializeField] private GridComponent _grid;
+    [SerializeField] private AbstractGridItemComponent[] _objects;
+   
     private AbstractGridItemComponent _selectedPrefab;
-
     private AbstractGridItemComponent _flyingObject;
-
     private bool _isDragging = false;
 
-    private readonly Key[] Keys = Enumerable
-        .Range((byte)Key.Digit1, (byte)Key.Digit0)
-        .Select(i => (Key)i)
-        .ToArray();
 
-    private void HandleChangePrefab()
+    // Поиск префабов
+    public void StartPlacingObject(AbstractGridItemComponent prefab)
     {
-        for (var i = 0; i < Math.Min(_objects.Length, Keys.Length); i++)
-            if (Keyboard.current[Keys[i]].wasPressedThisFrame)
-                _selectedPrefab = _objects[i];
-        if (Keyboard.current.escapeKey.wasPressedThisFrame)
-            _selectedPrefab = null;
+        CancelPlacing();
+        _selectedPrefab = prefab;
+        _flyingObject = Instantiate(_selectedPrefab);
+        PrepareFlying(_flyingObject);
     }
 
-    private void HandleMoveFlying()
+    public void StartPlacingObjectByIndex(int index)
     {
-        if (!_flyingObject)
-            return;
+        if (index >= 0 && index < _objects.Length)
+        {
+            StartPlacingObject(_objects[index]);
+        }
+    }
+
+
+
+    // Перемещение/размещение
+    private void UpdateFlyingObject()
+    {
+        if (!_flyingObject) return;
+
         var mouse = Mouse.current.position.ReadValue();
         var mousePlane = _grid.ScreenToPlane(mouse, Camera.main);
+
         if (!mousePlane.HasValue)
         {
             _flyingObject.gameObject.SetActive(false);
             return;
         }
-        _flyingObject.gameObject.SetActive(true);
-        var cellPos = _grid.ScreenToCell(mouse, Camera.main);
-        var position = cellPos.HasValue ? _grid.CellToWorld(cellPos.Value) : mousePlane.Value;
 
-        _flyingObject.transform.position = position;
-        if (cellPos.HasValue && _grid.CanAddItem(_flyingObject, cellPos.Value))
-            foreach (var renderer in _flyingObject.GetComponentsInChildren<Renderer>())
-                renderer.material.color = Color.green;
-        else
-            foreach (var renderer in _flyingObject.GetComponentsInChildren<Renderer>())
-                renderer.material.color = Color.red;
+        _flyingObject.gameObject.SetActive(true);
+
+        var cellPos = _grid.ScreenToCell(mouse, Camera.main);
+        var targetPos = cellPos.HasValue ? _grid.CellToWorld(cellPos.Value) : mousePlane.Value;
+        _flyingObject.transform.position = targetPos;
+
+        bool canPlace = cellPos.HasValue && _grid.CanAddItem(_flyingObject, cellPos.Value);
+        foreach (var renderer in _flyingObject.GetComponentsInChildren<Renderer>())
+            renderer.material.color = canPlace ? Color.green : Color.red;
+
+        if (!_isDragging && canPlace && Mouse.current.leftButton.wasPressedThisFrame)
+            PlaceFlyingObject(cellPos.Value);
     }
 
-    private void HandleRotate()
+    private void PlaceFlyingObject(Vector2Int cellPos)
     {
-        if (!_flyingObject || !Keyboard.current.rKey.wasPressedThisFrame)
-            return;
-        (_flyingObject as IRotatable)?.Rotate();
+        if (!_flyingObject) return;
+
+        AddItem(_flyingObject, cellPos);
+        PrepareGrid(_flyingObject);
+
+        _flyingObject = null;
+        _selectedPrefab = null;
     }
 
     private void PrepareFlying(AbstractGridItemComponent obj)
@@ -70,6 +77,12 @@ public class GridController : MonoBehaviour
         var physics = obj.GetComponentInChildren<Rigidbody2D>();
         if (physics)
             physics.simulated = false;
+
+        var colliders = obj.GetComponentsInChildren<Collider2D>();
+        foreach (var collider in colliders)
+        {
+            collider.enabled = false;
+        }
     }
 
     private void PrepareGrid(AbstractGridItemComponent obj)
@@ -77,6 +90,13 @@ public class GridController : MonoBehaviour
         var physics = obj.GetComponentInChildren<Rigidbody2D>();
         if (physics)
             physics.simulated = true;
+
+        var colliders = obj.GetComponentsInChildren<Collider2D>();
+        foreach (var collider in colliders)
+        {
+            collider.enabled = true;
+        }
+
         foreach (var renderer in obj.GetComponentsInChildren<Renderer>())
             renderer.material.color = Color.white;
     }
@@ -85,6 +105,7 @@ public class GridController : MonoBehaviour
     {
         if (!_grid.CanAddItem(item, cellPosition))
             return false;
+
         if (item.Dynamic)
         {
             _grid.AddItem(item, cellPosition, out var attachedTo);
@@ -94,11 +115,37 @@ public class GridController : MonoBehaviour
         }
         else
             _grid.AddItem(item, cellPosition);
+        
         var position = _grid.CellToWorld(cellPosition);
         item.transform.position = position;
         return true;
     }
 
+    private void HandleRotate()
+    {
+        if (!_flyingObject || !Keyboard.current.rKey.wasPressedThisFrame) return;
+        (_flyingObject as IRotatable)?.Rotate();
+    }
+
+    private void HandleCancel()
+    {
+        if (Keyboard.current.escapeKey.wasPressedThisFrame)
+            CancelPlacing();
+    }
+
+    public void CancelPlacing()
+    {
+        if (_flyingObject != null)
+            Destroy(_flyingObject.gameObject);
+
+        _flyingObject = null;
+        _selectedPrefab = null;
+        _isDragging = false;
+    }
+
+    
+
+    // Drag & Drop 
     private GridItem GetSolidItemAt(Vector2 screenPosition)
     {
         var cellPos = _grid.ScreenToCell(screenPosition, Camera.main);
@@ -109,54 +156,60 @@ public class GridController : MonoBehaviour
 
     private void HandleStartDrag()
     {
-        if (!Mouse.current.leftButton.wasPressedThisFrame)
+        if (!Mouse.current.leftButton.wasPressedThisFrame || _flyingObject != null)
             return;
-        _isDragging = true;
+
         var mouse = Mouse.current.position.ReadValue();
         var cellItem = GetSolidItemAt(mouse);
+        
         if (cellItem != null)
         {
+            _isDragging = true;
+
             var removedItems = _grid.RemoveItemsRecursive(cellItem);
             if (removedItems == null)
                 return;
+
             foreach (var removedItem in removedItems)
                 if (removedItem != cellItem)
                     Destroy(((AbstractGridItemComponent)removedItem.Component).gameObject);
+
             _flyingObject = (AbstractGridItemComponent)cellItem.Component;
             PrepareFlying(_flyingObject);
         }
-        else if (_selectedPrefab)
-        {
-            _flyingObject = Instantiate(_selectedPrefab);
-            PrepareFlying(_flyingObject);
-        }
-        else
-            _isDragging = false;
     }
 
     private void HandleEndDrag()
     {
         if (!_isDragging || !Mouse.current.leftButton.wasReleasedThisFrame)
             return;
+
         _isDragging = false;
+
+        if (!_flyingObject) return;
+
         var mouse = Mouse.current.position.ReadValue();
         var cellPos = _grid.ScreenToCell(mouse, Camera.main);
+        
         if (cellPos.HasValue && AddItem(_flyingObject, cellPos.Value))
         {
             PrepareGrid(_flyingObject);
-            AddItem(_flyingObject, cellPos.Value);
         }
         else
+        {
             Destroy(_flyingObject.gameObject);
+        }
+
         _flyingObject = null;
     }
 
-    void Update()
+
+    private void Update()
     {
-        HandleChangePrefab();
+        HandleCancel();
         HandleStartDrag();
+        UpdateFlyingObject();
         HandleRotate();
-        HandleMoveFlying();
         HandleEndDrag();
     }
 
