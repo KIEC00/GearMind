@@ -5,6 +5,10 @@ namespace Assets.GearMind.Level
 {
     public class LevelLifetimeScope : LifetimeScope
     {
-        protected override void Configure(IContainerBuilder builder) { }
+        protected override void Configure(IContainerBuilder builder)
+        {
+            builder.Register<LevelStateMachine>(Lifetime.Singleton).AsSelf();
+            builder.RegisterEntryPoint<LevelEntryPoint>();
+        }
     }
 }
