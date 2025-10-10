@@ -586,8 +586,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39cdaacc948984440a9ec38f318ced26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.GearMind.Grid.Components.GridComponent
-  <Size>k__BackingField: {x: 5, y: 5}
-  <CellScale>k__BackingField: 1
+  _size: {x: 5, y: 5}
+  _cellSize: 1
   _gridCanvas: {fileID: 1760098940}
   _debugShowAlways: 1
   _debugShowGrid: 1
@@ -877,6 +877,7 @@ MonoBehaviour:
   - {fileID: 3424958223189345264, guid: 3828b9503e1025547a238f98f71c7d31, type: 3}
   - {fileID: 7959054848006333748, guid: 70b191af15dd8db429921f3d7f92cb86, type: 3}
   - {fileID: 7959054848006333748, guid: c075524f67c64314687ad44a41b94f17, type: 3}
+  _gridCanvas: {fileID: 1760098940}
 --- !u!1 &1760098937
 GameObject:
   m_ObjectHideFlags: 0

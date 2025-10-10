@@ -1,12 +1,15 @@
+using System;
 using System.Linq;
 using Assets.GearMind.Grid;
 using Assets.GearMind.Grid.Components;
+using EditorAttributes;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[ExecuteAlways]
 public class GridController : MonoBehaviour
 {
-    [SerializeField]
+    [SerializeField, Required]
     private GridComponent _grid;
 
     [SerializeField]
@@ -18,6 +21,31 @@ public class GridController : MonoBehaviour
     private AbstractGridItemComponent _selectedPrefab;
     private AbstractGridItemComponent _flyingObject;
     private bool _isDragging = false;
+
+    private void Awake() => SubscribeOnGridChangeOrInit();
+
+    private void OnDestroy() => UnsubscribeOnGridChangeOrInit();
+
+    private void SubscribeOnGridChangeOrInit()
+    {
+        if (!_grid)
+            return;
+        _grid.OnGridChangedOrInit -= HandleGridChangeOrInit;
+        _grid.OnGridChangedOrInit += HandleGridChangeOrInit;
+    }
+
+    private void UnsubscribeOnGridChangeOrInit()
+    {
+        if (!_grid)
+            return;
+        _grid.OnGridChangedOrInit -= HandleGridChangeOrInit;
+    }
+
+    private void HandleGridChangeOrInit()
+    {
+        if (_gridCanvas)
+            _gridCanvas.Init(_grid);
+    }
 
     // Поиск префабов
     public void StartPlacingObject(AbstractGridItemComponent prefab)
@@ -230,5 +258,7 @@ public class GridController : MonoBehaviour
     {
         if (!_grid)
             _grid = GetComponent<GridComponent>();
+        if (_grid)
+            SubscribeOnGridChangeOrInit();
     }
 }

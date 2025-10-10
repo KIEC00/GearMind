@@ -1,18 +1,32 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using EditorAttributes;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace Assets.GearMind.Grid.Components
 {
     public partial class GridComponent : MonoBehaviour, ISerializationCallbackReceiver
     {
-        [field: SerializeField, Clamp(1, 1000, 1, 1000)]
-        public Vector2Int Size { get; private set; } = Vector2Int.one;
+        public event Action OnGridChangedOrInit;
 
-        [field: SerializeField, Clamp(0.01f, 100f, 0.01f, 100f)]
-        public float CellScale { get; private set; } = 1f;
+        public Vector2Int Size
+        {
+            get => _size;
+            private set => HandleUpdateGridSize(value);
+        }
+
+        public float CellScale
+        {
+            get => _cellSize;
+            private set => HandleUpdateCellSize(value);
+        }
+
+        [SerializeField, Clamp(1, 1000, 1, 1000)]
+        private Vector2Int _size = Vector2Int.one;
+
+        [SerializeField, Clamp(0.01f, 100f, 0.01f, 100f)]
+        private float _cellSize = 1f;
 
         [SerializeField]
         private GridCanvas _gridCanvas;
@@ -27,6 +41,8 @@ namespace Assets.GearMind.Grid.Components
         public Grid Cells { get; private set; }
 
         private readonly Dictionary<IGridItemComponent, GridItem> _itemComponents = new();
+
+        public void Start() => OnGridChangedOrInit?.Invoke();
 
         public bool AddItem(IGridItemComponent itemComponent, Vector2Int position)
         {
@@ -90,6 +106,18 @@ namespace Assets.GearMind.Grid.Components
         public void OnAfterDeserialize() => Cells = new Grid(Size.x, Size.y);
 
         public void OnBeforeSerialize() { }
+
+        private void HandleUpdateGridSize(Vector2Int size)
+        {
+            _size = size;
+            OnGridChangedOrInit?.Invoke();
+        }
+
+        private void HandleUpdateCellSize(float cellSize)
+        {
+            _cellSize = cellSize;
+            OnGridChangedOrInit?.Invoke();
+        }
 
         //Test
         public IEnumerable<GridItem> GetAllItems()
