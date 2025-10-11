@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class DrawRope : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class DrawRope : MonoBehaviour
         SecondObjectPoint = gameObject.transform;
     }
 
+    
+
     public void Start()
     {
         LineRenderer.SetPosition(1, SecondObjectPoint.position);
@@ -20,6 +23,7 @@ public class DrawRope : MonoBehaviour
 
     public void Update()
     {
+        LineRenderer.SetPosition(0, FirstObjectPoint.position);
         LineRenderer.SetPosition(1, SecondObjectPoint.position);
     }
 
