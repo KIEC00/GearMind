@@ -274,8 +274,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TestGridItem
   _debugDrawGizmos: 0
-  _sphereRequiredAttachTop: 0
-  _dynamic: 0
+  _sphereRequiredAttach: 0
   _sphere: {fileID: 42208922658702189}
 --- !u!54 &7925637602279880754
 Rigidbody:

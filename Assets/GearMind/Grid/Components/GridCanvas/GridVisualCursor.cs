@@ -41,7 +41,7 @@ namespace Assets.GearMind.Grid.Components
             }
             foreach (var (cell, instance) in cellsArray.Zip(_cursorInstances))
             {
-                var gridPosition = position + cell.Position;
+                var gridPosition = position + cell.Offset;
                 var worldPosition = _grid.CellToWorld(gridPosition);
                 instance.rectTransform.position = worldPosition;
                 instance.gameObject.SetActive(true);

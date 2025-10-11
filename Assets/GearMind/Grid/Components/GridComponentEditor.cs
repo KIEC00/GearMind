@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
 
 namespace Assets.GearMind.Grid.Components
 {
@@ -20,28 +19,7 @@ namespace Assets.GearMind.Grid.Components
         [SerializeField]
         private bool _debugGridMouseOver = true;
 
-        private Vector2Int _debugLastSize = Vector2Int.one;
-        private float _debugCellScale = 1f;
-        private Vector3 _debugLastPosition = Vector3.zero;
-
-        public void OnValidate()
-        {
-            if (Size != _debugLastSize)
-            {
-                OnAfterDeserialize();
-                _debugLastSize = Size;
-                if (_gridCanvas)
-                    _gridCanvas.Init(this);
-            }
-
-            if (CellScale != _debugCellScale || transform.position != _debugLastPosition)
-            {
-                _debugCellScale = CellScale;
-                _debugLastPosition = transform.position;
-                if (_gridCanvas)
-                    _gridCanvas.Init(this);
-            }
-        }
+        public void OnValidate() => OnGridChangedOrInit?.Invoke();
 
         private void OnDrawGizmos()
         {

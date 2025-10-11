@@ -87,6 +87,20 @@ namespace Assets.Utils.Runtime
             Func<T, bool> predicate
         ) => items.Where(item => !predicate(item));
 
+        public static T? FirstOrNull<T>(this IEnumerable<T> items, Func<T, bool> predicate)
+            where T : struct
+        {
+            foreach (var item in items)
+                if (predicate(item))
+                    return item;
+            return null;
+        }
+
+        public static IEnumerable<T> ConcatIfNotNull<T>(
+            this IEnumerable<T> items,
+            IEnumerable<T> other
+        ) => other == null ? items : items.Concat(other);
+
         private static TItem MinByKeyInternal<TItem, TKey>(
             IEnumerator<TItem> enumerator,
             Func<TItem, TKey> keySelector
