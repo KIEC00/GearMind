@@ -9,11 +9,11 @@ namespace Assets.GearMind.Grid
     {
         public IReadOnlyList<Cell> Cells => _cells;
         public Vector2Int Position { get; }
-        public IGridItemComponent Component { get; }
+        public IGridObject Component { get; }
 
         private readonly Cell[] _cells;
 
-        public GridItem(IEnumerable<Cell> cells, Vector2Int position, IGridItemComponent component)
+        public GridItem(IEnumerable<Cell> cells, Vector2Int position, IGridObject component)
         {
             _cells = cells.ToArray();
             Position = position;

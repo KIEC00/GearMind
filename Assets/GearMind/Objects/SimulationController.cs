@@ -2,15 +2,23 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Assets.GearMind.Grid.Components;
+using Assets.GearMind.Grid.Tests;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class SimulationManager : MonoBehaviour
 {
-    [SerializeField] private GridComponent _gridComponent;
-    [SerializeField] private GridController _gridController;
-    [SerializeField] private Button _startButton;
-    [SerializeField] private Button _stopButton;
+    [SerializeField]
+    private GridComponent _gridComponent;
+
+    [SerializeField]
+    private GridController _gridController;
+
+    [SerializeField]
+    private Button _startButton;
+
+    [SerializeField]
+    private Button _stopButton;
 
     [SerializeField]
     private bool _preventEditDuringSimulation = true;
@@ -19,14 +27,16 @@ public class SimulationManager : MonoBehaviour
 
     private readonly Dictionary<GameObject, GameObjectState> _sceneState = new();
     private readonly HashSet<GameObject> _objects = new();
-    private readonly List<GameObject> _objectsToDestroy = new(); 
+    private readonly List<GameObject> _objectsToDestroy = new();
 
     private bool _isSimulating = false;
 
     void Awake()
     {
-        if (_startButton) _startButton.onClick.AddListener(StartSimulation);
-        if (_stopButton) _stopButton.onClick.AddListener(StopSimulation);
+        if (_startButton)
+            _startButton.onClick.AddListener(StartSimulation);
+        if (_stopButton)
+            _stopButton.onClick.AddListener(StopSimulation);
     }
 
     [Serializable]
@@ -34,7 +44,7 @@ public class SimulationManager : MonoBehaviour
     {
         public Vector3 Position;
         public Quaternion Rotation;
-        public bool IsPlacedOnGrid; 
+        public bool IsPlacedOnGrid;
 
         public RigidbodyState RigidbodyState;
         public ColliderState[] ColliderStates;
@@ -63,16 +73,19 @@ public class SimulationManager : MonoBehaviour
         _objects.Clear();
         _objectsToDestroy.Clear();
 
+        var placedObjects = new HashSet<GameObject>(
+            _gridComponent.Items.Keys.Cast<MonoBehaviour>().Select(x => x.gameObject)
+        );
 
-        var gridItems = _gridComponent?.GetAllItems()?.Select(item => item.Component as MonoBehaviour) 
-            ?? Array.Empty<MonoBehaviour>();
-        var placedObjects = new HashSet<GameObject>(gridItems.Where(x => x != null).Select(x => x.gameObject));
-
-        var allRigidbodies = FindObjectsOfType<Rigidbody>(true);
-        foreach (var rb in allRigidbodies)
+        var allRigidbodes = FindObjectsByType<Rigidbody>(
+            FindObjectsInactive.Include,
+            FindObjectsSortMode.None
+        );
+        foreach (var rb in allRigidbodes)
         {
             var rbObject = rb.gameObject;
-            if (_sceneState.ContainsKey(rbObject)) continue;
+            if (_sceneState.ContainsKey(rbObject))
+                continue;
 
             bool isPlacedOnGrid = placedObjects.Contains(rbObject);
 
@@ -86,16 +99,21 @@ public class SimulationManager : MonoBehaviour
                     Velocity = rb.linearVelocity,
                     AngularVelocity = rb.angularVelocity,
                     UseGravity = rb.useGravity,
-                    IsKinematic = rb.isKinematic
+                    IsKinematic = rb.isKinematic,
                 },
-                ColliderStates = rbObject.GetComponents<Collider>()
-                                   .Select(c => new ColliderState { Collider = c, Enabled = c.enabled, IsTrigger = c.isTrigger })
-                                   .ToArray()
+                ColliderStates = rbObject
+                    .GetComponents<Collider>()
+                    .Select(c => new ColliderState
+                    {
+                        Collider = c,
+                        Enabled = c.enabled,
+                        IsTrigger = c.isTrigger,
+                    })
+                    .ToArray(),
             };
 
             _sceneState.Add(rbObject, state);
             _objects.Add(rbObject);
-
 
             if (!isPlacedOnGrid)
             {
@@ -103,11 +121,11 @@ public class SimulationManager : MonoBehaviour
             }
         }
 
-        var allGridItems = FindObjectsOfType<AbstractGridItemComponent>(true);
-        foreach (var gridItem in allGridItems)
+        foreach (var gridComponent in _gridComponent.Items.Keys.Cast<MonoBehaviour>())
         {
-            var gridObject = gridItem.gameObject;
-            if (_sceneState.ContainsKey(gridObject)) continue;
+            var gridObject = gridComponent.gameObject;
+            if (_sceneState.ContainsKey(gridObject))
+                continue;
 
             bool isPlacedOnGrid = placedObjects.Contains(gridObject);
 
@@ -117,14 +135,19 @@ public class SimulationManager : MonoBehaviour
                 Rotation = gridObject.transform.rotation,
                 IsPlacedOnGrid = isPlacedOnGrid,
                 RigidbodyState = null,
-                ColliderStates = gridObject.GetComponents<Collider>()
-                                   .Select(c => new ColliderState { Collider = c, Enabled = c.enabled, IsTrigger = c.isTrigger })
-                                   .ToArray()
+                ColliderStates = gridObject
+                    .GetComponents<Collider>()
+                    .Select(c => new ColliderState
+                    {
+                        Collider = c,
+                        Enabled = c.enabled,
+                        IsTrigger = c.isTrigger,
+                    })
+                    .ToArray(),
             };
 
             _sceneState.Add(gridObject, state);
             _objects.Add(gridObject);
-
 
             if (!isPlacedOnGrid)
             {
@@ -135,10 +158,10 @@ public class SimulationManager : MonoBehaviour
 
     public void StartSimulation()
     {
-        if (_isSimulating) return;
+        if (_isSimulating)
+            return;
 
         SaveSceneState();
-
 
         foreach (var objToDestroy in _objectsToDestroy)
         {
@@ -157,13 +180,14 @@ public class SimulationManager : MonoBehaviour
             var go = kv.Key;
             var state = kv.Value;
 
-
-            if (go == null) continue;
+            if (go == null)
+                continue;
 
             if (state.ColliderStates != null)
             {
                 foreach (var cState in state.ColliderStates)
-                    if (cState?.Collider != null) cState.Collider.enabled = true;
+                    if (cState?.Collider != null)
+                        cState.Collider.enabled = true;
             }
 
             var rb = go.GetComponent<Rigidbody>();
@@ -179,13 +203,15 @@ public class SimulationManager : MonoBehaviour
 
     public void StopSimulation()
     {
-        if (!_isSimulating) return;
+        if (!_isSimulating)
+            return;
 
         foreach (var objects in _sceneState)
         {
             var gameObject = objects.Key;
             var state = objects.Value;
-            if (gameObject == null) continue;
+            if (gameObject == null)
+                continue;
 
             gameObject.transform.position = state.Position;
             gameObject.transform.rotation = state.Rotation;
@@ -211,7 +237,7 @@ public class SimulationManager : MonoBehaviour
         }
 
         if (_gridController != null && _preventEditDuringSimulation)
-             _gridController.enabled = true; // Хрень, переделать
+            _gridController.enabled = true; // Хрень, переделать
 
         _isSimulating = false;
     }
