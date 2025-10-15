@@ -1,0 +1,12 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/GearMind/UIToolkit/MainMenu.uss?fileID=7433441132597879392&amp;guid=9a79064ec2fd9214db5daaebfc17cc4c&amp;type=3#MainMenu" />
+    <ui:VisualElement name="Panel" style="flex-grow: 4; background-color: rgb(255, 255, 255); justify-content: center; align-content: center; display: flex;">
+        <ui:Label text="GEARMIND" name="Header" style="font-size: 70px; -unity-text-align: lower-center; flex-grow: 1; margin-right: 50%; margin-left: 50%; margin-top: 191px; margin-bottom: 20px; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; justify-content: flex-start;" />
+        <ui:VisualElement name="ButtonsContainer" class="buttons-container" style="flex-grow: 4; flex-wrap: nowrap;">
+            <ui:Button text="Играть" name="Play" class="menu-button" style="width: 25%; max-width: none;" />
+            <ui:Button text="Уровни" name="Levels" class="menu-button" />
+            <ui:Button text="Настройки" name="Settings" class="menu-button" />
+            <ui:Button text="Выход" name="Exit" class="menu-button" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
