@@ -10,10 +10,13 @@ namespace Assets.GearMind.Scripts.UI
         private UIDocument _doc;
         private Button _playButton;
         private Button _exitButton;
+        private Button _levelsButton;
         private Button _settingsButton;
 
         [SerializeField]
         private SettingsController _settingsController;
+        [SerializeField]
+        private LevelsController _levelsController;
 
         private void Awake()
         {
@@ -31,6 +34,9 @@ namespace Assets.GearMind.Scripts.UI
 
             _settingsButton = _doc.rootVisualElement.Q<Button>("Settings");
             _settingsButton.clicked += SettingsClicked;
+
+            _levelsButton = _doc.rootVisualElement.Q<Button>("Levels");
+            _levelsButton.clicked += LevelsClicked;
 
             _settingsController.SetContext(SettingsController.Context.MainMenu);
 
@@ -52,9 +58,14 @@ namespace Assets.GearMind.Scripts.UI
             _settingsController.Toggle();
         }
 
+        private void LevelsClicked()
+        {
+            _levelsController.Toggle();
+        }
+
         private IEnumerator LoadScene()
         {
-            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("BaseScene");
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("NewInterfaceScene");
 
             // Можно добавить загрузочный экран
             while (!asyncLoad.isDone)
@@ -76,6 +87,7 @@ namespace Assets.GearMind.Scripts.UI
             _playButton.clicked -= PlayClicked;
             _exitButton.clicked -= ExitClicked;
             _settingsButton.clicked -= SettingsClicked;
+            _levelsButton.clicked -= LevelsClicked;
         }
     }
 }
