@@ -31,6 +31,9 @@ namespace Assets.GearMind.Scripts.UI
 
             _settingsButton = _doc.rootVisualElement.Q<Button>("Settings");
             _settingsButton.clicked += SettingsClicked;
+
+            _settingsController.SetContext(SettingsController.Context.MainMenu);
+
         }
 
 
