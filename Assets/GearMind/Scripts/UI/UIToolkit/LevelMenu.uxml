@@ -1,0 +1,14 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/GearMind/Scripts/UI/UIToolkit/LevelMenu.uss?fileID=7433441132597879392&amp;guid=ccb6ed4a1f8815a4fa763d95faba1fe1&amp;type=3#LevelMenu" />
+    <ui:VisualElement name="Panel" style="flex-grow: 1; background-color: rgb(255, 255, 255);">
+        <ui:Button text="Назад" name="CloseButton" class="exit-button" />
+        <ui:Label text="Уровни" style="-unity-text-align: middle-center; font-size: 55px; -unity-font-style: bold;" />
+        <ui:VisualElement class="level-container">
+            <ui:Button text="1" class="level-button" />
+            <ui:Button text="2" class="level-button" />
+            <ui:Button text="3" class="level-button" />
+            <ui:Button text="4" class="level-button" />
+            <ui:Button text="5" class="level-button" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

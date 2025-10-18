@@ -1,0 +1,40 @@
+:root {
+}
+
+.hud-buttons {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    padding-top: 0.5%;
+    padding-right: 0.5%;
+    padding-bottom: 0.5%;
+    padding-left: 0.5%;
+}
+
+.interface-button {
+    background-color: rgb(217, 217, 217);
+    -unity-text-align: middle-center;
+    color: rgb(51, 49, 49);
+    width: 31%;
+    height: 100px;
+    justify-content: center;
+    align-content: center;
+    text-overflow: clip;
+    min-width: auto;
+    min-height: auto;
+    border-radius: 10px;
+    font-size: 22px;
+    padding: 20px;
+}
+
+.interface-button:hover {
+    background-color: rgb(234, 234, 234);
+}
+
+.interface-button:active {
+    background-color: rgb(99, 99, 99);
+    color: rgb(255, 255, 255);
+}
