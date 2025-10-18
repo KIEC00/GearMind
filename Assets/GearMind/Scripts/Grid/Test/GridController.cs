@@ -1,8 +1,13 @@
+using System.Collections.Generic;
 using Assets.GearMind.Grid.Components;
+using Assets.GearMind.Level;
+using Assets.GearMind.Objects;
 using Assets.Utils.Runtime;
 using EditorAttributes;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.InputSystem;
+using VContainer;
 
 namespace Assets.GearMind.Grid.Tests
 {
@@ -18,13 +23,58 @@ namespace Assets.GearMind.Grid.Tests
         [SerializeField]
         private GridCanvas _gridCanvas;
 
+        private LevelStateMachine _levelStateMachine;
+
         private AbstractGridObject _selectedPrefab;
         private AbstractGridObject _flyingObject;
         private bool _isDragging = false;
 
+        private readonly HashSet<IGameplayObject> _gameplayObjects = new();
+
+        [Inject]
+        public void Construct(LevelStateMachine levelStateMachine)
+        {
+            _levelStateMachine = levelStateMachine;
+            SubscribeOnLevelModeChange();
+        }
+
         private void Awake() => SubscribeOnGridChangeOrInit();
 
-        private void OnDestroy() => UnsubscribeOnGridChangeOrInit();
+        private void OnDestroy()
+        {
+            UnsubscribeOnGridChangeOrInit();
+            UnsubscribeOnLevelModeChange();
+        }
+
+        private void SubscribeOnLevelModeChange()
+        {
+            _levelStateMachine.SubscribeModeEnter(LevelMode.Play, HandleEnterPlayMode);
+            _levelStateMachine.SubscribeModeEnter(LevelMode.Edit, HandleEnterEditMode);
+        }
+
+        private void UnsubscribeOnLevelModeChange()
+        {
+            _levelStateMachine?.UnsubscribeModeEnter(LevelMode.Play, HandleEnterPlayMode);
+            _levelStateMachine?.UnsubscribeModeEnter(LevelMode.Edit, HandleEnterEditMode);
+        }
+
+        private void HandleEnterPlayMode()
+        {
+            foreach (var obj in _gameplayObjects)
+            {
+                obj.SaveState();
+                obj.EnterPlayMode();
+            }
+        }
+
+        private void HandleEnterEditMode()
+        {
+            foreach (var obj in _gameplayObjects)
+            {
+                obj.LoadState();
+                obj.EnterEditMode();
+            }
+        }
 
         private void SubscribeOnGridChangeOrInit()
         {
@@ -149,6 +199,12 @@ namespace Assets.GearMind.Grid.Tests
                 return false;
 
             _grid.AddItem(item, cellPosition);
+            if (item.TryGetComponent<IGameplayObject>(out var obj))
+            {
+                _gameplayObjects.Add(obj);
+                obj.EnterEditMode();
+                obj.SaveState();
+            }
 
             var position = _grid.CellToWorld(cellPosition);
             item.transform.position = position;
@@ -197,8 +253,19 @@ namespace Assets.GearMind.Grid.Tests
                     return;
 
                 foreach (var removedItem in removedObjects)
+                {
+                    if (removedItem.Component is not MonoBehaviour component)
+                        continue;
+
+                    if (component.TryGetComponent<IGameplayObject>(out var obj))
+                    {
+                        obj.EnterEditMode();
+                        _gameplayObjects.Remove(obj);
+                    }
+
                     if (removedItem != cellItem)
-                        Destroy(((AbstractGridObject)removedItem.Component).gameObject);
+                        Destroy(component.gameObject);
+                }
 
                 _flyingObject = (AbstractGridObject)cellItem.Component;
                 PrepareFlying(_flyingObject);

@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Xml.Serialization;
 using Assets.GearMind.Grid.Components;
 using Assets.Utils.Runtime;
+using EditorAttributes;
 using UnityEngine;
 
 namespace Assets.GearMind.Grid.Tests
@@ -15,7 +14,7 @@ namespace Assets.GearMind.Grid.Tests
         [SerializeField]
         private bool _sphereRequiredAttach = false;
 
-        [SerializeField]
+        [SerializeField, Required]
         private GameObject _sphere;
 
         private Transform _prevParent;

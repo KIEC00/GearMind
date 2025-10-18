@@ -32,15 +32,25 @@ namespace Assets.GearMind.Level
                 .ToDictionary(mode => mode, mode => new ModeCallbacks());
         }
 
-        public void SubscribePause(Action<bool> callback) => _pauseCallback += callback;
+        public void SubscribePause(Action<bool> callback)
+        {
+            _pauseCallback -= callback;
+            _pauseCallback += callback;
+        }
 
         public void UnsubscribePause(Action<bool> callback) => _pauseCallback -= callback;
 
-        public void SubscribeModeEnter(LevelMode mode, Action callback) =>
+        public void SubscribeModeEnter(LevelMode mode, Action callback)
+        {
+            _modeCallbacks[mode].Enter -= callback;
             _modeCallbacks[mode].Enter += callback;
+        }
 
-        public void SubscribeModeExit(LevelMode mode, Action callback) =>
+        public void SubscribeModeExit(LevelMode mode, Action callback)
+        {
+            _modeCallbacks[mode].Exit -= callback;
             _modeCallbacks[mode].Exit += callback;
+        }
 
         public void UnsubscribeModeEnter(LevelMode mode, Action callback) =>
             _modeCallbacks[mode].Enter -= callback;
@@ -71,7 +81,11 @@ namespace Assets.GearMind.Level
         {
             _mode = LevelMode.Disposed;
             _modeCallbacks[LevelMode.Disposed].Enter?.Invoke();
-            _modeCallbacks.Clear();
+            foreach (var callbacks in _modeCallbacks.Values)
+            {
+                callbacks.Enter = null;
+                callbacks.Exit = null;
+            }
         }
 
         private class ModeCallbacks
