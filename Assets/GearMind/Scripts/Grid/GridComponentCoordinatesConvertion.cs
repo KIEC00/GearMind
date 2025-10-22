@@ -32,7 +32,8 @@ namespace Assets.GearMind.Grid.Components
                 (int)Mathf.Floor(worldPosition.x - center.x + gridExtends.x / CellScale),
                 (int)Mathf.Floor(worldPosition.y - center.y + gridExtends.y / CellScale)
             );
-            return Cells.IsPositionInBounds(cell) ? cell : null;
+
+            return InBounds(cell) ? cell : null;
         }
 
         public Vector3 CellToWorld(Vector2Int cellPosition)

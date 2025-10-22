@@ -1,4 +1,4 @@
-using System;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,8 +7,6 @@ namespace Assets.GearMind.Grid.Components
 #if UNITY_EDITOR
     public partial class GridComponent
     {
-        public Action DebugOnChangeTransform;
-
         [Header("Debug")]
         [SerializeField]
         private bool _debugShowAlways = true;
@@ -19,11 +17,20 @@ namespace Assets.GearMind.Grid.Components
         [SerializeField]
         private bool _debugGridMouseOver = true;
 
-        public void OnValidate() => OnGridChangedOrInit?.Invoke();
+        private GridParams _debugPrevParams;
+
+        public void OnValidate()
+        {
+            var p = Params;
+            if (_debugPrevParams != null && p.Equals(_debugPrevParams))
+                return;
+            _debugPrevParams = p;
+            OnGridChangedOrInit.Invoke(p);
+        }
 
         private void OnDrawGizmos()
         {
-            if (!_debugShowAlways && !UnityEditor.Selection.Contains(gameObject))
+            if (!_debugShowAlways && !Selection.Contains(gameObject))
                 return;
             if (_debugShowGrid)
                 GizmosDrawGrid(Color.green, Color.red);
