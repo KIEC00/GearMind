@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Assets.GearMind.Grid.Components
+namespace Assets.GearMind.Grid
 {
     public partial class GridComponent
     {

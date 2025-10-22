@@ -1,8 +1,10 @@
+using EditorAttributes;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
-namespace Assets.GearMind.Grid.Components
+namespace Assets.GearMind.Grid
 {
 #if UNITY_EDITOR
     public partial class GridComponent
@@ -16,17 +18,6 @@ namespace Assets.GearMind.Grid.Components
 
         [SerializeField]
         private bool _debugGridMouseOver = true;
-
-        private GridParams _debugPrevParams;
-
-        public void OnValidate()
-        {
-            var p = Params;
-            if (_debugPrevParams != null && p.Equals(_debugPrevParams))
-                return;
-            _debugPrevParams = p;
-            OnGridChangedOrInit.Invoke(p);
-        }
 
         private void OnDrawGizmos()
         {
