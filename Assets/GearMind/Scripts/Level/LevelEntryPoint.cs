@@ -1,17 +1,28 @@
 using System;
-using Assets.GearMind.Level;
+using System.Threading.Tasks;
+using Assets.GearMind.Input;
+using UnityEngine;
 using VContainer.Unity;
 
-public class LevelEntryPoint : IPostStartable, IDisposable
+namespace Assets.GearMind.Level
 {
-    private LevelStateMachine _levelStateMachine;
-
-    public LevelEntryPoint(LevelStateMachine levelStateMachine)
+    public class LevelEntryPoint : IStartable, IDisposable
     {
-        _levelStateMachine = levelStateMachine;
+        private readonly LevelStateMachine _levelStateMachine;
+        private readonly IInputService _input;
+
+        public LevelEntryPoint(LevelStateMachine levelStateMachine, IInputService input)
+        {
+            _levelStateMachine = levelStateMachine;
+            _input = input;
+        }
+
+        public void Start()
+        {
+            _levelStateMachine.TransitionTo(LevelState.Edit);
+            _input.Enable();
+        }
+
+        public void Dispose() => _input.Disable();
     }
-
-    public void PostStart() => _levelStateMachine.Mode = LevelMode.Edit;
-
-    public void Dispose() { }
 }
