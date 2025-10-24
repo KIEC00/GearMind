@@ -31,5 +31,7 @@ namespace Assets.Utils.Runtime
 
         public static Vector2 LerpUnclamped(this Vector2 v, Vector2 to, float t) =>
             Vector2.LerpUnclamped(v, to, t);
+
+        public static Vector3 WithZ(this Vector2 v, float z = 1f) => new(v.x, v.y, z);
     }
 }
