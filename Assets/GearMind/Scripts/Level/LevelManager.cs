@@ -30,5 +30,11 @@ namespace Assets.GearMind.Level
             else
                 Debug.Log("Все уровни пройдены");
         }
+
+        public void RestartLevel()
+        {
+            int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+            SceneManager.LoadScene(currentSceneIndex);
+        }
     }
 }
