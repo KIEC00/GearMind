@@ -2,6 +2,9 @@ using Assets.GearMind.Common;
 using Assets.GearMind.Input;
 using Assets.GearMind.Level.States;
 using Assets.Utils.Runtime;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using VContainer;
 using VContainer.Unity;
 
@@ -9,9 +12,19 @@ namespace Assets.GearMind.Level
 {
     public class LevelLifetimeScope : LifetimeScope
     {
+        [Header("Components")]
+        [SerializeField]
+        private GraphicRaycaster _graphicRaycaster;
+
+        [SerializeField]
+        private EventSystem _eventSystem;
+
         protected override void Configure(IContainerBuilder builder)
         {
             builder.RegisterEntryPoint<LevelEntryPoint>(Lifetime.Singleton);
+
+            builder.RegisterInstance(_graphicRaycaster);
+            builder.RegisterInstance(_eventSystem);
 
             builder.Register<PauseService>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<InputService>(Lifetime.Singleton).AsImplementedInterfaces();

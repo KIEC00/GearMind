@@ -38,47 +38,30 @@ namespace Assets.GearMind.Common
             return results;
         }
 
-        public RaycastHit2D? RaycastPhysics2D(
-            Vector2 screenPosition,
-            float distance = float.PositiveInfinity,
-            LayerMask layerMask = default
-        )
+        public Collider2D RaycastPhysics2D(Vector2 screenPosition, LayerMask layerMask)
         {
-            var ray = _cameraProvider.Current.ScreenPointToRay(screenPosition);
-            var hit = Physics2D.Raycast(ray.origin, ray.direction, distance, layerMask);
-            return hit.collider != null ? hit : null;
+            var point = _cameraProvider.Current.ScreenToWorldPoint2D(screenPosition);
+            return Physics2D.OverlapPoint(point, layerMask);
         }
 
-        public RaycastHit2D[] RaycastPhysics2DAll(
-            Vector2 screenPosition,
-            float distance = float.PositiveInfinity,
-            LayerMask layerMask = default
-        )
+        public Collider2D[] RaycastPhysics2DAll(Vector2 screenPosition, LayerMask layerMask)
         {
-            var ray = _cameraProvider.Current.ScreenPointToRay(screenPosition);
-            return Physics2D.RaycastAll(ray.origin, ray.direction, distance, layerMask);
+            var point = _cameraProvider.Current.ScreenToWorldPoint2D(screenPosition);
+            return Physics2D.OverlapPointAll(point, layerMask);
         }
 
-        public RaycastHit2D? RaycastPhysics2DStopAtUI(
-            Vector2 screenPosition,
-            float distance = float.PositiveInfinity,
-            LayerMask layerMask = default
-        )
+        public Collider2D RaycastPhysics2DStopAtUI(Vector2 screenPosition, LayerMask layerMask)
         {
             if (RaycastUI(screenPosition).HasValue)
                 return null;
-            return RaycastPhysics2D(screenPosition, distance, layerMask);
+            return RaycastPhysics2D(screenPosition, layerMask);
         }
 
-        public RaycastHit2D[] RaycastPhysics2DStopAtUIAll(
-            Vector2 screenPosition,
-            float distance = float.PositiveInfinity,
-            LayerMask layerMask = default
-        )
+        public Collider2D[] RaycastPhysics2DStopAtUIAll(Vector2 screenPosition, LayerMask layerMask)
         {
             if (!RaycastUI(screenPosition).HasValue)
-                return new RaycastHit2D[0];
-            return RaycastPhysics2DAll(screenPosition, distance, layerMask);
+                return new Collider2D[0];
+            return RaycastPhysics2DAll(screenPosition, layerMask);
         }
     }
 }

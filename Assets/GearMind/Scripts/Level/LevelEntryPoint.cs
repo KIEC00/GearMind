@@ -1,7 +1,5 @@
 using System;
-using System.Threading.Tasks;
 using Assets.GearMind.Input;
-using UnityEngine;
 using VContainer.Unity;
 
 namespace Assets.GearMind.Level
