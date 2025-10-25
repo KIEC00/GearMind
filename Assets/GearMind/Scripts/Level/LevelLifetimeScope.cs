@@ -1,3 +1,4 @@
+using Assets.GearMind.Common;
 using Assets.GearMind.Input;
 using Assets.GearMind.Level.States;
 using Assets.Utils.Runtime;
@@ -14,11 +15,13 @@ namespace Assets.GearMind.Level
 
             builder.Register<PauseService>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<InputService>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<CameraProvider>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<ScreenRaycaster>(Lifetime.Singleton).AsImplementedInterfaces();
 
-            builder.Register<LevelEditState>(Lifetime.Singleton);
-            builder.Register<LevelSimulationState>(Lifetime.Singleton);
+            builder.Register<LevelEditState>(Lifetime.Singleton).AsSelf();
+            builder.Register<LevelSimulationState>(Lifetime.Singleton).AsSelf();
 
-            builder.Register(LevelStateMachineFactoryMethod, Lifetime.Singleton).BindAll();
+            builder.Register(LevelStateMachineFactoryMethod, Lifetime.Singleton).All();
         }
 
         private static LevelStateMachine LevelStateMachineFactoryMethod(IObjectResolver c) =>

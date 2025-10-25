@@ -4,7 +4,7 @@ namespace Assets.Utils.Runtime
 {
     public static class VContainerUtils
     {
-        public static RegistrationBuilder BindAll(this RegistrationBuilder builder) =>
+        public static RegistrationBuilder All(this RegistrationBuilder builder) =>
             builder.AsSelf().AsImplementedInterfaces();
     }
 }
