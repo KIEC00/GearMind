@@ -5,5 +5,9 @@ namespace Assets.GearMind.Level.States
         public void Enter() { }
 
         public void Exit() { }
+
+        public void Continue() { }
+
+        public void Pause() { }
     }
 }
