@@ -1,22 +1,24 @@
-using Assets.GearMind.Objects.Utils;
+using Assets.GearMind.State;
+using Assets.GearMind.State.Utils;
 using EditorAttributes;
 using UnityEngine;
 
 namespace Assets.GearMind.Objects
 {
-    public class BaseRigidbodyGamplayObject : MonoBehaviour, IGameplayObject
+    public class BaseRigidbodyGamplayObject
+        : MonoBehaviour,
+            IGameplayObject,
+            IHaveState<Rigidbody2DState>
     {
         [SerializeField, Required]
         private Rigidbody2D _rigidbody;
 
-        private RigitBody2DState _state;
+        public virtual void EnterEditMode() => _rigidbody.simulated = false;
 
-        public void EnterEditMode() => _rigidbody.bodyType = RigidbodyType2D.Static;
+        public virtual void EnterPlayMode() => _rigidbody.simulated = true;
 
-        public void EnterPlayMode() => _rigidbody.bodyType = RigidbodyType2D.Dynamic;
+        public virtual Rigidbody2DState GetState() => _rigidbody.GetState();
 
-        public void LoadState() => _rigidbody.SetState(_state);
-
-        public void SaveState() => _state = _rigidbody.GetState();
+        public virtual void SetState(Rigidbody2DState state) => _rigidbody.SetState(state);
     }
 }
