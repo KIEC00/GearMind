@@ -3620,6 +3620,10 @@ PrefabInstance:
       propertyPath: TurnOffMaterial
       value: 
       objectReference: {fileID: 2100000, guid: 56aa9947cd93dc94eb9c64699a6044b7, type: 2}
+    - target: {fileID: 5311874730529875244, guid: 447d292bc59432440bbfc6030400513b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5911935899154211365, guid: 447d292bc59432440bbfc6030400513b, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 

@@ -7,14 +7,22 @@ public class VentilatorEffect : MonoBehaviour
 
     
 
-    public void OnTriggerStay(Collider other)
+    public void OnTriggerStay2D(Collider2D other)
     {
         
         if(other.gameObject.tag == "Instrument")
         {
-            Ventilator.VentilatorPush(other.GetComponent<Rigidbody>());
+            Ventilator.VentilatorPush(other.GetComponent<Rigidbody2D>());
+        }
+    }
+    public void OnTriggerEnter2D(Collider2D other)
+    {
+
+        if (other.gameObject.tag == "Instrument")
+        {
+            Ventilator.VentilatorPush(other.GetComponent<Rigidbody2D>());
         }
     }
 
-    
+
 }

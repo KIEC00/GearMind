@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Ventilator : MonoBehaviour, IPointerClickHandler
+public class Ventilator : MonoBehaviour, IPointerClickHandler, IIncludedObject
 {
     public bool IsTurnOn { get; private set; } = false;
     [SerializeField] private GameObject VentilatorEffect;
@@ -26,9 +26,9 @@ public class Ventilator : MonoBehaviour, IPointerClickHandler
         
     }
 
-    public void VentilatorPush(Rigidbody rb)
+    public void VentilatorPush(Rigidbody2D rb)
     {
-        rb.AddForce(transform.right * -ForceVentilator);
+        rb.AddForce(-transform.right * ForceVentilator);
     }
 
     public void OnPointerClick(PointerEventData eventData)

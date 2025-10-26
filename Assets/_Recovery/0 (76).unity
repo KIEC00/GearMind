@@ -3146,8 +3146,7 @@ PrefabInstance:
       propertyPath: m_TagString
       value: IncludedInstrument
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 7967024749376479261, guid: d22b878380dc2704fa5d7b5a21d33c49, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
