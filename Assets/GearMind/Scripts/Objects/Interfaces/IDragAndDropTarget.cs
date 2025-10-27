@@ -7,8 +7,9 @@ namespace Assets.GearMind.Objects
     {
         bool IsDragable { get; set; }
         void OnDragStart();
-        void OnDragPerform(Vector3 position);
+        void OnDrag(Vector3 position);
         void OnDragEnd();
+        void SetError(bool isError);
         bool ValidatePlacement(out IEnumerable<IDragAndDropTarget> dependsOn);
     }
 }

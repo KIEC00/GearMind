@@ -15,18 +15,29 @@ namespace Assets.GearMind.Objects
         [SerializeField, Required]
         private Renderer _renderer;
 
-        public virtual void OnDragStart() =>
-            _renderer.material.color = _renderer.material.color.WithAlpha(DRAG_ALPHA);
+        private Color _initialColor;
 
-        public void OnDragPerform(Vector3 position) => transform.position = position;
+        private void Awake() => _initialColor = _renderer.material.color;
 
-        public virtual void OnDragEnd() =>
-            _renderer.material.color = _renderer.material.color.WithAlpha(1f);
+        public void OnDragStart() => _renderer.material.color = _initialColor.WithAlpha(DRAG_ALPHA);
 
-        public virtual bool ValidatePlacement(out IEnumerable<IDragAndDropTarget> dependsOn)
+        public void OnDrag(Vector3 position) => transform.position = position;
+
+        public void OnDragEnd() => _renderer.material.color = _initialColor.WithAlpha(1f);
+
+        public bool ValidatePlacement(out IEnumerable<IDragAndDropTarget> dependsOn)
         {
             dependsOn = null;
             return true;
+        }
+
+        public bool ValidatePlacement() => ValidatePlacement();
+
+        public void SetError(bool isError)
+        {
+            _renderer.material.color = isError
+                ? Color.red.WithAlpha(DRAG_ALPHA)
+                : _initialColor.WithAlpha(DRAG_ALPHA);
         }
     }
 }

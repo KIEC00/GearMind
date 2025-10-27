@@ -13,9 +13,11 @@ namespace Assets.GearMind.Objects
         [SerializeField, Required]
         private Rigidbody2D _rigidbody;
 
-        public virtual void EnterEditMode() => _rigidbody.simulated = false;
+        [Button]
+        public virtual void EnterEditMode() => _rigidbody.bodyType = RigidbodyType2D.Static;
 
-        public virtual void EnterPlayMode() => _rigidbody.simulated = true;
+        [Button]
+        public virtual void EnterPlayMode() => _rigidbody.bodyType = RigidbodyType2D.Dynamic;
 
         public virtual Rigidbody2DState GetState() => _rigidbody.GetState();
 
