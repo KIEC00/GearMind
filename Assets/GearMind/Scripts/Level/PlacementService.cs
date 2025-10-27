@@ -9,6 +9,8 @@ namespace Assets.GearMind.Level
 {
     public class PlacementService : IDisposable
     {
+        public Action<GameObject> DestroyRequest;
+
         private readonly IInputService _input;
         private readonly ICameraProvider _cameraProvider;
         private readonly IScreenRaycaster2D _raycaster;
@@ -31,7 +33,17 @@ namespace Assets.GearMind.Level
             _input.Disable();
         }
 
-        public Action<GameObject> DestroyRequest;
+        public void StartDragObject(GameObject gameObject)
+        {
+            if (!SetDraggingObject(gameObject))
+            {
+                DestroyRequest?.Invoke(gameObject);
+                Debug.LogWarning($"Failed to set dragging object {gameObject.name}");
+                return;
+            }
+            var position = _grid.ScreenToPlane(_input.PointerPosition, _cameraProvider.Current);
+            gameObject.transform.position = position ?? Vector3.zero;
+        }
 
         private bool SetDraggingObject(GameObject gameObject)
         {

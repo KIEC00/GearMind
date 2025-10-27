@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Linq;
 using Assets.GearMind.Common;
 using Assets.GearMind.Grid;
@@ -6,6 +7,7 @@ using Assets.GearMind.Inventory;
 using Assets.GearMind.Level.States;
 using Assets.Utils.Runtime;
 using EditorAttributes;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -22,6 +24,9 @@ namespace Assets.GearMind.Level
 
         [Header("Components")]
         [SerializeField, Required]
+        private Transform _environmentAnchor;
+
+        [SerializeField, Required]
         private GraphicRaycaster _graphicRaycaster;
 
         [SerializeField, Required]
@@ -32,7 +37,9 @@ namespace Assets.GearMind.Level
 
         protected override void Configure(IContainerBuilder builder)
         {
-            builder.RegisterEntryPoint<LevelEntryPoint>(Lifetime.Singleton);
+            builder
+                .RegisterEntryPoint<LevelEntryPoint>(Lifetime.Singleton)
+                .WithParameter(_environmentAnchor);
 
             builder.RegisterInstance(_inventoryFactory.CreateInventory()).As<IInventory>();
 
@@ -48,6 +55,7 @@ namespace Assets.GearMind.Level
             builder.Register<LevelEditState>(Lifetime.Singleton).AsSelf();
             builder.Register<LevelSimulationState>(Lifetime.Singleton).AsSelf();
 
+            builder.Register<ObjectService>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<PlacementService>(Lifetime.Singleton).All();
 
             builder.Register(LevelStateMachineFactoryMethod, Lifetime.Singleton).All();

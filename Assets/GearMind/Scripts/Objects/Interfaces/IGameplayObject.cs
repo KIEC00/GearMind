@@ -1,6 +1,6 @@
 namespace Assets.GearMind.Objects
 {
-    interface IGameplayObject
+    public interface IGameplayObject
     {
         void EnterEditMode();
         void EnterPlayMode();
