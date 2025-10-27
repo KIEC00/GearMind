@@ -2,12 +2,31 @@ namespace Assets.GearMind.Level
 {
     public class LevelEditState : ILevelState
     {
-        public void Enter() { }
+        private readonly PlacementService _placementService;
 
-        public void Exit() { }
+        public LevelEditState(PlacementService placementService)
+        {
+            _placementService = placementService;
+        }
 
-        public void Continue() { }
+        public void Enter()
+        {
+            _placementService.Enable();
+        }
 
-        public void Pause() { }
+        public void Exit()
+        {
+            _placementService.Disable();
+        }
+
+        public void Continue()
+        {
+            _placementService.Enable();
+        }
+
+        public void Pause()
+        {
+            _placementService.Disable();
+        }
     }
 }
