@@ -31,8 +31,6 @@ namespace Assets.GearMind.Objects
             return true;
         }
 
-        public bool ValidatePlacement() => ValidatePlacement();
-
         public void SetError(bool isError)
         {
             _renderer.material.color = isError
