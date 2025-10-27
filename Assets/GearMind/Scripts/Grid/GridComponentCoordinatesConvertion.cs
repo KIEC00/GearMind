@@ -46,5 +46,14 @@ namespace Assets.GearMind.Grid
             );
             return WorldCenter + localPosition;
         }
+
+        public Vector3 SnapToGrid(Vector3 worldPosition)
+        {
+            var cellPosition = WorldToCell(worldPosition);
+            if (!cellPosition.HasValue)
+                return worldPosition;
+            var cellWorldPosition = CellToWorld(cellPosition.Value);
+            return new(cellWorldPosition.x, cellWorldPosition.y, worldPosition.z);
+        }
     }
 }
