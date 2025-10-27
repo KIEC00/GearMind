@@ -2,8 +2,10 @@ using System.Linq;
 using Assets.GearMind.Common;
 using Assets.GearMind.Grid;
 using Assets.GearMind.Input;
+using Assets.GearMind.Inventory;
 using Assets.GearMind.Level.States;
 using Assets.Utils.Runtime;
+using EditorAttributes;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -14,19 +16,25 @@ namespace Assets.GearMind.Level
 {
     public class LevelLifetimeScope : LifetimeScope
     {
+        [Header("Scriptable Objects")]
+        [SerializeField, Required]
+        private InventoryFactorySO _inventoryFactory;
+
         [Header("Components")]
-        [SerializeField]
+        [SerializeField, Required]
         private GraphicRaycaster _graphicRaycaster;
 
-        [SerializeField]
+        [SerializeField, Required]
         private EventSystem _eventSystem;
 
-        [SerializeField]
+        [SerializeField, Required]
         private GridComponent _grid;
 
         protected override void Configure(IContainerBuilder builder)
         {
             builder.RegisterEntryPoint<LevelEntryPoint>(Lifetime.Singleton);
+
+            builder.RegisterInstance(_inventoryFactory.CreateInventory()).As<IInventory>();
 
             builder.RegisterInstance(_graphicRaycaster);
             builder.RegisterInstance(_eventSystem);

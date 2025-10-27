@@ -98,6 +98,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6001157537864136330}
+  - component: {fileID: 4883142675816556237}
   - component: {fileID: 3939672707478915040}
   - component: {fileID: 903266002152899891}
   - component: {fileID: 4307635541252313401}
@@ -125,6 +126,19 @@ Transform:
   - {fileID: 6075375640276216511}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4883142675816556237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6532719944292275147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ead1deeec281034e840a744d9465d90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.GearMind.Inventory.InventoryIdentity
+  _inventoryIdentitySO: {fileID: 11400000, guid: 1a6dd44f3b84fb04ab370f5bf97c5d79, type: 2}
 --- !u!114 &3939672707478915040
 MonoBehaviour:
   m_ObjectHideFlags: 0
