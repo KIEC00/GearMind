@@ -22,6 +22,9 @@ namespace Assets.GearMind.Common
             _eventSystem = eventSystem;
         }
 
+        public Vector2 ScreenToWorldPoint2D(Vector2 screenPosition) =>
+            _cameraProvider.Current.ScreenToWorldPoint2D(screenPosition);
+
         public bool IsPointerOverUI(Vector2 screenPosition) => RaycastUI(screenPosition).HasValue;
 
         public RaycastResult? RaycastUI(Vector2 screenPosition)
@@ -38,17 +41,11 @@ namespace Assets.GearMind.Common
             return results;
         }
 
-        public Collider2D RaycastPhysics2D(Vector2 screenPosition, LayerMask layerMask)
-        {
-            var point = _cameraProvider.Current.ScreenToWorldPoint2D(screenPosition);
-            return Physics2D.OverlapPoint(point, layerMask);
-        }
+        public Collider2D RaycastPhysics2D(Vector2 screenPosition, LayerMask layerMask) =>
+            Physics2D.OverlapPoint(ScreenToWorldPoint2D(screenPosition), layerMask);
 
-        public Collider2D[] RaycastPhysics2DAll(Vector2 screenPosition, LayerMask layerMask)
-        {
-            var point = _cameraProvider.Current.ScreenToWorldPoint2D(screenPosition);
-            return Physics2D.OverlapPointAll(point, layerMask);
-        }
+        public Collider2D[] RaycastPhysics2DAll(Vector2 screenPosition, LayerMask layerMask) =>
+            Physics2D.OverlapPointAll(ScreenToWorldPoint2D(screenPosition), layerMask);
 
         public Collider2D RaycastPhysics2DStopAtUI(Vector2 screenPosition, LayerMask layerMask)
         {

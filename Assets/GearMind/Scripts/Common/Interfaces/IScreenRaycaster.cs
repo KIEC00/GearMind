@@ -13,6 +13,8 @@ namespace Assets.GearMind.Common
 
     public interface IScreenRaycasterPhysics2D
     {
+        public Vector2 ScreenToWorldPoint2D(Vector2 screenPosition);
+
         public Collider2D RaycastPhysics2D(Vector2 screenPosition, LayerMask layerMask);
         public Collider2D[] RaycastPhysics2DAll(Vector2 screenPosition, LayerMask layerMask);
 
