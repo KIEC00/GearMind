@@ -63,6 +63,14 @@ namespace Assets.GearMind.Input
                 Disable();
         }
 
+        public void ForceStartDrag()
+        {
+            var position = PointerPosition;
+            HandleStartDrag(position);
+            if (!IsPointerDown)
+                HandleEndDrag(position);
+        }
+
         private void HandlePointerPressed(InputAction.CallbackContext ctx)
         {
             var currentPosition = PointerPosition;
@@ -74,13 +82,10 @@ namespace Assets.GearMind.Input
         {
             var currentPosition = PointerPosition;
             OnPointerReleased?.Invoke(currentPosition);
-            if (IsDragingTrashold(_pointerPressedPosition, currentPosition))
-            {
-                if (IsDraging)
-                    HandleEndDrag(currentPosition);
-                return;
-            }
-            OnPointerClick?.Invoke(currentPosition);
+            if (IsDraging)
+                HandleEndDrag(currentPosition);
+            else
+                OnPointerClick?.Invoke(currentPosition);
         }
 
         private void HandlePointerAltPressed(InputAction.CallbackContext ctx) =>

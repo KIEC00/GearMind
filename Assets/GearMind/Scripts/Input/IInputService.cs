@@ -29,6 +29,8 @@ namespace Assets.GearMind.Input
         event Action<Vector2> OnDragEnd;
 
         event Action OnEscPressed;
+
+        void ForceStartDrag();
     }
 
     public readonly struct PointerMove

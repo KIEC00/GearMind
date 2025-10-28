@@ -1,13 +1,13 @@
-using System.Diagnostics;
+using System.Collections.Generic;
 using System.Linq;
 using Assets.GearMind.Common;
 using Assets.GearMind.Grid;
 using Assets.GearMind.Input;
 using Assets.GearMind.Inventory;
 using Assets.GearMind.Level.States;
+using Assets.GearMind.State;
 using Assets.Utils.Runtime;
 using EditorAttributes;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -42,6 +42,7 @@ namespace Assets.GearMind.Level
                 .WithParameter(_environmentAnchor);
 
             builder.RegisterInstance(_inventoryFactory.CreateInventory()).As<IInventory>();
+            builder.RegisterInstance(CreateIdentityPrefabMap(_inventoryFactory));
 
             builder.RegisterInstance(_graphicRaycaster);
             builder.RegisterInstance(_eventSystem);
@@ -55,6 +56,7 @@ namespace Assets.GearMind.Level
             builder.Register<LevelEditState>(Lifetime.Singleton).AsSelf();
             builder.Register<LevelSimulationState>(Lifetime.Singleton).AsSelf();
 
+            builder.Register<StateService>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<ObjectService>(Lifetime.Singleton).AsImplementedInterfaces();
             builder
                 .Register<PlacementService>(Lifetime.Singleton)
@@ -68,5 +70,17 @@ namespace Assets.GearMind.Level
             new LevelStateMachine()
                 .RegisterState(LevelState.Edit, c.Resolve<LevelEditState>())
                 .RegisterState(LevelState.Simulate, c.Resolve<LevelSimulationState>());
+
+        private static IIdentityPrefabMap CreateIdentityPrefabMap(
+            InventoryFactorySO inventoryFactory
+        ) =>
+            new IdentityPrefabMap(
+                inventoryFactory
+                    .GetComponents()
+                    .Select(component => new KeyValuePair<IInventoryIdentity, GameObject>(
+                        component.InventoryIdentity,
+                        component.gameObject
+                    ))
+            );
     }
 }

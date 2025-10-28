@@ -11,6 +11,8 @@ namespace Assets.GearMind.Inventory
         [SerializeField, SerializedDictionary("Prefab", "Count")]
         private SerializedDictionary<InventoryIdentityComponent, int> _inventory;
 
+        public IEnumerable<InventoryIdentityComponent> GetComponents() => _inventory.Keys;
+
         public IInventory CreateInventory() =>
             new Inventory(
                 _inventory.Select(kvp => new KeyValuePair<IInventoryIdentity, int>(

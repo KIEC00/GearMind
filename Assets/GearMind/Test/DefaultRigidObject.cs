@@ -1,10 +1,11 @@
+using Assets.GearMind.Objects;
 using Assets.GearMind.State;
 using Assets.GearMind.State.Utils;
 using Assets.Utils.Runtime;
 using EditorAttributes;
 using UnityEngine;
 
-namespace Assets.GearMind.Objects
+namespace Assets.GearMind.Test
 {
     public class DefaultRigidObject
         : MonoBehaviour,

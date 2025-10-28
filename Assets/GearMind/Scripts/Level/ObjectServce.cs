@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Assets.GearMind.Inventory;
 using Assets.GearMind.Objects;
+using Assets.GearMind.State;
 using UnityEngine;
 
 namespace Assets.GearMind.Level
@@ -9,15 +10,17 @@ namespace Assets.GearMind.Level
     public class ObjectService : IObjectService
     {
         private readonly IInventory _inventory;
+        private readonly IStateService _stateService;
 
         private readonly HashSet<IGameplayObject> _gameplayObjects = new();
 
-        public ObjectService(IInventory inventory)
+        public ObjectService(IInventory inventory, IStateService stateService)
         {
             _inventory = inventory;
+            _stateService = stateService;
         }
 
-        public void InstantiateObject(GameObject prefab)
+        public GameObject InstantiateObject(GameObject prefab)
         {
             if (!prefab)
                 throw new ArgumentNullException(nameof(prefab));
@@ -26,15 +29,18 @@ namespace Assets.GearMind.Level
             {
                 Debug.LogError("Object must have InventoryIdentityComponent", instance);
                 UnityEngine.Object.Destroy(instance);
-                return;
+                return null;
             }
             if (instance.TryGetComponent<IGameplayObject>(out var gameplayObject))
             {
                 RegisterGameplayObject(gameplayObject);
                 gameplayObject.EnterEditMode();
             }
+            if (instance.TryGetComponent<IHaveState>(out var stateComponent))
+                _stateService.Register(stateComponent, saveState: false);
             if (inventoryComponent)
                 _inventory[inventoryComponent.InventoryIdentity] -= 1;
+            return instance;
         }
 
         public void DestroyObject(GameObject instance)
@@ -45,6 +51,8 @@ namespace Assets.GearMind.Level
                 Debug.LogError("Object must have InventoryIdentityComponent", instance);
             if (instance.TryGetComponent<IGameplayObject>(out var gameplayObject))
                 UnregisterGameplayObject(gameplayObject);
+            if (instance.TryGetComponent<IHaveState>(out var stateComponent))
+                _stateService.Unregister(stateComponent);
             if (inventoryComponent)
                 _inventory[inventoryComponent.InventoryIdentity] += 1;
             UnityEngine.Object.Destroy(instance);

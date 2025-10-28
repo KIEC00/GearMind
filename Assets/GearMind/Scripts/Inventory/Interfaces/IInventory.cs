@@ -11,7 +11,7 @@ namespace Assets.GearMind.Inventory
 
     public readonly struct InventoryChangeEventData
     {
-        public IInventoryIdentity Data { get; }
+        public IInventoryIdentity Identity { get; }
         public int PreviousCount { get; }
         public int CurrentCount { get; }
         public int Delta => CurrentCount - PreviousCount;
@@ -22,7 +22,7 @@ namespace Assets.GearMind.Inventory
             int currentValue
         )
         {
-            Data = data;
+            Identity = data;
             PreviousCount = previousValue;
             CurrentCount = currentValue;
         }

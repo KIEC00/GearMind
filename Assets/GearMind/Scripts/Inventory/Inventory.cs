@@ -18,11 +18,11 @@ namespace Assets.GearMind.Inventory
         public Inventory(IEnumerable<KeyValuePair<IInventoryIdentity, int>> items) =>
             _items = new(items);
 
-        private void HandleChange(IInventoryIdentity data, int value)
+        private void HandleChange(IInventoryIdentity identity, int value)
         {
-            var previousCount = _items.GetValueOrDefault(data, 0);
-            _items[data] = value;
-            OnChange?.Invoke(new InventoryChangeEventData(data, previousCount, value));
+            var previousCount = _items.GetValueOrDefault(identity, 0);
+            _items[identity] = value;
+            OnChange?.Invoke(new InventoryChangeEventData(identity, previousCount, value));
         }
 
         public IEnumerator<KeyValuePair<IInventoryIdentity, int>> GetEnumerator() =>

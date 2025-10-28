@@ -5,7 +5,7 @@ namespace Assets.GearMind.Level
 {
     public interface IObjectService
     {
-        void InstantiateObject(GameObject prefab);
+        GameObject InstantiateObject(GameObject prefab);
         void DestroyObject(GameObject instance);
         void RegisterGameplayObject(IGameplayObject gameplayObject);
         void UnregisterGameplayObject(IGameplayObject gameplayObject);

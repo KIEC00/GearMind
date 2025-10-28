@@ -1,17 +1,18 @@
 using System;
-using System.Collections.Generic;
 using Assets.GearMind.Common;
 using Assets.GearMind.Grid;
 using Assets.GearMind.Input;
 using Assets.GearMind.Objects;
-using Assets.Utils.Runtime;
-using Mono.Cecil.Cil;
 using UnityEngine;
 
 namespace Assets.GearMind.Level
 {
     public class PlacementService : IDisposable
     {
+        public bool IsDragging => _draggingData;
+        public Action OnDragStart;
+        public Action OnDragEnd;
+
         private readonly IInputService _input;
         private readonly ICameraProvider _cameraProvider;
         private readonly IScreenRaycaster2D _raycaster;
@@ -43,14 +44,14 @@ namespace Assets.GearMind.Level
             _input.Disable();
         }
 
-        public void InstantiateAndStartDragObject(GameObject gameObject)
+        public void InstantiateAndStartDragObject(GameObject prefab)
         {
             if (!_enabled)
             {
                 Debug.LogWarning("PlacementService is not enabled");
                 return;
             }
-            _objectService.InstantiateObject(gameObject);
+            var gameObject = _objectService.InstantiateObject(prefab);
             if (!SetDraggingObject(gameObject))
             {
                 DestroyGameobject(gameObject);
@@ -60,6 +61,7 @@ namespace Assets.GearMind.Level
             var position = _grid.ScreenToPlane(_input.PointerPosition, _cameraProvider.Current);
             gameObject.transform.position = position ?? Vector3.zero;
             _draggingData.DragOffset = Vector2.zero;
+            _input.ForceStartDrag();
         }
 
         private bool SetDraggingObject(GameObject gameObject)
@@ -80,8 +82,10 @@ namespace Assets.GearMind.Level
 
         private void HandleStartDrag(Vector2 position)
         {
-            if (_draggingData || RaycastOnStartDrag(position))
-                _draggingData.DragTarget.OnDragStart();
+            if (!_draggingData && !RaycastOnStartDrag(position))
+                return;
+            _draggingData.DragTarget.OnDragStart();
+            OnDragStart?.Invoke();
         }
 
         private void HandleDrag(PointerMove move)
@@ -106,6 +110,7 @@ namespace Assets.GearMind.Level
         {
             if (!_draggingData)
                 return;
+            OnDragEnd?.Invoke();
             GetPositions(screenPosition, out var _, out var gridPosition);
             if (gridPosition.HasValue && _draggingData.DragTarget.ValidatePlacement())
                 HandlePlace(_draggingData);

@@ -20,8 +20,8 @@ namespace Assets.GearMind.State
 
         public void SaveStates()
         {
-            foreach (var entity in _entitiesStates.Keys)
-                _entitiesStates[entity] = new(entity.GetState());
+            foreach (var (entity, state) in _entitiesStates)
+                state.Set(entity.GetState());
         }
 
         public void LoadStates()
@@ -31,14 +31,22 @@ namespace Assets.GearMind.State
                     entity.SetState(state.Data);
         }
 
-        private readonly struct EntityState
+        private class EntityState
         {
-            public readonly bool IsInitialized;
-            public readonly object Data;
+            public bool IsInitialized { get; private set; }
+            public object Data { get; private set; }
 
             public static implicit operator bool(EntityState entity) => entity.IsInitialized;
 
+            public EntityState() { }
+
             public EntityState(object data)
+            {
+                Data = data;
+                IsInitialized = true;
+            }
+
+            public void Set(object data)
             {
                 Data = data;
                 IsInitialized = true;
