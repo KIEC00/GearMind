@@ -8,20 +8,20 @@ namespace Assets.GearMind.Level
     public class LevelEntryPoint : IStartable, IPostInitializable
     {
         private readonly LevelStateMachine _levelStateMachine;
-        private readonly IObjectService _objectService;
+        private readonly IGameplayObjectService _gameplayObjectService;
         private readonly IStateService _stateService;
         private readonly Transform _anchor;
 
         public LevelEntryPoint(
             Transform anchor,
             LevelStateMachine levelStateMachine,
-            IObjectService objectService,
+            IGameplayObjectService gameplayObjectService,
             IStateService stateService
         )
         {
             _anchor = anchor;
             _levelStateMachine = levelStateMachine;
-            _objectService = objectService;
+            _gameplayObjectService = gameplayObjectService;
             _stateService = stateService;
         }
 
@@ -29,7 +29,7 @@ namespace Assets.GearMind.Level
         {
             var gpo = _anchor.GetComponentsInChildren<IGameplayObject>(includeInactive: true);
             foreach (var obj in gpo)
-                _objectService.RegisterGameplayObject(obj);
+                _gameplayObjectService.Register(obj);
             var sto = _anchor.GetComponentsInChildren<IHaveState>(includeInactive: true);
             foreach (var obj in sto)
                 _stateService.Register(obj);
