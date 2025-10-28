@@ -99,8 +99,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6001157537864136330}
   - component: {fileID: 4883142675816556237}
-  - component: {fileID: 3939672707478915040}
-  - component: {fileID: 903266002152899891}
+  - component: {fileID: 3350739612602594434}
   - component: {fileID: 4307635541252313401}
   - component: {fileID: 5947458277244244382}
   m_Layer: 0
@@ -139,7 +138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.GearMind.Inventory.InventoryIdentity
   _inventoryIdentitySO: {fileID: 11400000, guid: 1a6dd44f3b84fb04ab370f5bf97c5d79, type: 2}
---- !u!114 &3939672707478915040
+--- !u!114 &3350739612602594434
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -148,24 +147,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 6532719944292275147}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf107ea419173c142ae0ab4cafe38dc9, type: 3}
+  m_Script: {fileID: 11500000, guid: efc0ab50ca3a96a469fa100ba8ec4be9, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Assets.GearMind.Objects.BaseDragAndDropTaget
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.GearMind.Objects.DefaultRigidObject
   <IsDragable>k__BackingField: 1
   _renderer: {fileID: 5100485548832335521}
---- !u!114 &903266002152899891
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6532719944292275147}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ae57cf39e2087b4bb964ea7d530c90d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Assets.GearMind.Objects.BaseRigidbodyGamplayObject
   _rigidbody: {fileID: 5947458277244244382}
+  _contactFilter:
+    useTriggers: 0
+    useLayerMask: 0
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
 --- !u!61 &4307635541252313401
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -210,7 +211,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.99, y: 0.99}
   m_EdgeRadius: 0
 --- !u!50 &5947458277244244382
 Rigidbody2D:

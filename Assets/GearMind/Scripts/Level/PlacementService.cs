@@ -1,118 +1,130 @@
 using System;
+using System.Collections.Generic;
 using Assets.GearMind.Common;
 using Assets.GearMind.Grid;
 using Assets.GearMind.Input;
 using Assets.GearMind.Objects;
+using Assets.Utils.Runtime;
+using Mono.Cecil.Cil;
 using UnityEngine;
 
 namespace Assets.GearMind.Level
 {
     public class PlacementService : IDisposable
     {
-        public Action<GameObject> DestroyRequest;
-
         private readonly IInputService _input;
         private readonly ICameraProvider _cameraProvider;
         private readonly IScreenRaycaster2D _raycaster;
         private readonly GridComponent _grid;
+        private readonly IObjectService _objectService;
+        private readonly float _errorDragZOffset;
         private bool _enabled;
 
-        private DraggingData _draggingData = null;
+        private DraggingData _draggingData = new();
+
+        // private readonly Dictionary<IDragAndDropTarget, HashSet<IDragAndDropTarget>> _dependencies;
+        // TODO: Implement dependencies
 
         public PlacementService(
             IInputService input,
             ICameraProvider cameraProvider,
             IScreenRaycaster2D raycaster,
-            GridComponent grid
+            GridComponent grid,
+            IObjectService objectService,
+            float errorDragZOffset
         )
         {
             _input = input;
             _cameraProvider = cameraProvider;
             _raycaster = raycaster;
             _grid = grid;
+            _objectService = objectService;
+            _errorDragZOffset = errorDragZOffset;
             _input.Disable();
         }
 
-        public void StartDragObject(GameObject gameObject)
+        public void InstantiateAndStartDragObject(GameObject gameObject)
         {
+            if (!_enabled)
+            {
+                Debug.LogWarning("PlacementService is not enabled");
+                return;
+            }
+            _objectService.InstantiateObject(gameObject);
             if (!SetDraggingObject(gameObject))
             {
-                DestroyRequest?.Invoke(gameObject);
+                DestroyGameobject(gameObject);
                 Debug.LogWarning($"Failed to set dragging object {gameObject.name}");
                 return;
             }
             var position = _grid.ScreenToPlane(_input.PointerPosition, _cameraProvider.Current);
             gameObject.transform.position = position ?? Vector3.zero;
+            _draggingData.DragOffset = Vector2.zero;
         }
 
         private bool SetDraggingObject(GameObject gameObject)
         {
-            if (
-                gameObject
-                && gameObject.TryGetComponent<IDragAndDropTarget>(out var draggable)
-                && draggable.IsDragable
-            )
+            var draggable = GetDragable(gameObject);
+            if (draggable == null)
             {
-                _draggingData = new()
-                {
-                    DragTarget = draggable,
-                    GameplayObject = gameObject.GetComponent<IGameplayObject>(),
-                };
-                return true;
+                _draggingData.DragTarget = null;
+                return false;
             }
-            _draggingData = null;
-            return false;
+            _draggingData = new()
+            {
+                DragTarget = draggable,
+                GameplayObject = gameObject.GetComponent<IGameplayObject>(),
+            };
+            return true;
         }
 
         private void HandleStartDrag(Vector2 position)
         {
-            var collider = _raycaster.RaycastPhysics2DStopAtUI(position);
-            if (!SetDraggingObject(collider ? collider.gameObject : null))
-                return;
-            var hitPosition = _raycaster.ScreenToWorldPoint2D(position);
-            _draggingData.DragOffset = (Vector2)collider.transform.position - hitPosition;
-            _draggingData.DragTarget.OnDragStart();
+            if (_draggingData || RaycastOnStartDrag(position))
+                _draggingData.DragTarget.OnDragStart();
         }
 
         private void HandleDrag(PointerMove move)
         {
-            if (_draggingData == null)
+            if (!_draggingData)
                 return;
-            var planePosition = _grid.ScreenToPlane(move.Current, _cameraProvider.Current);
-            var position = _grid.SnapToGrid(
-                (planePosition ?? Vector3.zero) + _draggingData.DragOffset
-            );
-            _draggingData.DragTarget.OnDrag(position);
-            var canPlaceObject = _draggingData.DragTarget.ValidatePlacement(out var dependsOn);
-            if (canPlaceObject != _draggingData.CanPlace)
-            {
-                _draggingData.CanPlace = canPlaceObject;
-                _draggingData.DragTarget.SetError(!canPlaceObject);
-            }
+            GetPositions(move.Current, out var planePositionWithOffset, out var gridPosition);
+            var canPlaceObject =
+                gridPosition.HasValue && _draggingData.DragTarget.ValidatePlacement();
+            _draggingData.DragTarget.SetError(!canPlaceObject);
+            if (gridPosition.HasValue)
+                _draggingData.DragTarget.OnDrag(
+                    canPlaceObject
+                        ? gridPosition.Value
+                        : gridPosition.Value + new Vector3(0, 0, _errorDragZOffset)
+                );
+            else
+                _draggingData.DragTarget.OnDrag(planePositionWithOffset);
         }
 
         private void HandleDragEnd(Vector2 screenPosition)
         {
-            if (_draggingData == null)
+            if (!_draggingData)
                 return;
-            var planePosition = _grid.ScreenToPlane(screenPosition, _cameraProvider.Current);
-            var position = _grid.SnapToGrid(
-                (planePosition ?? Vector3.zero) + _draggingData.DragOffset
-            );
-            _draggingData.DragTarget.OnDrag(position);
-            var canPlaceObject = _draggingData.DragTarget.ValidatePlacement(out var dependsOn);
-            if (canPlaceObject)
-            {
-                _draggingData.DragTarget.OnDragEnd();
-                _draggingData.GameplayObject.EnterEditMode();
-            }
+            GetPositions(screenPosition, out var _, out var gridPosition);
+            if (gridPosition.HasValue && _draggingData.DragTarget.ValidatePlacement())
+                HandlePlace(_draggingData);
             else
-            {
-                var gameObject = ((MonoBehaviour)_draggingData.DragTarget).gameObject;
-                DestroyRequest?.Invoke(gameObject);
-            }
-            _draggingData = null;
+                HandleDestroy(_draggingData.DragTarget);
+            _draggingData.DragTarget = null;
         }
+
+        private void HandlePlace(DraggingData draggingData)
+        {
+            draggingData.DragTarget.OnDragEnd();
+            draggingData.GameplayObject?.EnterEditMode();
+        }
+
+        private void HandleDestroy(IDragAndDropTarget target) =>
+            DestroyGameobject(((MonoBehaviour)target).gameObject);
+
+        private void DestroyGameobject(GameObject gameObject) =>
+            _objectService.DestroyObject(gameObject);
 
         public void Enable()
         {
@@ -138,12 +150,44 @@ namespace Assets.GearMind.Level
 
         public void Dispose() => Disable();
 
-        private class DraggingData
+        private static IDragAndDropTarget GetDragable(GameObject gameObject) =>
+            (
+                gameObject
+                && gameObject.TryGetComponent<IDragAndDropTarget>(out var draggable)
+                && draggable.IsDragable
+            )
+                ? draggable
+                : null;
+
+        private void GetPositions(
+            Vector2 screenPosition,
+            out Vector3 planePositionWithOffset,
+            out Vector3? gridPosition
+        )
+        {
+            var camera = _cameraProvider.Current;
+            var planePosition = _grid.ScreenToPlane(screenPosition, camera) ?? Vector3.zero;
+            planePositionWithOffset = planePosition + _draggingData.DragOffset;
+            gridPosition = _grid.SnapToGrid(planePositionWithOffset);
+        }
+
+        private bool RaycastOnStartDrag(Vector2 position)
+        {
+            var collider = _raycaster.RaycastPhysics2DStopAtUI(position);
+            if (!SetDraggingObject(collider ? collider.gameObject : null))
+                return false;
+            var hitPosition = _raycaster.ScreenToWorldPoint2D(position);
+            _draggingData.DragOffset = (Vector2)collider.transform.position - hitPosition;
+            return true;
+        }
+
+        private struct DraggingData
         {
             public IDragAndDropTarget DragTarget;
             public IGameplayObject GameplayObject;
             public Vector3 DragOffset;
-            public bool CanPlace;
+
+            public static implicit operator bool(DraggingData data) => data.DragTarget != null;
         }
     }
 }

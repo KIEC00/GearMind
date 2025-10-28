@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.GearMind.Objects
@@ -10,6 +9,6 @@ namespace Assets.GearMind.Objects
         void OnDrag(Vector3 position);
         void OnDragEnd();
         void SetError(bool isError);
-        bool ValidatePlacement(out IEnumerable<IDragAndDropTarget> dependsOn);
+        bool ValidatePlacement();
     }
 }

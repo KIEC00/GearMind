@@ -11,6 +11,5 @@ namespace Assets.GearMind.Level
         void UnregisterGameplayObject(IGameplayObject gameplayObject);
         void EnterEditMode();
         void EnterSimulationMode();
-        void Dispose();
     }
 }

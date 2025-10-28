@@ -56,7 +56,10 @@ namespace Assets.GearMind.Level
             builder.Register<LevelSimulationState>(Lifetime.Singleton).AsSelf();
 
             builder.Register<ObjectService>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.Register<PlacementService>(Lifetime.Singleton).All();
+            builder
+                .Register<PlacementService>(Lifetime.Singleton)
+                .WithParameter("errorDragZOffset", -1f)
+                .All();
 
             builder.Register(LevelStateMachineFactoryMethod, Lifetime.Singleton).All();
         }
