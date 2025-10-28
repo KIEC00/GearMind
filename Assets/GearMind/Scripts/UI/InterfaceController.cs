@@ -40,9 +40,11 @@ namespace Assets.GearMind.Scripts.UI
 
         private void TogglePlayMode()
         {
-            // TODO: Make readonly event, prevent set mode directly
-            _levelStateMachine.Mode =
-                _levelStateMachine.Mode == LevelMode.Edit ? LevelMode.Play : LevelMode.Edit;
+            _levelStateMachine.TransitionTo(
+                _levelStateMachine.CurrentState == LevelState.Edit
+                    ? LevelState.Simulate
+                    : LevelState.Edit
+            );
         }
 
         private void SettingsClicked()

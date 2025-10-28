@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e2d8495d1fd6144a92b6b3dac79fcf1, type: 3}
+  m_Name: Inventory
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.GearMind.Inventory.InventoryFactorySO
+  _inventory:
+    _serializedList:
+    - Key: {fileID: 4883142675816556237, guid: b34c4efc0f970c841ac7a134fa32a882, type: 3}
+      Value: 3
+    - Key: {fileID: 7816242771119149421, guid: 7c5aaf77e630b294a8fe76a1a7995482, type: 3}
+      Value: 3

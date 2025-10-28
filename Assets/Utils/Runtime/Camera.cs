@@ -24,4 +24,10 @@ public static class CameraUtils
         camera.orthographic
             ? CalculateOrthographicSize(camera)
             : CalculateFrustumSize(camera, distance);
+
+    public static Vector2 ScreenToWorldPoint2D(this Camera camera, Vector2 screenPosition)
+    {
+        var point = new Vector3(screenPosition.x, screenPosition.y, -camera.transform.position.z);
+        return camera.ScreenToWorldPoint(point);
+    }
 }
