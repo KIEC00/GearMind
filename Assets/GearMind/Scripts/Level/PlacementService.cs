@@ -58,6 +58,7 @@ namespace Assets.GearMind.Level
                 Debug.LogWarning($"Failed to set dragging object {gameObject.name}");
                 return;
             }
+            _draggingData.GameplayObject?.EnterEditMode();
             var position = _grid.ScreenToPlane(_input.PointerPosition, _cameraProvider.Current);
             gameObject.transform.position = position ?? Vector3.zero;
             _draggingData.DragOffset = Vector2.zero;
@@ -72,11 +73,9 @@ namespace Assets.GearMind.Level
                 _draggingData.DragTarget = null;
                 return false;
             }
-            _draggingData = new()
-            {
-                DragTarget = draggable,
-                GameplayObject = gameObject.GetComponent<IGameplayObject>(),
-            };
+            _draggingData = new() { DragTarget = draggable };
+            if (gameObject.TryGetComponent<IGameplayObject>(out var gameplayObject))
+                _draggingData.GameplayObject = gameplayObject;
             return true;
         }
 

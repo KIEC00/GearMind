@@ -2,16 +2,16 @@ namespace Assets.GearMind.Level.States
 {
     public class LevelSimulationState : ILevelState
     {
-        private readonly IObjectService _objectService;
+        private readonly IGameplayObjectService _gameplayObjectService;
 
-        public LevelSimulationState(IObjectService objectService)
+        public LevelSimulationState(IGameplayObjectService gameplayObjectService)
         {
-            _objectService = objectService;
+            _gameplayObjectService = gameplayObjectService;
         }
 
         public void Enter()
         {
-            _objectService.EnterSimulationMode();
+            _gameplayObjectService.EnterSimulationMode();
         }
 
         public void Exit() { }

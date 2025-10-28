@@ -5,12 +5,12 @@ namespace Assets.GearMind.Level
     public class LevelEditState : ILevelState
     {
         private readonly PlacementService _placementService;
-        private readonly IObjectService _objectService;
+        private readonly IGameplayObjectService _objectService;
         private readonly IStateService _stateService;
 
         public LevelEditState(
             PlacementService placementService,
-            IObjectService objectService,
+            IGameplayObjectService objectService,
             IStateService stateService
         )
         {
