@@ -4,15 +4,21 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Assets.GearMind.Test
+namespace Assets.GearMind.UI
 {
-    public class InventoryTestButton : MonoBehaviour, IPointerDownHandler
+    public class InventoryItemButton : MonoBehaviour, IPointerDownHandler
     {
         [SerializeField, Required]
         private TMP_Text _nameText;
 
         [SerializeField, Required]
         private TMP_Text _qtyText;
+
+        [SerializeField]
+        private Color _interactableColor = Color.black;
+
+        [SerializeField]
+        private Color _nonInteractableColor = new Color(0.5f, 0.5f, 0.5f, 1f);
 
         public event Action OnPointerDownEvent;
 
@@ -29,6 +35,7 @@ namespace Assets.GearMind.Test
 
         private string _name;
         private int _quantity;
+        private bool _interactable = true;
 
         public void OnPointerDown(PointerEventData eventData) => OnPointerDownEvent?.Invoke();
 
@@ -42,6 +49,18 @@ namespace Assets.GearMind.Test
         {
             _quantity = quantity;
             _qtyText.text = quantity.ToString();
+        }
+
+        public bool Interactable
+        {
+            get => _interactable;
+            set
+            {
+                _interactable = value;
+                Color color = _interactable ? _interactableColor : _nonInteractableColor;
+                _nameText.color = color;
+                _qtyText.color = color;
+            }
         }
     }
 }
