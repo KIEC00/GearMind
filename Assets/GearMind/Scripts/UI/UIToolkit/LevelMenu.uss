@@ -15,8 +15,16 @@
     left: 10px;
     width: 10%;
     height: 10%;
-    font-size: 18px;
+    font-size: 40px;
     border-radius: 10px;
+    -unity-font-definition: url("project://database/Assets/TextMesh%20Pro/Fonts/BoldPixels.ttf?fileID=12800000&guid=0da78171e9a8d374b8549aba0c2dd785&type=3#BoldPixels");
+    color: rgb(246, 168, 0);
+    background-color: rgb(248, 236, 171);
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+    border-top-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(255, 255, 255);
 }
 
 .level-container {
@@ -25,19 +33,25 @@
     justify-content: center;
     align-items: center;
     width: 80%;
-    margin-top: 5%;
+    margin-top: 3%;
 }
 
 .level-button {
     width: 157px;
     height: 157px;
-    font-size: 24px;
+    font-size: 100px;
     justify-content: center;
     align-items: center;
-    background-color: rgb(204, 204, 204);
+    background-color: rgb(248, 236, 171);
     border-radius: 10px;
     margin-top: 10px;
     margin-right: 10px;
     margin-bottom: 10px;
     margin-left: 10px;
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+    border-top-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(255, 255, 255);
+    -unity-font-definition: url("project://database/Assets/TextMesh%20Pro/Fonts/BoldPixels.ttf?fileID=12800000&guid=0da78171e9a8d374b8549aba0c2dd785&type=3#BoldPixels");
+    color: rgb(246, 168, 0);
 }

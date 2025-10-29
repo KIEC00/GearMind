@@ -20,10 +20,15 @@
     width: 30%;
     height: auto;
     max-width: none;
-    max-height: 50%;
+    max-height: 40%;
     border-radius: 20px;
     padding: 20px;
     min-height: 30%;
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+    border-top-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(255, 255, 255);
+    background-color: rgb(248, 236, 171);
 }
 
 .settingHeader {
@@ -32,6 +37,8 @@
     font-size: 55px;
     flex-grow: 0;
     max-height: 50%;
+    -unity-font-definition: url("project://database/Assets/TextMesh%20Pro/Fonts/BoldPixels.ttf?fileID=12800000&guid=0da78171e9a8d374b8549aba0c2dd785&type=3#BoldPixels");
+    color: rgb(246, 168, 0);
 }
 
 .close-button {
@@ -42,8 +49,16 @@
     height: 50px;
     border-radius: 20px;
     font-size: 30px;
-    background-color: rgb(202, 87, 87);
+    background-color: rgb(246, 168, 0);
     color: rgb(255, 255, 255);
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+    border-top-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(255, 255, 255);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
 }
 
 .option {
@@ -67,12 +82,23 @@
     padding-right: 23px;
     padding-bottom: 15px;
     padding-left: 23px;
-    background-color: rgb(106, 159, 65);
-    font-size: 25px;
+    background-color: rgb(246, 168, 0);
+    font-size: 30px;
     -unity-text-align: middle-center;
     flex-grow: 0;
+    -unity-font-definition: url("project://database/Assets/TextMesh%20Pro/Fonts/BoldPixels.ttf?fileID=12800000&guid=0da78171e9a8d374b8549aba0c2dd785&type=3#BoldPixels");
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+    border-top-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(255, 255, 255);
 }
 
 .green-button:hover {
-    background-color: rgb(139, 185, 104);
+    background-color: rgb(243, 211, 123);
+}
+
+.option-label {
+    font-size: 40px;
+    -unity-font-definition: url("project://database/Assets/TextMesh%20Pro/Fonts/BoldPixels.ttf?fileID=12800000&guid=0da78171e9a8d374b8549aba0c2dd785&type=3#BoldPixels");
+    color: rgb(246, 168, 0);
 }

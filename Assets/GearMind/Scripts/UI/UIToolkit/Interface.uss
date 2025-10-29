@@ -15,9 +15,9 @@
 }
 
 .interface-button {
-    background-color: rgb(217, 217, 217);
+    background-color: rgb(248, 236, 171);
     -unity-text-align: middle-center;
-    color: rgb(51, 49, 49);
+    color: rgb(246, 168, 0);
     width: 31%;
     height: 100px;
     justify-content: center;
@@ -26,15 +26,28 @@
     min-width: auto;
     min-height: auto;
     border-radius: 10px;
-    font-size: 22px;
+    font-size: 35px;
     padding: 20px;
+    border-left-color: rgb(248, 236, 171);
+    border-right-color: rgb(248, 236, 171);
+    border-top-color: rgb(248, 236, 171);
+    border-bottom-color: rgb(248, 236, 171);
+    -unity-font-definition: url("project://database/Assets/TextMesh%20Pro/Fonts/BoldPixels.ttf?fileID=12800000&guid=0da78171e9a8d374b8549aba0c2dd785&type=3#BoldPixels");
+    padding-top: 30px;
+    padding-right: 30px;
+    padding-bottom: 30px;
+    padding-left: 30px;
 }
 
 .interface-button:hover {
-    background-color: rgb(234, 234, 234);
+    background-color: rgb(255, 255, 255);
 }
 
 .interface-button:active {
-    background-color: rgb(99, 99, 99);
+    background-color: rgb(246, 168, 0);
     color: rgb(255, 255, 255);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
 }
