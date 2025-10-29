@@ -18,6 +18,7 @@ namespace Assets.GearMind.Level
         private readonly IScreenRaycaster2D _raycaster;
         private readonly GridComponent _grid;
         private readonly IObjectService _objectService;
+        private readonly Transform _objectsParent;
         private readonly float _errorDragZOffset;
         private bool _enabled;
 
@@ -32,6 +33,7 @@ namespace Assets.GearMind.Level
             IScreenRaycaster2D raycaster,
             GridComponent grid,
             IObjectService objectService,
+            Transform objectsParent,
             float errorDragZOffset
         )
         {
@@ -40,6 +42,7 @@ namespace Assets.GearMind.Level
             _raycaster = raycaster;
             _grid = grid;
             _objectService = objectService;
+            _objectsParent = objectsParent;
             _errorDragZOffset = errorDragZOffset;
             _input.Disable();
         }
@@ -58,6 +61,7 @@ namespace Assets.GearMind.Level
                 Debug.LogWarning($"Failed to set dragging object {gameObject.name}");
                 return;
             }
+            gameObject.transform.SetParent(_objectsParent, true);
             _draggingData.GameplayObject?.EnterEditMode();
             var position = _grid.ScreenToPlane(_input.PointerPosition, _cameraProvider.Current);
             gameObject.transform.position = position ?? Vector3.zero;

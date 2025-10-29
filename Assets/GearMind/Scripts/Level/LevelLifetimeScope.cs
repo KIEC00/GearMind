@@ -61,6 +61,7 @@ namespace Assets.GearMind.Level
             builder.Register<GameplayObjectService>(Lifetime.Singleton).AsImplementedInterfaces();
             builder
                 .Register<PlacementService>(Lifetime.Singleton)
+                .WithParameter("objectsParent", _environmentAnchor)
                 .WithParameter("errorDragZOffset", -1f)
                 .All();
 
