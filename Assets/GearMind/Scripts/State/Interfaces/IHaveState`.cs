@@ -9,4 +9,4 @@ namespace Assets.GearMind.State
         object IHaveState.GetState() => GetState();
         void IHaveState.SetState(object state) => SetState((TState)state);
     }
-}
+} 

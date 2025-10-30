@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Assets.GearMind.Objects;
 using Assets.GearMind.State;
 using Assets.GearMind.State.Utils;
@@ -58,5 +59,7 @@ namespace Assets.GearMind.Test
         }
 
         private void Awake() => _initialColor = _renderer.material.color;
+
+        
     }
 }
