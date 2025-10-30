@@ -1,8 +1,9 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/GearMind/Scripts/UI/UIToolkit/Interface.uss?fileID=7433441132597879392&amp;guid=0e4dc097e878066419e0241cf9ad44d6&amp;type=3#Interface" />
+    <Style src="project://database/Assets/GearMind/Scripts/UI/UIToolkit/Buttons.uss?fileID=7433441132597879392&amp;guid=e3a5523b7ea839b49a70d1d1cc29db0f&amp;type=3#Buttons" />
     <ui:VisualElement name="Buttons" class="hud-buttons" style="flex-grow: 1;">
-        <ui:Button text="Старт" name="Start" class="interface-button" />
-        <ui:Button text="Перезапуск &#10;уровня" name="Reload" class="interface-button" />
-        <ui:Button text="Настройки" name="Settings" class="interface-button" />
+        <ui:Button text="Запуск" name="Start" class="interface-button main-button" />
+        <ui:Button text="Перезапуск &#10;уровня" name="Reload" class="interface-button main-button" />
+        <ui:Button text="Настройки" name="Settings" class="interface-button main-button" />
     </ui:VisualElement>
 </ui:UXML>

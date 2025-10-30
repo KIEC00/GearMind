@@ -40,6 +40,8 @@ namespace Assets.GearMind.Scripts.UI
 
             _settingsButton = _doc.rootVisualElement.Q<Button>("Settings");
             _settingsButton.clicked += SettingsClicked;
+
+            UpdateStartButtonText();
         }
 
         private void TogglePlayMode()
@@ -49,6 +51,18 @@ namespace Assets.GearMind.Scripts.UI
                     ? LevelState.Simulate
                     : LevelState.Edit
             );
+
+            UpdateStartButtonText();
+        }
+
+        private void UpdateStartButtonText()
+        {
+            if (_startButton != null && _levelStateMachine != null)
+            {
+                _startButton.text = _levelStateMachine.CurrentState == LevelState.Simulate
+                    ? "Редактировать"
+                    : "Запуск";
+            }
         }
 
         private void SettingsClicked()

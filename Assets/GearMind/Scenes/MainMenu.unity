@@ -178,6 +178,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7677171658045401829, guid: 7d3c317fe54e2ef4c90925f813ac9b84, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7940388357043840672, guid: 7d3c317fe54e2ef4c90925f813ac9b84, type: 3}
       propertyPath: m_Name
       value: LevelsMenu
