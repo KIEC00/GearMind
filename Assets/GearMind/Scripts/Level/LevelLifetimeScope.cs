@@ -5,6 +5,7 @@ using Assets.GearMind.Grid;
 using Assets.GearMind.Input;
 using Assets.GearMind.Inventory;
 using Assets.GearMind.Level.States;
+using Assets.GearMind.Scripts.UI;
 using Assets.GearMind.State;
 using Assets.Utils.Runtime;
 using EditorAttributes;
@@ -34,6 +35,12 @@ namespace Assets.GearMind.Level
 
         [SerializeField, Required]
         private GridComponent _grid;
+
+        [SerializeField, Required]
+        private NextLevelController _nextLevelController;
+
+        [SerializeField, Required]
+        private LevelGoal _levelGoal;
 
         protected override void Configure(IContainerBuilder builder)
         {
@@ -66,6 +73,10 @@ namespace Assets.GearMind.Level
                 .All();
 
             builder.Register(LevelStateMachineFactoryMethod, Lifetime.Singleton).All();
+
+            builder.Register<LevelManager>(Lifetime.Singleton).AsSelf();
+            builder.RegisterComponent(_nextLevelController);
+            builder.RegisterComponent(_levelGoal);
         }
 
         private static LevelStateMachine LevelStateMachineFactoryMethod(IObjectResolver c) =>

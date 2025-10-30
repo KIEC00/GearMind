@@ -65,7 +65,7 @@ namespace Assets.GearMind.Scripts.UI
 
         private IEnumerator LoadScene()
         {
-            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("NewInterfaceScene");
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("SceneTemplate");
 
             // Можно добавить загрузочный экран
             while (!asyncLoad.isDone)

@@ -8,6 +8,7 @@ namespace Assets.GearMind.Scripts.UI
     public class InterfaceContoller : MonoBehaviour
     {
         private LevelStateMachine _levelStateMachine;
+        private LevelManager _levelManager;
 
         private UIDocument _doc;
         private Button _startButton;
@@ -18,8 +19,11 @@ namespace Assets.GearMind.Scripts.UI
         private SettingsController _settingsController;
 
         [Inject]
-        public void Construct(LevelStateMachine levelStateMachine) =>
+        public void Construct(LevelStateMachine levelStateMachine, LevelManager levelManager)
+        {
             _levelStateMachine = levelStateMachine;
+            _levelManager = levelManager;
+        }
 
         private void Awake()
         {
@@ -32,7 +36,7 @@ namespace Assets.GearMind.Scripts.UI
             _startButton.clicked += TogglePlayMode;
 
             _reloadSceneButton = _doc.rootVisualElement.Q<Button>("Reload");
-            //_reloadSceneButton.clicked += ;
+            _reloadSceneButton.clicked += ReloadScene;
 
             _settingsButton = _doc.rootVisualElement.Q<Button>("Settings");
             _settingsButton.clicked += SettingsClicked;
@@ -52,9 +56,16 @@ namespace Assets.GearMind.Scripts.UI
             _settingsController.Toggle();
         }
 
+        private void ReloadScene()
+        {
+            _levelManager.RestartLevel();
+        }
+
         private void OnDisable()
         {
+            _startButton.clicked -= TogglePlayMode;
             _settingsButton.clicked -= SettingsClicked;
+            _reloadSceneButton.clicked -= ReloadScene;
         }
     }
 }
