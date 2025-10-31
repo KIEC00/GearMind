@@ -131,6 +131,7 @@ MonoBehaviour:
   GridMaterial: {fileID: 2100000, guid: 5ea290e1fb9abe14eb0f13fe728fa715, type: 2}
   IsNeedTrigerCollider: 1
   LogicObject: {fileID: 4552549769592619806}
+  ObjectCollider: {fileID: 6181322659007285641}
   ObjectRenderer: {fileID: 1615563767918855156}
   _rigidbody: {fileID: 2627316391312074395}
   <IsDragable>k__BackingField: 1
@@ -419,7 +420,7 @@ Transform:
   m_GameObject: {fileID: 6021220338681860564}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.511, z: 0}
+  m_LocalPosition: {x: 0, y: 0.511, z: -0.5}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -496,6 +497,7 @@ MonoBehaviour:
   FirstObjectPoint: {fileID: 4448893277186804379}
   SecondObjectPoint: {fileID: 8184910230276666836}
   LineRenderer: {fileID: 1843227411927576230}
+  OffsetDrawRopeZ: -0.5
 --- !u!120 &1843227411927576230
 LineRenderer:
   serializedVersion: 2

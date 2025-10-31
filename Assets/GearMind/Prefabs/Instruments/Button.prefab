@@ -225,12 +225,12 @@ Transform:
   m_GameObject: {fileID: 5592714388763455903}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -5.0500007, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 439637613847443937}
-  m_Father: {fileID: 8759353774880712377}
+  m_Father: {fileID: 3492760888756257559}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &4147672551690885714
 BoxCollider2D:
@@ -318,12 +318,11 @@ Transform:
   m_GameObject: {fileID: 8343198750344242452}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -5.05, z: 0}
+  m_LocalPosition: {x: 0, y: -5.05, z: -0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1808507397696296779}
-  - {fileID: 3226264596582363257}
   m_Father: {fileID: 3492760888756257559}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5852812025129757296
@@ -415,6 +414,7 @@ Transform:
   m_LocalScale: {x: 0.7, y: 0.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 3226264596582363257}
   - {fileID: 8759353774880712377}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -512,6 +512,7 @@ MonoBehaviour:
   GridMaterial: {fileID: 2100000, guid: 5ea290e1fb9abe14eb0f13fe728fa715, type: 2}
   IsNeedTrigerCollider: 1
   LogicObject: {fileID: 5592714388763455903}
+  ObjectCollider: {fileID: 7476390955502768585}
   ObjectRenderer: {fileID: 8988487523038608583}
   _rigidbody: {fileID: 2912999878322809634}
   <IsDragable>k__BackingField: 1
