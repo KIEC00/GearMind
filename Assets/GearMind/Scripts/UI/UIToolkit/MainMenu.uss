@@ -2,10 +2,10 @@
 }
 
 .menu-button {
-    background-color: rgb(217, 217, 217);
-    font-size: 30px;
+    background-color: rgb(248, 236, 171);
+    font-size: 50px;
     -unity-text-align: middle-center;
-    width: 20%;
+    width: 300px;
     min-width: 300px;
     max-width: none;
     min-height: 50px;
@@ -19,6 +19,11 @@
     margin-right: 15px;
     margin-bottom: 15px;
     margin-left: 15px;
+    -unity-font-style: normal;
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+    border-top-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(255, 255, 255);
 }
 
 .buttons-container {
@@ -28,13 +33,8 @@
     width: 100%;
     flex-grow: 4;
     flex-wrap: nowrap;
-}
-
-.menu-button:hover {
-    background-color: rgb(234, 234, 234);
-}
-
-.menu-button:active {
-    background-color: rgb(99, 99, 99);
-    color: rgb(255, 255, 255);
+    -unity-font-definition: url("project://database/Assets/TextMesh%20Pro/Fonts/BoldPixels.ttf?fileID=12800000&guid=0da78171e9a8d374b8549aba0c2dd785&type=3#BoldPixels");
+    color: rgb(246, 168, 0);
+    font-size: 80px;
+    -unity-font-style: bold;
 }

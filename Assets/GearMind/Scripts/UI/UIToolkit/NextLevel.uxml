@@ -1,0 +1,9 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/GearMind/Scripts/UI/UIToolkit/Settings.uss?fileID=7433441132597879392&amp;guid=b879d50d99a0d3c4ca70e4274d6085e6&amp;type=3#Settings" />
+    <ui:VisualElement name="Panel" class="settings" style="flex-grow: 1; position: absolute;">
+        <ui:VisualElement name="VisualElement" class="settings-panel" style="flex-grow: 1; background-color: rgb(248, 236, 171); min-width: 356px; min-height: auto; max-height: 211px; width: 356px; height: 211px; max-width: none;">
+            <ui:Label text="Поздравляем!" name="Header" class="settingHeader" style="flex-grow: 0; width: auto; font-size: 55px; margin-top: 0%; margin-right: 0%; margin-bottom: 0%; margin-left: 0%; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; max-height: none; -unity-font-style: normal;" />
+            <ui:Button text="Следующий&#10;уровень" name="ExitToNextLevelButton" class="green-button" style="color: rgb(248, 236, 171); padding-top: 9px; padding-bottom: 9px; padding-right: 40px; padding-left: 40px; min-width: 60%; font-size: 33px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

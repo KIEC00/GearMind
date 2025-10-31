@@ -7,13 +7,13 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/GearMind/Scenes/MainMenu.unity
-    guid: 094ecd118f604d846bd01dc90eb752f9
+    guid: 986914b108d567d4395dc8a7b1ae57d4
   - enabled: 1
-    path: Assets/GearMind/Scenes/BaseScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/GearMind/Scenes/SceneTemplate.unity
+    guid: a3ba001c559f07345aab2dd50657d39d
   - enabled: 1
-    path: Assets/GearMind/Scenes/NewInterfaceScene.unity
-    guid: 6b26881ebbafc944c8c6bd0d0bc519be
+    path: Assets/GearMind/Scenes/Level2.unity
+    guid: 394124ddeec2c434f9f996708c3995a5
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
