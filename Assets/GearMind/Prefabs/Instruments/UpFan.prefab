@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4075105307413654156}
   m_Layer: 0
   m_Name: VentilatorEffect (1)
-  m_TagString: IncludedInstrument
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -192,7 +192,7 @@ GameObject:
   - component: {fileID: 3165260220768999106}
   m_Layer: 0
   m_Name: VentilatorEffect
-  m_TagString: IncludedInstrument
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
