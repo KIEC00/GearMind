@@ -15,7 +15,7 @@ public class JointGridObject : MonoBehaviour, IDragAndDropTarget, IHaveState<Rig
     [SerializeField] private bool IsNeedTrigerCollider;
     [SerializeField] private GameObject LogicObject;
     private Collider2D[] ListCollidersCollisions = new Collider2D[10];
-    private Collider2D ObjectCollider;
+    [SerializeField, Required] private Collider2D ObjectCollider;
     private ContactFilter2D Filter;
     private ContactFilter2D ConnectFilter;
 
@@ -38,7 +38,6 @@ public class JointGridObject : MonoBehaviour, IDragAndDropTarget, IHaveState<Rig
 
     public void Awake()
     {
-        ObjectCollider = GetComponent<Collider2D>();
         
         Filter = new ContactFilter2D();
         Filter.SetLayerMask(ObstacleLayers);
@@ -55,6 +54,7 @@ public class JointGridObject : MonoBehaviour, IDragAndDropTarget, IHaveState<Rig
         InitialColor = ObjectRenderer.material.color;  
 
         OnDragStart();
+        EnterEditMode();
     }
 
 

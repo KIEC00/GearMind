@@ -15,12 +15,12 @@ public class CommonGridObject : MonoBehaviour, IDragAndDropTarget, IHaveState<Ri
     [SerializeField] private bool IsNeedTrigerCollider;
     
     private Collider2D[] ListCollidersCollisions = new Collider2D[10];
-    private Collider2D ObjectCollider;
+    [SerializeField, Required] private Collider2D ObjectCollider;
     private ContactFilter2D Filter;
-    private Renderer ObjectRenderer;
+    [SerializeField, Required] private Renderer ObjectRenderer;
     private RigidbodyType2D TypeObjectRigidbody;
 
-    private Rigidbody2D Rigidbody;
+    [SerializeField, Required] private Rigidbody2D Rigidbody;
     private const float DRAG_ALPHA = 0.5f;
     private Color InitialColor;
     private Material InitialMaterial;
@@ -30,16 +30,14 @@ public class CommonGridObject : MonoBehaviour, IDragAndDropTarget, IHaveState<Ri
 
     public void Awake()
     {
-
-        ObjectCollider = GetComponent<Collider2D>();
-        Rigidbody = GetComponent<Rigidbody2D>();
         Filter = new ContactFilter2D();
         Filter.SetLayerMask(ObstacleLayers);
         Filter.useTriggers = true;
-        ObjectRenderer = GetComponent<Renderer>();
         InitialColor = ObjectRenderer.material.color;
         InitialMaterial = ObjectRenderer.material;
         TypeObjectRigidbody = Rigidbody.bodyType;
+
+        EnterEditMode();
 
     }
 
@@ -65,7 +63,7 @@ public class CommonGridObject : MonoBehaviour, IDragAndDropTarget, IHaveState<Ri
     public virtual void SetState(Rigidbody2DState state) => Rigidbody.SetState(state);
 
     [Button]
-    public virtual void EnterEditMode() => Rigidbody.bodyType = RigidbodyType2D.Kinematic;
+    public virtual void EnterEditMode() => Rigidbody.bodyType = RigidbodyType2D.Static;
 
     [Button]
     public virtual void EnterPlayMode()
