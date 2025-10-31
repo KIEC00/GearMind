@@ -14,7 +14,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Assets.GearMind.Inventory.InventoryFactorySO
   _inventory:
     _serializedList:
-    - Key: {fileID: 4883142675816556237, guid: b34c4efc0f970c841ac7a134fa32a882, type: 3}
+    - Key: {fileID: 4666209939045324369, guid: bdd1314ddb5a1a5468fe410404018728, type: 3}
       Value: 3
-    - Key: {fileID: 7816242771119149421, guid: 7c5aaf77e630b294a8fe76a1a7995482, type: 3}
+    - Key: {fileID: 5637799894335985506, guid: 6a44225e693563447a75394d681111cf, type: 3}
+      Value: 3
+    - Key: {fileID: 153870466632814307, guid: bbcccb0e1781b2042af923616189a837, type: 3}
+      Value: 3
+    - Key: {fileID: 5078550567428888148, guid: 45f3d433a994a304987e2963d588eaae, type: 3}
+      Value: 3
+    - Key: {fileID: 9045012617529744797, guid: e8c91a94ad5535e4db85d136db769d60, type: 3}
+      Value: 3
+    - Key: {fileID: 2995878182433360892, guid: 262591131f741f540b65874c0e4f7548, type: 3}
+      Value: 3
+    - Key: {fileID: 5637799894335985506, guid: 447d292bc59432440bbfc6030400513b, type: 3}
+      Value: 3
+    - Key: {fileID: 5637799894335985506, guid: dd9738032b4cd1f48ac2b56a5fa13258, type: 3}
+      Value: 3
+    - Key: {fileID: 5637799894335985506, guid: 970e9bb8bd4d2034f87652788ad237f1, type: 3}
+      Value: 3
+    - Key: {fileID: 845188412800071226, guid: d22b878380dc2704fa5d7b5a21d33c49, type: 3}
       Value: 3

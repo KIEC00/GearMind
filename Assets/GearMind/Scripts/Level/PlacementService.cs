@@ -19,7 +19,6 @@ namespace Assets.GearMind.Level
         private readonly GridComponent _grid;
         private readonly IObjectService _objectService;
         private readonly Transform _objectsParent;
-        private readonly float _errorDragZOffset;
         private bool _enabled;
 
         private DraggingData _draggingData = new();
@@ -33,8 +32,7 @@ namespace Assets.GearMind.Level
             IScreenRaycaster2D raycaster,
             GridComponent grid,
             IObjectService objectService,
-            Transform objectsParent,
-            float errorDragZOffset
+            Transform objectsParent
         )
         {
             _input = input;
@@ -43,7 +41,6 @@ namespace Assets.GearMind.Level
             _grid = grid;
             _objectService = objectService;
             _objectsParent = objectsParent;
-            _errorDragZOffset = errorDragZOffset;
             _input.Disable();
         }
 
@@ -99,14 +96,7 @@ namespace Assets.GearMind.Level
             var canPlaceObject =
                 gridPosition.HasValue && _draggingData.DragTarget.ValidatePlacement();
             _draggingData.DragTarget.SetError(!canPlaceObject);
-            if (gridPosition.HasValue)
-                _draggingData.DragTarget.OnDrag(
-                    canPlaceObject
-                        ? gridPosition.Value
-                        : gridPosition.Value + new Vector3(0, 0, _errorDragZOffset)
-                );
-            else
-                _draggingData.DragTarget.OnDrag(planePositionWithOffset);
+            _draggingData.DragTarget.OnDrag(gridPosition ?? planePositionWithOffset);
         }
 
         private void HandleDragEnd(Vector2 screenPosition)

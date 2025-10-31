@@ -1,8 +1,10 @@
+using Assets.Utils.Runtime;
 using UnityEngine;
 using VContainer;
 
 namespace Assets.GearMind.Level
 {
+    [RequireComponent(typeof(Renderer))]
     public class LevelGoal : MonoBehaviour
     {
         private LevelManager _manager;
@@ -11,6 +13,7 @@ namespace Assets.GearMind.Level
         public void Construct(LevelManager manager)
         {
             _manager = manager;
+            GetComponent<Renderer>().material.color = Color.green.WithAlpha(0.1f);
         }
 
         private void OnTriggerEnter2D(Collider2D other)

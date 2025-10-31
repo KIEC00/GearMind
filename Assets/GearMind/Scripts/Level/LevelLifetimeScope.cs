@@ -69,7 +69,6 @@ namespace Assets.GearMind.Level
             builder
                 .Register<PlacementService>(Lifetime.Singleton)
                 .WithParameter("objectsParent", _environmentAnchor)
-                .WithParameter("errorDragZOffset", -1f)
                 .All();
 
             builder.Register(LevelStateMachineFactoryMethod, Lifetime.Singleton).All();
