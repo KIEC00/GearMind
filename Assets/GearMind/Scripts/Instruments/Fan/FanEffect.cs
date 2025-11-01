@@ -10,7 +10,7 @@ public class FanEffect : MonoBehaviour
     public void OnTriggerStay2D(Collider2D other)
     {
         
-        if(other.gameObject.tag == "Instrument")
+        if(other.gameObject.tag == "Instrument" || other.gameObject.tag == "Ball")
         {
             Ventilator.VentilatorPush(other.GetComponent<Rigidbody2D>());
         }
@@ -18,7 +18,7 @@ public class FanEffect : MonoBehaviour
     public void OnTriggerEnter2D(Collider2D other)
     {
 
-        if (other.gameObject.tag == "Instrument")
+        if (other.gameObject.tag == "Instrument" || other.gameObject.tag == "Ball")
         {
             Ventilator.VentilatorPush(other.GetComponent<Rigidbody2D>());
         }

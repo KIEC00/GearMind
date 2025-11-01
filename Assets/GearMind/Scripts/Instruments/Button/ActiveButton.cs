@@ -6,7 +6,7 @@ public class ActiveButton : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.gameObject.tag == "Instrument")
+        if(other.gameObject.tag == "Instrument" || other.gameObject.tag == "Ball")
         {
             ActiveCollider.SetActive(true);
         }

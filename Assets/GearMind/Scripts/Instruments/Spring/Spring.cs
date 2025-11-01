@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class Spring : MonoBehaviour
 {
-    [SerializeField] private int Force = 13;
-    [SerializeField] private float CaldownBefore = 1;
-    [SerializeField] private float CaldownAfter = 2;
+    [SerializeField] private int Force = 2;
+    [SerializeField] private float CaldownBefore = 0;
+    [SerializeField] private float CaldownAfter = 0;
     public bool IsCanPush { get; private set; } = true;
 
     private IEnumerator PushObject(GameObject gameObject)
@@ -18,9 +18,9 @@ public class Spring : MonoBehaviour
         IsCanPush = true;
     }
 
-    public void OnTriggerStay2D(Collider2D collider)
+    public void OnTriggerEnter2D(Collider2D collider)
     {
-        if(IsCanPush && collider.gameObject.tag == "Instrument" )
+        if(IsCanPush && collider.gameObject.tag == "Instrument" || collider.gameObject.tag == "Ball" )
         {
             StartCoroutine(PushObject(collider.gameObject));
         }

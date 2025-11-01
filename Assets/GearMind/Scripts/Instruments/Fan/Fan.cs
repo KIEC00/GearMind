@@ -33,7 +33,7 @@ public class Fan : MonoBehaviour, IPointerClickHandler, IIncludedObject
 
     public void VentilatorPush(Rigidbody2D rb)
     {
-        rb.AddForce(-transform.right * ForceVentilator);
+        rb.AddForce(-transform.right * ForceVentilator, ForceMode2D.Force);
     }
 
     public void OnPointerClick(PointerEventData eventData)

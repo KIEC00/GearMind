@@ -124,8 +124,8 @@ public class JointGridObject
         {
             for (var i = 0; i < countCollision; ++i)
             {
-                var connectObject = ListCollidersCollisions[i]
-                    .gameObject.GetComponent<IConnectGridObject>();
+                if (!ListCollidersCollisions[i].gameObject.TryGetComponent<IConnectGridObject>(out var connectObject))
+                    continue;
                 connectObject.OnDestroyConnectObject += DestroyObject;
                 ConnectObjects.Add(connectObject);
             }

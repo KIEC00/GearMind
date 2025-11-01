@@ -128,7 +128,6 @@ MonoBehaviour:
   ObstacleLayers:
     serializedVersion: 2
     m_Bits: 128
-  GridMaterial: {fileID: 2100000, guid: 5ea290e1fb9abe14eb0f13fe728fa715, type: 2}
   IsNeedTrigerCollider: 1
   LogicObject: {fileID: 6002969385393822116}
   ObjectCollider: {fileID: 4010397242072108704}
@@ -194,9 +193,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94e07d0d50612bf48942d98ded1d537a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Spring
-  Force: 8
-  CaldownBefore: 0.2
-  CaldownAfter: 2
+  Force: 10
+  CaldownBefore: 0.1
+  CaldownAfter: 0.1
 --- !u!61 &1799134841851748377
 BoxCollider2D:
   m_ObjectHideFlags: 0
