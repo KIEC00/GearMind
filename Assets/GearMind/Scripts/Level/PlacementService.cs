@@ -139,9 +139,9 @@ namespace Assets.GearMind.Level
 
         public void Disable()
         {
-            if (_enabled)
+            if (!_enabled)
                 return;
-            _enabled = true;
+            _enabled = false;
 
             _input.Disable();
         }
