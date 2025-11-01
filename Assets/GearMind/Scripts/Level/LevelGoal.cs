@@ -13,7 +13,6 @@ namespace Assets.GearMind.Level
         public void Construct(LevelManager manager)
         {
             _manager = manager;
-            GetComponent<Renderer>().material.color = Color.green.WithAlpha(0.1f);
         }
 
         private void OnTriggerEnter2D(Collider2D other)
