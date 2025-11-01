@@ -348,9 +348,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ventilator
   VentilatorEffect: {fileID: 7778185127003330504}
-  ForceVentilator: 10
+  ForceVentilator: 20
+  _renderer: {fileID: 2314787012202226156}
   TurnOnMaterial: {fileID: 2100000, guid: 7e9f8f80ff866f24db4d010bded76f0b, type: 2}
-  TurnOffMaterial: {fileID: 2100000, guid: 0d282d79d24169440b641772dc31d38e, type: 2}
 --- !u!50 &6465470494155617293
 Rigidbody2D:
   serializedVersion: 5

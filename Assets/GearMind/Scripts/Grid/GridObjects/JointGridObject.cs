@@ -7,25 +7,38 @@ using Assets.Utils.Runtime;
 using EditorAttributes;
 using UnityEngine;
 
-public class JointGridObject : MonoBehaviour, IDragAndDropTarget, IHaveState<Rigidbody2DState>, IGameplayObject
+public class JointGridObject
+    : MonoBehaviour,
+        IDragAndDropTarget,
+        IHaveState<Rigidbody2DState>,
+        IGameplayObject
 {
-    [SerializeField] private LayerMask ConnectLayers;
-    [SerializeField] private LayerMask ObstacleLayers;
-    [SerializeField] private Material GridMaterial;
-    [SerializeField] private bool IsNeedTrigerCollider;
-    [SerializeField] private GameObject LogicObject;
+    [SerializeField]
+    private LayerMask ConnectLayers;
+
+    [SerializeField]
+    private LayerMask ObstacleLayers;
+
+    [SerializeField]
+    private bool IsNeedTrigerCollider;
+
+    [SerializeField]
+    private GameObject LogicObject;
     private Collider2D[] ListCollidersCollisions = new Collider2D[10];
-    [SerializeField, Required] private Collider2D ObjectCollider;
+
+    [SerializeField, Required]
+    private Collider2D ObjectCollider;
     private ContactFilter2D Filter;
     private ContactFilter2D ConnectFilter;
 
     private Rigidbody2D Rigidbody;
     private const float DRAG_ALPHA = 0.5f;
     private Color InitialColor;
-    private Material InitialMaterial;
 
     private List<IConnectGridObject> ConnectObjects;
-    [SerializeField]private Renderer ObjectRenderer;
+
+    [SerializeField]
+    private Renderer ObjectRenderer;
 
     private IEnumerable<IDragAndDropTarget> GridObjects;
 
@@ -35,10 +48,8 @@ public class JointGridObject : MonoBehaviour, IDragAndDropTarget, IHaveState<Rig
     [field: SerializeField]
     public bool IsDragable { get; set; } = false;
 
-
     public void Awake()
     {
-        
         Filter = new ContactFilter2D();
         Filter.SetLayerMask(ObstacleLayers);
         Filter.useTriggers = true;
@@ -49,14 +60,8 @@ public class JointGridObject : MonoBehaviour, IDragAndDropTarget, IHaveState<Rig
 
         ConnectObjects = new List<IConnectGridObject>();
         //ObjectRenderer = GetComponent<Renderer>();
-
-        InitialMaterial = ObjectRenderer.material;
-        InitialColor = ObjectRenderer.material.color;  
-
-        OnDragStart();
-        EnterEditMode();
+        InitialColor = ObjectRenderer.material.color;
     }
-
 
     //Добавить логику удаления;
     public void DestroyObject()
@@ -70,16 +75,18 @@ public class JointGridObject : MonoBehaviour, IDragAndDropTarget, IHaveState<Rig
 
     public bool ValidatePlacement(out IEnumerable<IDragAndDropTarget> dependsOn)
     {
-        
         if (ObjectCollider.Overlap(Filter, ListCollidersCollisions) == 0)
         {
             var countCollision = ObjectCollider.Overlap(ConnectFilter, ListCollidersCollisions);
             var listDepends = new List<IDragAndDropTarget>();
             if (countCollision > 0)
             {
-                for(var i = 0; i < countCollision; i++)
+                for (var i = 0; i < countCollision; i++)
                 {
-                    listDepends.Add(ListCollidersCollisions[i].transform.parent.GetComponent<IDragAndDropTarget>());
+                    listDepends.Add(
+                        ListCollidersCollisions[i]
+                            .transform.parent.GetComponent<IDragAndDropTarget>()
+                    );
                 }
                 dependsOn = listDepends;
                 return true;
@@ -91,7 +98,6 @@ public class JointGridObject : MonoBehaviour, IDragAndDropTarget, IHaveState<Rig
 
     public bool ValidatePlacement()
     {
-
         if (ObjectCollider.Overlap(Filter, ListCollidersCollisions) == 0)
         {
             var countCollision = ObjectCollider.Overlap(ConnectFilter, ListCollidersCollisions);
@@ -100,8 +106,11 @@ public class JointGridObject : MonoBehaviour, IDragAndDropTarget, IHaveState<Rig
             {
                 for (var i = 0; i < countCollision; i++)
                 {
-                    listDepends.Add(ListCollidersCollisions[i].transform.parent.GetComponent<IDragAndDropTarget>());
-                }               
+                    listDepends.Add(
+                        ListCollidersCollisions[i]
+                            .transform.parent.GetComponent<IDragAndDropTarget>()
+                    );
+                }
                 return true;
             }
         }
@@ -115,18 +124,17 @@ public class JointGridObject : MonoBehaviour, IDragAndDropTarget, IHaveState<Rig
         {
             for (var i = 0; i < countCollision; ++i)
             {
-                var connectObject = ListCollidersCollisions[i].gameObject.GetComponent<IConnectGridObject>();
+                var connectObject = ListCollidersCollisions[i]
+                    .gameObject.GetComponent<IConnectGridObject>();
                 connectObject.OnDestroyConnectObject += DestroyObject;
                 ConnectObjects.Add(connectObject);
-
             }
         }
-        
     }
 
     public void ClearConnects()
     {
-        foreach(var obj in ConnectObjects)
+        foreach (var obj in ConnectObjects)
         {
             obj.OnDestroyConnectObject -= DestroyObject;
         }
@@ -141,23 +149,23 @@ public class JointGridObject : MonoBehaviour, IDragAndDropTarget, IHaveState<Rig
 
     public void OnDragEnd()
     {
-        if(!IsNeedTrigerCollider)
+        if (!IsNeedTrigerCollider)
             ObjectCollider.isTrigger = false;
-        ObjectRenderer.material = InitialMaterial;
+        ObjectRenderer.material.color = InitialColor;
         RegisterConnect();
     }
 
     public void OnDragStart()
     {
         ObjectCollider.isTrigger = true;
-        ObjectRenderer.material = GridMaterial;
+        ObjectRenderer.material.color = InitialColor.WithAlpha(DRAG_ALPHA);
         ClearConnects();
     }
 
     public void OnDrag(Vector3 position) => transform.position = position;
 
-
     public virtual Rigidbody2DState GetState() => _rigidbody.GetState();
+
     public virtual void SetState(Rigidbody2DState state) => _rigidbody.SetState(state);
 
     [Button]
@@ -165,6 +173,4 @@ public class JointGridObject : MonoBehaviour, IDragAndDropTarget, IHaveState<Rig
 
     [Button]
     public void EnterPlayMode() => LogicObject.SetActive(true);
-    
 }
-
