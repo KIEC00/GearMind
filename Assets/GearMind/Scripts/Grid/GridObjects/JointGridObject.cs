@@ -61,6 +61,7 @@ public class JointGridObject
         ConnectObjects = new List<IConnectGridObject>();
         //ObjectRenderer = GetComponent<Renderer>();
         InitialColor = ObjectRenderer.material.color;
+        LogicObject.SetActive(false);
     }
 
     //Добавить логику удаления;
@@ -124,7 +125,10 @@ public class JointGridObject
         {
             for (var i = 0; i < countCollision; ++i)
             {
-                if (!ListCollidersCollisions[i].gameObject.TryGetComponent<IConnectGridObject>(out var connectObject))
+                if (
+                    !ListCollidersCollisions[i]
+                        .gameObject.TryGetComponent<IConnectGridObject>(out var connectObject)
+                )
                     continue;
                 connectObject.OnDestroyConnectObject += DestroyObject;
                 ConnectObjects.Add(connectObject);
@@ -169,8 +173,14 @@ public class JointGridObject
     public virtual void SetState(Rigidbody2DState state) => _rigidbody.SetState(state);
 
     [Button]
-    public void EnterEditMode() => LogicObject.SetActive(false);
+    public void EnterEditMode()
+    {
+        LogicObject.SetActive(false);
+    }
 
     [Button]
-    public void EnterPlayMode() => LogicObject.SetActive(true);
+    public void EnterPlayMode()
+    {
+        LogicObject.SetActive(true);
+    }
 }

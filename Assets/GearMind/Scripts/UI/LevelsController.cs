@@ -13,12 +13,11 @@ namespace Assets.GearMind.Scripts.UI
 
         private Dictionary<string, string> _levelScenes = new Dictionary<string, string>
         {
-            { "1", "SceneTemplate" },
-            { "2", "Level2" }
+            { "1", "Level 1" },
+            { "2", "Level 2" },
         };
 
         public bool IsVisible => _levelsPanel.style.display == DisplayStyle.Flex;
-
 
         private void Awake()
         {
@@ -33,7 +32,9 @@ namespace Assets.GearMind.Scripts.UI
             if (_closeLevelsMenuButton != null)
                 _closeLevelsMenuButton.clicked += CloseLevelsMenu;
 
-            var levelButtons = _doc.rootVisualElement.Query<Button>(className: "level-button").ToList();
+            var levelButtons = _doc
+                .rootVisualElement.Query<Button>(className: "level-button")
+                .ToList();
             foreach (var button in levelButtons)
             {
                 button.clicked += () => LoadLevel(button.text);
@@ -54,8 +55,10 @@ namespace Assets.GearMind.Scripts.UI
 
         public void Toggle()
         {
-            if (IsVisible) CloseLevelsMenu();
-            else OpenLevelsMenu();
+            if (IsVisible)
+                CloseLevelsMenu();
+            else
+                OpenLevelsMenu();
         }
 
         private void LoadLevel(string levelNumber)
@@ -65,7 +68,8 @@ namespace Assets.GearMind.Scripts.UI
                 var sceneName = _levelScenes[levelNumber];
                 SceneManager.LoadScene(sceneName);
             }
-            else return;
+            else
+                return;
         }
 
         private void OnDisable()

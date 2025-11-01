@@ -362,7 +362,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4833043156032693714, guid: 5326fcf0c017f4d488d45719f5b2521c, type: 3}
       propertyPath: ForceVentilator
-      value: 5
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 6237001066484002063, guid: 5326fcf0c017f4d488d45719f5b2521c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -427,7 +427,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4833043156032693714, guid: 5326fcf0c017f4d488d45719f5b2521c, type: 3}
       propertyPath: ForceVentilator
-      value: 5
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 6237001066484002063, guid: 5326fcf0c017f4d488d45719f5b2521c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1945,6 +1945,51 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6237001066484002063, guid: 5326fcf0c017f4d488d45719f5b2521c, type: 3}
   m_PrefabInstance: {fileID: 114996078}
   m_PrefabAsset: {fileID: 0}
+--- !u!21 &1002459358
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Grid
+  m_Shader: {fileID: -6465566751694194690, guid: 2ca1bf1cd28498040bb9e6d093e0ded9, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _QueueControl: -1
+    - _QueueOffset: 0
+    - _Thickness: 0.1
+    m_Colors:
+    - _Color: {r: 0, g: 1, b: 1, a: 0.5019608}
+    - _Size: {r: 35, g: 35, b: 0, a: 0}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!1001 &1022492943
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1963,7 +2008,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7216434836770123484, guid: d58d63c367b5a3144809cdfd015ea088, type: 3}
       propertyPath: ForceVentilator
-      value: 5
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 8194793718027068929, guid: d58d63c367b5a3144809cdfd015ea088, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2254,7 +2299,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7216434836770123484, guid: d58d63c367b5a3144809cdfd015ea088, type: 3}
       propertyPath: ForceVentilator
-      value: 5
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 8194793718027068929, guid: d58d63c367b5a3144809cdfd015ea088, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2650,51 +2695,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!21 &1427465847
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Grid
-  m_Shader: {fileID: -6465566751694194690, guid: 2ca1bf1cd28498040bb9e6d093e0ded9, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - unity_Lightmaps:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - unity_LightmapsInd:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - unity_ShadowMasks:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _QueueControl: -1
-    - _QueueOffset: 0
-    - _Thickness: 0.1
-    m_Colors:
-    - _Color: {r: 0, g: 1, b: 1, a: 0.5019608}
-    - _Size: {r: 35, g: 35, b: 0, a: 0}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
 --- !u!1 &1479517041
 GameObject:
   m_ObjectHideFlags: 0
@@ -3163,7 +3163,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1427465847}
+  - {fileID: 1002459358}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3750,7 +3750,7 @@ MonoBehaviour:
   autoInjectGameObjects:
   - {fileID: 1787585522}
   - {fileID: 660383488}
-  _inventoryFactory: {fileID: 11400000, guid: 4562b3386aba2de4a8ba78d5b20f9f00, type: 2}
+  _inventoryFactory: {fileID: 11400000, guid: d2a85fdfd9952a440893e21995e4d41f, type: 2}
   _environmentAnchor: {fileID: 787784652}
   _graphicRaycaster: {fileID: 660383489}
   _eventSystem: {fileID: 1232593318}
@@ -4042,7 +4042,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7216434836770123484, guid: d58d63c367b5a3144809cdfd015ea088, type: 3}
       propertyPath: ForceVentilator
-      value: 5
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 8194793718027068929, guid: d58d63c367b5a3144809cdfd015ea088, type: 3}
       propertyPath: m_LocalPosition.x

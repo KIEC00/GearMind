@@ -10,11 +10,5 @@ public class ConnectObject : MonoBehaviour, IConnectGridObject
     {
         OnDestroyConnectObject?.Invoke();
         Destroy(transform.parent.gameObject);
-
-    }
-
-    public void Awake()
-    {
-        
     }
 }

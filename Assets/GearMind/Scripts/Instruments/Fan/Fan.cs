@@ -1,10 +1,8 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Fan : MonoBehaviour, IPointerClickHandler, IIncludedObject
+public class Fan : MonoBehaviour, IIncludedObject
 {
-    public bool IsTurnOn { get; private set; } = false;
-
     [SerializeField]
     private GameObject VentilatorEffect;
 
@@ -16,10 +14,11 @@ public class Fan : MonoBehaviour, IPointerClickHandler, IIncludedObject
 
     private Color _initialColor;
 
+    private void Awake() => _initialColor = _renderer.material.color;
+
     public void TurnOnOff(bool isTurnOn)
     {
         VentilatorEffect.SetActive(isTurnOn);
-        IsTurnOn = isTurnOn;
         if (isTurnOn)
             _renderer.material.color = Color.green;
         else
@@ -36,8 +35,13 @@ public class Fan : MonoBehaviour, IPointerClickHandler, IIncludedObject
         rb.AddForce(-transform.right * ForceVentilator, ForceMode2D.Force);
     }
 
-    public void OnPointerClick(PointerEventData eventData)
+    private void OnEnable()
     {
-        TurnOnOff(!IsTurnOn);
+        TurnOnOff(false);
+    }
+
+    private void OnDisable()
+    {
+        TurnOnOff(false);
     }
 }

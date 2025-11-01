@@ -15,13 +15,13 @@ namespace Assets.GearMind.Scripts.UI
 
         [SerializeField]
         private SettingsController _settingsController;
+
         [SerializeField]
         private LevelsController _levelsController;
 
         private void Awake()
         {
             _doc = GetComponent<UIDocument>();
-
         }
 
         private void OnEnable()
@@ -39,9 +39,7 @@ namespace Assets.GearMind.Scripts.UI
             _levelsButton.clicked += LevelsClicked;
 
             _settingsController.SetContext(SettingsController.Context.MainMenu);
-
         }
-
 
         private void PlayClicked()
         {
@@ -65,7 +63,7 @@ namespace Assets.GearMind.Scripts.UI
 
         private IEnumerator LoadScene()
         {
-            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("SceneTemplate");
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Level 1");
 
             // Можно добавить загрузочный экран
             while (!asyncLoad.isDone)
