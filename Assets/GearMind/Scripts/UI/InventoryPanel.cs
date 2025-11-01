@@ -13,16 +13,20 @@ namespace Assets.GearMind.UI
     {
         [SerializeField, Required]
         private CanvasGroup _canvasGroup;
+
         [SerializeField, Required]
         private ScrollRect _scrollRect;
+
         [SerializeField, Required]
         private Transform _scrollContent;
+
         [SerializeField, Required]
         private InventoryItemButton _buttonPrefab;
 
         private IInventory _inventory;
         private PlacementService _placementService;
         private IIdentityPrefabMap _identityPrefabMap;
+        private ILevelStateMachine _stateMachine;
 
         private Dictionary<IInventoryIdentity, InventoryItemButton> _buttons = new();
 
@@ -30,13 +34,15 @@ namespace Assets.GearMind.UI
         public void Construct(
             IInventory inventory,
             PlacementService placementService,
-            IIdentityPrefabMap identityPrefabMap
+            IIdentityPrefabMap identityPrefabMap,
+            ILevelStateMachine stateMachine
         )
         {
             _inventory = inventory;
             _inventory.OnChange += HandleInventoryChange;
             _placementService = placementService;
             _identityPrefabMap = identityPrefabMap;
+            _stateMachine = stateMachine;
         }
 
         private void Awake()
@@ -55,10 +61,11 @@ namespace Assets.GearMind.UI
 
         private void InstantiateAndStartDragObject(IInventoryIdentity identity)
         {
-            if (_inventory[identity] <= 0)
-            {
+            if (_stateMachine.CurrentState != LevelState.Edit)
                 return;
-            }
+
+            if (_inventory[identity] <= 0)
+                return;
 
             var gameObject = _identityPrefabMap[identity];
             if (gameObject == null)
@@ -81,7 +88,11 @@ namespace Assets.GearMind.UI
             UpdateButton(button, data.Identity, data.CurrentCount);
         }
 
-        private void UpdateButton(InventoryItemButton button, IInventoryIdentity identity, int quantity)
+        private void UpdateButton(
+            InventoryItemButton button,
+            IInventoryIdentity identity,
+            int quantity
+        )
         {
             button.Name = identity.Name;
             button.Quantity = quantity;
