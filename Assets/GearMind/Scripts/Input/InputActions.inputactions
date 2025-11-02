@@ -50,6 +50,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "RotatePressed",
+                    "type": "Button",
+                    "id": "9c98a2eb-6bb9-4a65-bcef-80f2b6dab79e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -105,6 +114,17 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "EscPressed",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "31d27978-8034-4e5f-88a3-0813d31d45f5",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "RotatePressed",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
