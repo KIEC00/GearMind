@@ -6,7 +6,7 @@ namespace Assets.GearMind.Input
 {
     public class InputService : IInputService, IDisposable
     {
-        const float _dragThreshold = 5f;
+        const float DRAG_THRESHOLD = 5f;
 
         public bool Enabled
         {
@@ -15,7 +15,6 @@ namespace Assets.GearMind.Input
         }
 
         public bool IsPointerDown => Actions.MouseLeftButton.IsPressed();
-
         public event Action<Vector2> OnPointerPressed;
         public event Action<Vector2> OnPointerReleased;
         public event Action<Vector2> OnPointerClick;
@@ -34,6 +33,7 @@ namespace Assets.GearMind.Input
         public event Action<PointerMove> OnDrag;
         public event Action<Vector2> OnDragEnd;
 
+        public event Action OnRotatePressed;
         public event Action OnEscPressed;
 
         private readonly InputActions _inputAction = new();
@@ -48,6 +48,7 @@ namespace Assets.GearMind.Input
             Actions.MouseRightButton.started += HandlePointerAltPressed;
             Actions.MouseRightButton.canceled += HandlePointerAltReliased;
             Actions.PointerPosition.performed += HandlePointerPosition;
+            Actions.RotatePressed.started += HandleRotatePressed;
             Actions.EscPressed.started += HandleEscPressed;
         }
 
@@ -113,7 +114,7 @@ namespace Assets.GearMind.Input
         private void HandleStartDrag(Vector2 position)
         {
             IsDraging = true;
-            OnDragStart?.Invoke(position);
+            OnDragStart?.Invoke(_pointerPressedPosition);
             OnDrag?.Invoke(new PointerMove(position, position - _pointerPressedPosition));
         }
 
@@ -123,11 +124,14 @@ namespace Assets.GearMind.Input
             OnDragEnd?.Invoke(position);
         }
 
+        private void HandleRotatePressed(InputAction.CallbackContext context) =>
+            OnRotatePressed?.Invoke();
+
         private void HandleEscPressed(InputAction.CallbackContext context) =>
             OnEscPressed?.Invoke();
 
         private bool IsDragingTrashold(Vector2 start, Vector2 end) =>
-            Vector2.Distance(start, end) > _dragThreshold;
+            Vector2.Distance(start, end) > DRAG_THRESHOLD;
 
         public void Dispose() => _inputAction.Dispose();
     }

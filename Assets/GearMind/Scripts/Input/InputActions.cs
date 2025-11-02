@@ -138,6 +138,15 @@ namespace Assets.GearMind.Input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""RotatePressed"",
+                    ""type"": ""Button"",
+                    ""id"": ""9c98a2eb-6bb9-4a65-bcef-80f2b6dab79e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -193,6 +202,17 @@ namespace Assets.GearMind.Input
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""EscPressed"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""31d27978-8034-4e5f-88a3-0813d31d45f5"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""RotatePressed"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -785,6 +805,7 @@ namespace Assets.GearMind.Input
             m_GamePlay_MouseLeftButton = m_GamePlay.FindAction("MouseLeftButton", throwIfNotFound: true);
             m_GamePlay_MouseRightButton = m_GamePlay.FindAction("MouseRightButton", throwIfNotFound: true);
             m_GamePlay_EscPressed = m_GamePlay.FindAction("EscPressed", throwIfNotFound: true);
+            m_GamePlay_RotatePressed = m_GamePlay.FindAction("RotatePressed", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -883,6 +904,7 @@ namespace Assets.GearMind.Input
         private readonly InputAction m_GamePlay_MouseLeftButton;
         private readonly InputAction m_GamePlay_MouseRightButton;
         private readonly InputAction m_GamePlay_EscPressed;
+        private readonly InputAction m_GamePlay_RotatePressed;
         /// <summary>
         /// Provides access to input actions defined in input action map "GamePlay".
         /// </summary>
@@ -914,6 +936,10 @@ namespace Assets.GearMind.Input
             /// Provides access to the underlying input action "GamePlay/EscPressed".
             /// </summary>
             public InputAction @EscPressed => m_Wrapper.m_GamePlay_EscPressed;
+            /// <summary>
+            /// Provides access to the underlying input action "GamePlay/RotatePressed".
+            /// </summary>
+            public InputAction @RotatePressed => m_Wrapper.m_GamePlay_RotatePressed;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -955,6 +981,9 @@ namespace Assets.GearMind.Input
                 @EscPressed.started += instance.OnEscPressed;
                 @EscPressed.performed += instance.OnEscPressed;
                 @EscPressed.canceled += instance.OnEscPressed;
+                @RotatePressed.started += instance.OnRotatePressed;
+                @RotatePressed.performed += instance.OnRotatePressed;
+                @RotatePressed.canceled += instance.OnRotatePressed;
             }
 
             /// <summary>
@@ -981,6 +1010,9 @@ namespace Assets.GearMind.Input
                 @EscPressed.started -= instance.OnEscPressed;
                 @EscPressed.performed -= instance.OnEscPressed;
                 @EscPressed.canceled -= instance.OnEscPressed;
+                @RotatePressed.started -= instance.OnRotatePressed;
+                @RotatePressed.performed -= instance.OnRotatePressed;
+                @RotatePressed.canceled -= instance.OnRotatePressed;
             }
 
             /// <summary>
@@ -1316,6 +1348,13 @@ namespace Assets.GearMind.Input
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnEscPressed(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "RotatePressed" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnRotatePressed(InputAction.CallbackContext context);
         }
         /// <summary>
         /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

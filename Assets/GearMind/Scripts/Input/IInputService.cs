@@ -28,6 +28,7 @@ namespace Assets.GearMind.Input
         event Action<PointerMove> OnDrag;
         event Action<Vector2> OnDragEnd;
 
+        event Action OnRotatePressed;
         event Action OnEscPressed;
 
         void ForceStartDrag();
