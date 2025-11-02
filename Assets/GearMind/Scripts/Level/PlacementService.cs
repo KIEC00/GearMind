@@ -52,7 +52,7 @@ namespace Assets.GearMind.Level
                 return;
             }
             var gameObject = _objectService.InstantiateObject(prefab);
-            if (!SetDraggingObject(gameObject))
+            if (!SetDraggingObject(gameObject, isFromPrefab: true))
             {
                 DestroyGameobject(gameObject);
                 Debug.LogWarning($"Failed to set dragging object {gameObject.name}");
@@ -66,14 +66,16 @@ namespace Assets.GearMind.Level
             _input.ForceStartDrag();
         }
 
-        private bool SetDraggingObject(GameObject gameObject)
+        private bool SetDraggingObject(GameObject gameObject, bool isFromPrefab = false)
         {
             var draggable = GetDragable(gameObject);
-            if (draggable == null)
+            if (draggable == null || (draggable.IsDragable == false && !isFromPrefab))
             {
                 _draggingData.DragTarget = null;
                 return false;
             }
+            if (isFromPrefab)
+                draggable.IsDragable = true;
             _draggingData = new() { DragTarget = draggable };
             if (gameObject.TryGetComponent<IGameplayObject>(out var gameplayObject))
                 _draggingData.GameplayObject = gameplayObject;
@@ -149,11 +151,7 @@ namespace Assets.GearMind.Level
         public void Dispose() => Disable();
 
         private static IDragAndDropTarget GetDragable(GameObject gameObject) =>
-            (
-                gameObject
-                && gameObject.TryGetComponent<IDragAndDropTarget>(out var draggable)
-                && draggable.IsDragable
-            )
+            (gameObject && gameObject.TryGetComponent<IDragAndDropTarget>(out var draggable))
                 ? draggable
                 : null;
 
