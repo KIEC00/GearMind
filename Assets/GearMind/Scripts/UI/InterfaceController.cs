@@ -15,6 +15,9 @@ namespace Assets.GearMind.Scripts.UI
         private Button _reloadSceneButton;
         private Button _settingsButton;
 
+        private VisualElement _playIcon;
+        private VisualElement _editIcon;
+
         [SerializeField]
         private SettingsController _settingsController;
 
@@ -34,6 +37,9 @@ namespace Assets.GearMind.Scripts.UI
         {
             _startButton = _doc.rootVisualElement.Q<Button>("Start");
             _startButton.clicked += TogglePlayMode;
+
+            _playIcon = _startButton.Q<VisualElement>("PlayIcon");
+            _editIcon = _startButton.Q<VisualElement>("EditIcon");
 
             _reloadSceneButton = _doc.rootVisualElement.Q<Button>("Reload");
             _reloadSceneButton.clicked += ReloadScene;
@@ -57,11 +63,17 @@ namespace Assets.GearMind.Scripts.UI
 
         private void UpdateStartButtonText()
         {
-            if (_startButton != null && _levelStateMachine != null)
+                        if (_playIcon == null || _editIcon == null) return;
+
+            if (_levelStateMachine.CurrentState == LevelState.Simulate)
             {
-                _startButton.text = _levelStateMachine.CurrentState == LevelState.Simulate
-                    ? "Редактировать"
-                    : "Запуск";
+                _playIcon.style.display = DisplayStyle.None;
+                _editIcon.style.display = DisplayStyle.Flex;
+            }
+            else
+            {
+                _playIcon.style.display = DisplayStyle.Flex;
+                _editIcon.style.display = DisplayStyle.None;
             }
         }
 

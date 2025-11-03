@@ -2,7 +2,7 @@
 }
 
 .menu-button {
-    background-color: rgb(248, 236, 171);
+    background-color: rgba(248, 236, 171, 0);
     font-size: 50px;
     -unity-text-align: middle-center;
     width: 300px;
@@ -24,6 +24,10 @@
     border-right-color: rgb(255, 255, 255);
     border-top-color: rgb(255, 255, 255);
     border-bottom-color: rgb(255, 255, 255);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
 }
 
 .buttons-container {
