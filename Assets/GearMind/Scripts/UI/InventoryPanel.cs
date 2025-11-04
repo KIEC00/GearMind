@@ -26,7 +26,7 @@ namespace Assets.GearMind.UI
         private IInventory _inventory;
         private PlacementService _placementService;
         private IIdentityPrefabMap _identityPrefabMap;
-        private ILevelStateMachine _stateMachine;
+        private UIManager _uiManager;
 
         private Dictionary<IInventoryIdentity, InventoryItemButton> _buttons = new();
 
@@ -35,14 +35,14 @@ namespace Assets.GearMind.UI
             IInventory inventory,
             PlacementService placementService,
             IIdentityPrefabMap identityPrefabMap,
-            ILevelStateMachine stateMachine
+            UIManager uiManager
         )
         {
             _inventory = inventory;
             _inventory.OnChange += HandleInventoryChange;
             _placementService = placementService;
             _identityPrefabMap = identityPrefabMap;
-            _stateMachine = stateMachine;
+            _uiManager = uiManager;
         }
 
         private void Awake()
@@ -61,7 +61,7 @@ namespace Assets.GearMind.UI
 
         private void InstantiateAndStartDragObject(IInventoryIdentity identity)
         {
-            if (_stateMachine.CurrentState != LevelState.Edit)
+            if (!_uiManager.IsEditMode)
                 return;
 
             if (_inventory[identity] <= 0)

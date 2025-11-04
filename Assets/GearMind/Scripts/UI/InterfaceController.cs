@@ -1,4 +1,5 @@
 using Assets.GearMind.Level;
+using Assets.GearMind.UI;
 using UnityEngine;
 using UnityEngine.UIElements;
 using VContainer;
@@ -7,7 +8,7 @@ namespace Assets.GearMind.Scripts.UI
 {
     public class InterfaceContoller : MonoBehaviour
     {
-        private LevelStateMachine _levelStateMachine;
+        private UIManager _uiModeManager;
         private LevelManager _levelManager;
 
         private UIDocument _doc;
@@ -22,9 +23,9 @@ namespace Assets.GearMind.Scripts.UI
         private SettingsController _settingsController;
 
         [Inject]
-        public void Construct(LevelStateMachine levelStateMachine, LevelManager levelManager)
+        public void Construct(UIManager uiModeManager, LevelManager levelManager)
         {
-            _levelStateMachine = levelStateMachine;
+            _uiModeManager = uiModeManager;
             _levelManager = levelManager;
         }
 
@@ -52,11 +53,7 @@ namespace Assets.GearMind.Scripts.UI
 
         private void TogglePlayMode()
         {
-            _levelStateMachine.TransitionTo(
-                _levelStateMachine.CurrentState == LevelState.Edit
-                    ? LevelState.Simulate
-                    : LevelState.Edit
-            );
+            _uiModeManager.ToggleMode();
 
             UpdateStartButtonText();
         }
@@ -65,16 +62,8 @@ namespace Assets.GearMind.Scripts.UI
         {
             if (_playIcon == null || _editIcon == null) return;
 
-            if (_levelStateMachine.CurrentState == LevelState.Simulate)
-            {
-                _playIcon.style.display = DisplayStyle.None;
-                _editIcon.style.display = DisplayStyle.Flex;
-            }
-            else
-            {
-                _playIcon.style.display = DisplayStyle.Flex;
-                _editIcon.style.display = DisplayStyle.None;
-            }
+            _playIcon.style.display = _uiModeManager.IsEditMode ? DisplayStyle.Flex : DisplayStyle.None;
+            _editIcon.style.display = _uiModeManager.IsSimulateMode ? DisplayStyle.Flex : DisplayStyle.None;
         }
 
         private void SettingsClicked()
