@@ -19,6 +19,7 @@ namespace Assets.GearMind.Level
         private readonly GridComponent _grid;
         private readonly IObjectService _objectService;
         private readonly Transform _objectsParent;
+        private readonly LayerMask _layerMask;
         private bool _enabled;
 
         private DraggingData _draggingData = new();
@@ -32,7 +33,8 @@ namespace Assets.GearMind.Level
             IScreenRaycaster2D raycaster,
             GridComponent grid,
             IObjectService objectService,
-            Transform objectsParent
+            Transform objectsParent,
+            LayerMask layerMask
         )
         {
             _input = input;
@@ -41,6 +43,7 @@ namespace Assets.GearMind.Level
             _grid = grid;
             _objectService = objectService;
             _objectsParent = objectsParent;
+            _layerMask = layerMask;
             _input.Disable();
         }
 
@@ -169,7 +172,7 @@ namespace Assets.GearMind.Level
 
         private bool RaycastOnStartDrag(Vector2 position)
         {
-            var collider = _raycaster.RaycastPhysics2DStopAtUI(position);
+            var collider = _raycaster.RaycastPhysics2DStopAtUI(position, _layerMask);
             if (!SetDraggingObject(collider ? collider.gameObject : null))
                 return false;
             var hitPosition = _raycaster.ScreenToWorldPoint2D(position);

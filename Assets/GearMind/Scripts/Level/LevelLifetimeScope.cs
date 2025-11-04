@@ -19,9 +19,12 @@ namespace Assets.GearMind.Level
 {
     public class LevelLifetimeScope : LifetimeScope
     {
-        [Header("Scriptable Objects")]
+        [Header("Configuration")]
         [SerializeField, Required]
         private InventoryFactorySO _inventoryFactory;
+
+        [SerializeField]
+        private LayerMask _dragLayers;
 
         [Header("Components")]
         [SerializeField, Required]
@@ -69,6 +72,7 @@ namespace Assets.GearMind.Level
             builder
                 .Register<PlacementService>(Lifetime.Singleton)
                 .WithParameter("objectsParent", _environmentAnchor)
+                .WithParameter("layerMask", _dragLayers)
                 .All();
 
             builder.Register(LevelStateMachineFactoryMethod, Lifetime.Singleton).All();
