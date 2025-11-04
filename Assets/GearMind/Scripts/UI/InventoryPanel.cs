@@ -27,6 +27,7 @@ namespace Assets.GearMind.UI
         private PlacementService _placementService;
         private IIdentityPrefabMap _identityPrefabMap;
         private UIManager _uiManager;
+        private InventoryPanelAnimation _slideAnimation;
 
         private Dictionary<IInventoryIdentity, InventoryItemButton> _buttons = new();
 
@@ -43,10 +44,13 @@ namespace Assets.GearMind.UI
             _placementService = placementService;
             _identityPrefabMap = identityPrefabMap;
             _uiManager = uiManager;
+            _uiManager.OnModeChanged += HandleModeChanged;
         }
 
         private void Awake()
         {
+            _slideAnimation = GetComponent<InventoryPanelAnimation>();
+
             foreach (var kvp in _inventory)
             {
                 var button = Instantiate(_buttonPrefab, _scrollContent);
@@ -57,6 +61,11 @@ namespace Assets.GearMind.UI
                 _buttons.Add(identity, button);
                 button.OnPointerDownEvent += () => InstantiateAndStartDragObject(identity);
             }
+        }
+
+        private void Start()
+        {
+            HandleModeChanged(_uiManager.IsEditMode);
         }
 
         private void InstantiateAndStartDragObject(IInventoryIdentity identity)
@@ -86,6 +95,11 @@ namespace Assets.GearMind.UI
             if (button == null)
                 return;
             UpdateButton(button, data.Identity, data.CurrentCount);
+        }
+
+        private void HandleModeChanged(bool isEditMode)
+        {
+            _slideAnimation.Slide(!isEditMode);
         }
 
         private void UpdateButton(
@@ -122,6 +136,7 @@ namespace Assets.GearMind.UI
         {
             _inventory.OnChange -= HandleInventoryChange;
             _placementService.OnDragEnd -= OnDragEnd;
+            _uiManager.OnModeChanged -= HandleModeChanged;
         }
 
         private void OnDestroy()
