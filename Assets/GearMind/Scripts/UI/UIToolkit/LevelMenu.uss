@@ -1,5 +1,5 @@
 :root {
-    display: flex;
+    display: none;
 }
 
 #Panel {
@@ -30,7 +30,7 @@
     border-right-color: rgb(255, 255, 255);
     border-top-color: rgb(255, 255, 255);
     border-bottom-color: rgb(255, 255, 255);
-    background-image: url("project://database/Assets/GearMind/UI/Back.png?fileID=2800000&guid=c81a0f6fc951a1d40b710f0c100178cc&type=3#Back");
+    background-image: url('project://database/Assets/GearMind/UI/Back.png?fileID=2800000&guid=c81a0f6fc951a1d40b710f0c100178cc&type=3#Back');
 }
 
 .level-button {
@@ -60,4 +60,7 @@
     align-items: center;
     width: 80%;
     margin-top: 3%;
+}
+
+.interface-button:hover {
 }

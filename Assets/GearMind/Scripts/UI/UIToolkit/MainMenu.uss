@@ -2,7 +2,7 @@
 }
 
 .menu-button {
-    background-color: rgba(248, 236, 171, 0);
+    background-color: rgb(255, 255, 255);
     font-size: 50px;
     -unity-text-align: middle-center;
     width: 300px;
@@ -20,10 +20,10 @@
     margin-bottom: 15px;
     margin-left: 15px;
     -unity-font-style: normal;
-    border-left-color: rgb(255, 255, 255);
-    border-right-color: rgb(255, 255, 255);
-    border-top-color: rgb(255, 255, 255);
-    border-bottom-color: rgb(255, 255, 255);
+    border-left-color: rgba(255, 255, 255, 0);
+    border-right-color: rgba(255, 255, 255, 0);
+    border-top-color: rgba(255, 255, 255, 0);
+    border-bottom-color: rgba(255, 255, 255, 0);
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;

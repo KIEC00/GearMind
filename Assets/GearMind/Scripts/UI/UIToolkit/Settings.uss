@@ -140,3 +140,62 @@
 .orange-button:active {
     -unity-background-image-tint-color: rgb(246, 168, 0);
 }
+
+.toggle-switch {
+    width: 75px;
+    height: 38px;
+    position: relative;
+}
+
+.toggle-track {
+    width: 73px;
+    height: 36px;
+    background-color: rgb(202, 87, 87);
+    border-radius: 15px;
+    position: absolute;
+    top: 0%;
+    left: 0;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+.toggle-thumb {
+    width: 23px;
+    height: 23px;
+    background-color: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 6px;
+    left: auto;
+    right: 4px;
+}
+
+.toggle-switch.on .toggle-track {
+    background-color: rgb(106, 159, 65);
+}
+
+.toggle-switch.on .toggle-thumb {
+    left: 4px;
+    background-color: rgb(255, 255, 255);
+    border-color: rgb(246, 168, 0);
+    top: 6px;
+}
+
+.toggle-text {
+    position: absolute;
+    left: 4px;
+    top: -2px;
+    color: rgb(255, 255, 255);
+    font-size: 23px;
+    -unity-font-definition: url("project://database/Assets/TextMesh%20Pro/Fonts/BoldPixels.ttf?fileID=12800000&guid=0da78171e9a8d374b8549aba0c2dd785&type=3#BoldPixels");
+    right: auto;
+}
+
+.toggle-switch.on .toggle-text {
+    left: auto;
+    right: 4px;
+    position: absolute;
+    top: -2px;
+}

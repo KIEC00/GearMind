@@ -1,11 +1,12 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/GearMind/Scripts/UI/UIToolkit/Interface.uss?fileID=7433441132597879392&amp;guid=0e4dc097e878066419e0241cf9ad44d6&amp;type=3#Interface" />
+    <Style src="project://database/Assets/GearMind/Scripts/UI/UIToolkit/Buttons.uss?fileID=7433441132597879392&amp;guid=e3a5523b7ea839b49a70d1d1cc29db0f&amp;type=3#Buttons" />
     <ui:VisualElement name="Buttons" class="hud-buttons" style="flex-grow: 1;">
         <ui:Button text="&#10;" name="Start" class="interface-button" style="background-color: rgba(255, 255, 255, 0); -unity-background-image-tint-color: rgba(255, 255, 255, 0);">
-            <ui:VisualElement name="PlayIcon" class="button-icon--active" style="background-image: url(&quot;project://database/Assets/GearMind/UI/StartBtn.png?fileID=21300000&amp;guid=0b6ebab263cfd7d4d986c5c1615070d5&amp;type=3#StartBtn&quot;);" />
-            <ui:VisualElement name="EditIcon" class="button-icon--inactive" style="background-image: url(&quot;project://database/Assets/GearMind/UI/PauseBtn.png?fileID=21300000&amp;guid=7cc05d300c12d0e43afdb1fe96ce7dd8&amp;type=3#PauseBtn&quot;);" />
+            <ui:VisualElement name="PlayIcon" class="button-icon--active button-mask" style="background-image: url(&quot;project://database/Assets/GearMind/UI/StartBtn.png?fileID=21300000&amp;guid=0b6ebab263cfd7d4d986c5c1615070d5&amp;type=3#StartBtn&quot;);" />
+            <ui:VisualElement name="EditIcon" class="button-icon--inactive button-mask" style="background-image: url(&quot;project://database/Assets/GearMind/UI/PauseBtn.png?fileID=21300000&amp;guid=7cc05d300c12d0e43afdb1fe96ce7dd8&amp;type=3#PauseBtn&quot;);" />
         </ui:Button>
-        <ui:Button text="&#10;" name="Reload" class="interface-button" style="background-image: url(&quot;project://database/Assets/GearMind/UI/ResetLevelBtn.png?fileID=2800000&amp;guid=758d4e3a922f8854584b4809d98fc9fe&amp;type=3#ResetLevelBtn&quot;);" />
-        <ui:Button text="&#10;" name="Settings" class="interface-button" style="background-image: url(&quot;project://database/Assets/GearMind/UI/MenuBtn.png?fileID=2800000&amp;guid=572586fa5c81b5240babe5dfffe278c2&amp;type=3#MenuBtn&quot;);" />
+        <ui:Button text="&#10;" name="Reload" class="interface-button button-mask" style="background-image: url(&quot;project://database/Assets/GearMind/UI/ResetLevelBtn.png?fileID=2800000&amp;guid=758d4e3a922f8854584b4809d98fc9fe&amp;type=3#ResetLevelBtn&quot;);" />
+        <ui:Button text="&#10;" name="Settings" class="interface-button button-mask" style="background-image: url(&quot;project://database/Assets/GearMind/UI/MenuBtn.png?fileID=2800000&amp;guid=572586fa5c81b5240babe5dfffe278c2&amp;type=3#MenuBtn&quot;);" />
     </ui:VisualElement>
 </ui:UXML>

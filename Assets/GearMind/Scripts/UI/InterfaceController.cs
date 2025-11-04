@@ -63,7 +63,7 @@ namespace Assets.GearMind.Scripts.UI
 
         private void UpdateStartButtonText()
         {
-                        if (_playIcon == null || _editIcon == null) return;
+            if (_playIcon == null || _editIcon == null) return;
 
             if (_levelStateMachine.CurrentState == LevelState.Simulate)
             {
