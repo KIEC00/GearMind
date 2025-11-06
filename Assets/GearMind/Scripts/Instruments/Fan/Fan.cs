@@ -1,39 +1,50 @@
+using EditorAttributes;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Fan : MonoBehaviour, IIncludedObject
+public class Fan : VertiHorizConnectRigidObject, IIncludedObject
 {
-    [SerializeField]
-    private GameObject VentilatorEffect;
 
     [SerializeField]
-    private float ForceVentilator = 20;
+    private float _forceFan = 20;
 
-    [SerializeField]
+    [Header("")]
+    [SerializeField, Required]
+    private Collider2D _fanEffectCollider;
+
+    [SerializeField, Required]
+    private AreaEffector2D _effector2D;
+
+    [SerializeField, Required]
     private Renderer _renderer;
 
     private Color _initialColor;
 
-    private void Awake() => _initialColor = _renderer.material.color;
+    public bool IsTurnOn { get; private set; } = false;
+
+    private void Awake()
+    {
+        _initialColor = _renderer.material.color;
+        _effector2D.forceMagnitude = _forceFan;
+    }
+
+    public override void EnterEditMode()
+    {
+        base.EnterEditMode();
+        TurnOnOff(false);
+    }
+
 
     public void TurnOnOff(bool isTurnOn)
     {
-        VentilatorEffect.SetActive(isTurnOn);
+        _fanEffectCollider.enabled = isTurnOn;
+        IsTurnOn = isTurnOn;
         if (isTurnOn)
             _renderer.material.color = Color.green;
         else
             _renderer.material.color = _initialColor;
     }
 
-    public void RotateVentilator()
-    {
-        transform.Rotate(new Vector3(0, 0, -90));
-    }
-
-    public void VentilatorPush(Rigidbody2D rb)
-    {
-        rb.AddForce(-transform.right * ForceVentilator, ForceMode2D.Force);
-    }
 
     private void OnEnable()
     {

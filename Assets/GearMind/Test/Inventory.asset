@@ -26,11 +26,7 @@ MonoBehaviour:
       Value: 3
     - Key: {fileID: 2995878182433360892, guid: 262591131f741f540b65874c0e4f7548, type: 3}
       Value: 3
-    - Key: {fileID: 5637799894335985506, guid: 447d292bc59432440bbfc6030400513b, type: 3}
-      Value: 3
-    - Key: {fileID: 5637799894335985506, guid: dd9738032b4cd1f48ac2b56a5fa13258, type: 3}
-      Value: 3
-    - Key: {fileID: 5637799894335985506, guid: 970e9bb8bd4d2034f87652788ad237f1, type: 3}
+    - Key: {fileID: 4666209939045324369, guid: c730196bc1257b143acee7e65983bd6f, type: 3}
       Value: 3
     - Key: {fileID: 845188412800071226, guid: d22b878380dc2704fa5d7b5a21d33c49, type: 3}
       Value: 3

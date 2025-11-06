@@ -19,21 +19,25 @@ namespace Assets.GearMind.Test
         [field: SerializeField]
         public bool IsDragable { get; set; } = false;
 
-        [SerializeField, Required]
-        private Renderer _renderer;
+        [field:SerializeField, Required]
+        public Renderer _renderer { get; private set; }
 
         private Color _initialColor;
 
-        [SerializeField, Required]
-        private Rigidbody2D _rigidbody;
+        [field:SerializeField, Required]
+        public Rigidbody2D _rigidbody { get; private set; }
 
-        [SerializeField]
-        private ContactFilter2D _contactFilter;
+        [field: SerializeField, Required]
+        public Collider2D _collider { get; private set; }
+
+
+        [field: SerializeField]
+        public  ContactFilter2D _contactFilter { get; private set; }
 
         private readonly RaycastHit2D[] _hits = new RaycastHit2D[1];
 
         [Button]
-        public virtual void EnterEditMode() => _rigidbody.bodyType = RigidbodyType2D.Static;
+        public virtual void EnterEditMode() => _rigidbody.bodyType = RigidbodyType2D.Kinematic;
 
         [Button]
         public virtual void EnterPlayMode() => _rigidbody.bodyType = RigidbodyType2D.Dynamic;
@@ -48,8 +52,8 @@ namespace Assets.GearMind.Test
 
         public void OnDragEnd() => _renderer.material.color = _initialColor.WithAlpha(1f);
 
-        public bool ValidatePlacement() =>
-            _rigidbody.Cast(Vector2.zero, _contactFilter, _hits, 0f) == 0;
+        public virtual bool ValidatePlacement() =>
+            _collider.Cast(Vector2.zero, _contactFilter, _hits, 0f) == 0; 
 
         public void SetError(bool isError)
         {
