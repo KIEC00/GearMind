@@ -33,6 +33,18 @@
     background-image: url('project://database/Assets/GearMind/UI/Back.png?fileID=2800000&guid=c81a0f6fc951a1d40b710f0c100178cc&type=3#Back');
 }
 
+.level-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    margin-top: 3%;
+}
+
+.interface-button:hover {
+}
+
 .level-button {
     width: 157px;
     height: 157px;
@@ -54,16 +66,4 @@
     margin: 10px;
     -unity-background-image-tint-color: rgba(0, 0, 0, 0.3);
     position: absolute;
-}
-
-.level-container {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    width: 80%;
-    margin-top: 3%;
-}
-
-.interface-button:hover {
 }
