@@ -15,16 +15,11 @@ public class Fan : VertiHorizConnectRigidObject, IIncludedObject
     [SerializeField, Required]
     private AreaEffector2D _effector2D;
 
-    [SerializeField, Required]
-    private Renderer _renderer;
-
-    private Color _initialColor;
 
     public bool IsTurnOn { get; private set; } = false;
 
     private void Awake()
     {
-        _initialColor = _renderer.material.color;
         _effector2D.forceMagnitude = _forceFan;
     }
 

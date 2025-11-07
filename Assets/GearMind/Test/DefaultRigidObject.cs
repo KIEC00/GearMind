@@ -22,7 +22,7 @@ namespace Assets.GearMind.Test
         [field:SerializeField, Required]
         public Renderer _renderer { get; private set; }
 
-        private Color _initialColor;
+        protected Color _initialColor;
 
         [field:SerializeField, Required]
         public Rigidbody2D _rigidbody { get; private set; }

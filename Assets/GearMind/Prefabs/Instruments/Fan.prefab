@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 4095832073628198103}
   - component: {fileID: 8907722668919015543}
   - component: {fileID: 8990695548326783652}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: View (1)
-  m_TagString: Instrument
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 4554185999724717127}
   - component: {fileID: 7835043318914105262}
   - component: {fileID: 6688262489291349940}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: FanEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -199,9 +199,9 @@ GameObject:
   - component: {fileID: 7832612116865359119}
   - component: {fileID: 1322621283852194294}
   - component: {fileID: 2314787012202226156}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: View
-  m_TagString: Instrument
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -293,7 +293,7 @@ GameObject:
   - component: {fileID: 5637799894335985506}
   m_Layer: 7
   m_Name: Fan
-  m_TagString: Instrument
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -421,7 +421,6 @@ MonoBehaviour:
   _forceFan: 10
   _fanEffectCollider: {fileID: 7835043318914105262}
   _effector2D: {fileID: 6688262489291349940}
-  _renderer: {fileID: 2314787012202226156}
 --- !u!114 &5637799894335985506
 MonoBehaviour:
   m_ObjectHideFlags: 0

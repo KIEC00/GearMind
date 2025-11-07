@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4010397242072108704}
   - component: {fileID: 1895951587472642473}
   - component: {fileID: 5078550567428888148}
-  - component: {fileID: 1093886748436899975}
+  - component: {fileID: 2737294959940705808}
   m_Layer: 7
   m_Name: Spring
   m_TagString: Untagged
@@ -123,7 +123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.GearMind.Inventory.InventoryIdentityComponent
   _inventoryIdentitySO: {fileID: 11400000, guid: 744294393da78f84f9e1c3b5ec39d059, type: 2}
---- !u!114 &1093886748436899975
+--- !u!114 &2737294959940705808
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -132,9 +132,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1031691624047743675}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 684bec6e7934a0f46b4b091a060ca984, type: 3}
+  m_Script: {fileID: 11500000, guid: 90c02e75b0cd255479efac3eb115af21, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ButtonGrid
+  m_EditorClassIdentifier: Assembly-CSharp::Spring
   <IsDragable>k__BackingField: 1
   <_renderer>k__BackingField: {fileID: 4045421497018219107}
   <_rigidbody>k__BackingField: {fileID: 1895951587472642473}
@@ -153,6 +153,7 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
+  _pushCollider: {fileID: 7575815498322998890}
 --- !u!1 &3983074457682837769
 GameObject:
   m_ObjectHideFlags: 0
@@ -193,7 +194,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3983074457682837769}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}

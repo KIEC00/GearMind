@@ -506,7 +506,7 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 0
   _includeColliderFilter:
-    useTriggers: 0
+    useTriggers: 1
     useLayerMask: 0
     useDepth: 0
     useOutsideDepth: 0

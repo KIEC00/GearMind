@@ -153,9 +153,9 @@ GameObject:
   - component: {fileID: 3612888660356808919}
   - component: {fileID: 5886193106015086714}
   - component: {fileID: 2708050142856154460}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: View
-  m_TagString: Instrument
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

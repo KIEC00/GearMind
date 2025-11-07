@@ -34,12 +34,14 @@ public class ButtonInstrument : DownConnectRigidObject
     public override void EnterEditMode()
     {
         base.EnterEditMode();
+        _collider.enabled = true;
         _pushCollider.enabled = false;
         _includeCollider.enabled = false;
     }
 
     public override void EnterPlayMode()
     {
+        _collider.enabled = false;
         _pushCollider.enabled = true;
         _includeCollider.enabled = true;
     }
