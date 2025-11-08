@@ -7,6 +7,7 @@ using Assets.GearMind.Inventory;
 using Assets.GearMind.Level.States;
 using Assets.GearMind.Scripts.UI;
 using Assets.GearMind.State;
+using Assets.GearMind.UI;
 using Assets.Utils.Runtime;
 using EditorAttributes;
 using UnityEngine;
@@ -78,6 +79,7 @@ namespace Assets.GearMind.Level
             builder.Register(LevelStateMachineFactoryMethod, Lifetime.Singleton).All();
 
             builder.Register<LevelManager>(Lifetime.Singleton).AsSelf();
+            builder.Register<UIManager>(Lifetime.Singleton);
             builder.RegisterComponent(_nextLevelController);
             builder.RegisterComponent(_levelGoal);
         }

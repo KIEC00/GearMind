@@ -2,14 +2,14 @@
 }
 
 .menu-button {
-    background-color: rgb(248, 236, 171);
+    background-color: rgb(255, 255, 255);
     font-size: 50px;
     -unity-text-align: middle-center;
     width: 300px;
     min-width: 300px;
     max-width: none;
-    min-height: 50px;
-    max-height: 100px;
+    min-height: 100px;
+    max-height: none;
     border-radius: 20px;
     padding-top: 20px;
     padding-right: 130px;
@@ -20,10 +20,15 @@
     margin-bottom: 15px;
     margin-left: 15px;
     -unity-font-style: normal;
-    border-left-color: rgb(255, 255, 255);
-    border-right-color: rgb(255, 255, 255);
-    border-top-color: rgb(255, 255, 255);
-    border-bottom-color: rgb(255, 255, 255);
+    border-left-color: rgba(255, 255, 255, 0);
+    border-right-color: rgba(255, 255, 255, 0);
+    border-top-color: rgba(255, 255, 255, 0);
+    border-bottom-color: rgba(255, 255, 255, 0);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    height: 100px;
 }
 
 .buttons-container {
@@ -37,4 +42,17 @@
     color: rgb(246, 168, 0);
     font-size: 80px;
     -unity-font-style: bold;
+}
+
+.menu-button-shadow {
+    width: 300px;
+    min-width: 300px;
+    background-color: rgba(248, 236, 171, 0);
+    border-radius: 10px;
+    margin: 15px;
+    -unity-background-image-tint-color: rgba(0, 0, 0, 0.3);
+    position: absolute;
+    height: 100px;
+    min-height: 100px;
+    border-radius: 15px;
 }

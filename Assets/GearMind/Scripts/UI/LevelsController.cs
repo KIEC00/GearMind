@@ -36,7 +36,8 @@ namespace Assets.GearMind.Scripts.UI
             var levelButtons = _doc.rootVisualElement.Query<Button>(className: "level-button").ToList();
             foreach (var button in levelButtons)
             {
-                button.clicked += () => LoadLevel(button.text);
+                var levelText = button.text;
+                button.clicked += () => LoadLevel(levelText);
             }
 
             _levelsPanel.style.display = DisplayStyle.None;

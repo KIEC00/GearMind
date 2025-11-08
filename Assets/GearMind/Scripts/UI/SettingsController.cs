@@ -50,8 +50,8 @@ namespace Assets.GearMind.Scripts.UI
 
             if (_exitToMainMenuButton != null)
             {
-                _exitToMainMenuButton.style.display =
-                    (context == Context.Gameplay) ? DisplayStyle.Flex : DisplayStyle.None;
+                _exitToMainMenuButton.style.visibility =
+                    (context == Context.Gameplay) ? Visibility.Visible : Visibility.Hidden;
             }
         }
 

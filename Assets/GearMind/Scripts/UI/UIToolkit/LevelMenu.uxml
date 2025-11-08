@@ -2,11 +2,17 @@
     <Style src="project://database/Assets/GearMind/Scripts/UI/UIToolkit/LevelMenu.uss?fileID=7433441132597879392&amp;guid=ccb6ed4a1f8815a4fa763d95faba1fe1&amp;type=3#LevelMenu" />
     <Style src="project://database/Assets/GearMind/Scripts/UI/UIToolkit/Buttons.uss?fileID=7433441132597879392&amp;guid=e3a5523b7ea839b49a70d1d1cc29db0f&amp;type=3#Buttons" />
     <ui:VisualElement name="Panel" style="flex-grow: 1; background-color: rgb(255, 255, 255); display: flex;">
-        <ui:Button text="Назад" name="CloseButton" class="exit-button main-button" />
+        <ui:Button text="&#10;" name="CloseButton" class="exit-button interface-button button-mask" style="padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; background-image: url(&quot;project://database/Assets/GearMind/UI/BackBtn.png?fileID=21300000&amp;guid=0f873b7800117514f879457bb786f5cf&amp;type=3#BackBtn&quot;); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0;" />
         <ui:Label text="Уровни" style="-unity-text-align: middle-center; font-size: 100px; -unity-font-style: normal; color: rgb(246, 168, 0); -unity-font-definition: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/BoldPixels.ttf?fileID=12800000&amp;guid=0da78171e9a8d374b8549aba0c2dd785&amp;type=3#BoldPixels&quot;); margin-top: 4px;" />
         <ui:VisualElement class="level-container">
-            <ui:Button text="1" class="level-button main-button" />
-            <ui:Button text="2" class="level-button main-button" />
-        </ui:VisualElement>
+    <ui:VisualElement class="button-wrap">
+        <ui:Button class="level-button-shadow" style="background-image: url(&quot;project://database/Assets/GearMind/UI/Level1.png?fileID=2800000&amp;guid=db66703578a01924ea66c9cdaf3e0569&amp;type=3#Level1&quot;); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0;" />
+        <ui:Button text="1" class="level-button main-button" style="background-image: url(&quot;project://database/Assets/GearMind/UI/Level1.png?fileID=2800000&amp;guid=db66703578a01924ea66c9cdaf3e0569&amp;type=3#Level1&quot;); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; background-color: rgba(248, 236, 171, 0);" />
+    </ui:VisualElement>
+    <ui:VisualElement class="button-wrap">
+        <ui:Button class="level-button-shadow main-button-shadow" style="background-image: url(&quot;project://database/Assets/GearMind/UI/level2.png?fileID=2800000&amp;guid=c60988c4c03e5584785a1a925fe481f9&amp;type=3#level2&quot;); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0;" />
+        <ui:Button text="2" class="level-button main-button" style="background-image: url(&quot;project://database/Assets/GearMind/UI/level2.png?fileID=2800000&amp;guid=c60988c4c03e5584785a1a925fe481f9&amp;type=3#level2&quot;); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; background-color: rgba(248, 236, 171, 0);" />
+    </ui:VisualElement>
+</ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

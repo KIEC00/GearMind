@@ -1,4 +1,5 @@
 using Assets.GearMind.Level;
+using Assets.GearMind.UI;
 using UnityEngine;
 using UnityEngine.UIElements;
 using VContainer;
@@ -7,7 +8,7 @@ namespace Assets.GearMind.Scripts.UI
 {
     public class InterfaceContoller : MonoBehaviour
     {
-        private LevelStateMachine _levelStateMachine;
+        private UIManager _uiModeManager;
         private LevelManager _levelManager;
 
         private UIDocument _doc;
@@ -15,13 +16,16 @@ namespace Assets.GearMind.Scripts.UI
         private Button _reloadSceneButton;
         private Button _settingsButton;
 
+        private VisualElement _playIcon;
+        private VisualElement _editIcon;
+
         [SerializeField]
         private SettingsController _settingsController;
 
         [Inject]
-        public void Construct(LevelStateMachine levelStateMachine, LevelManager levelManager)
+        public void Construct(UIManager uiModeManager, LevelManager levelManager)
         {
-            _levelStateMachine = levelStateMachine;
+            _uiModeManager = uiModeManager;
             _levelManager = levelManager;
         }
 
@@ -35,6 +39,9 @@ namespace Assets.GearMind.Scripts.UI
             _startButton = _doc.rootVisualElement.Q<Button>("Start");
             _startButton.clicked += TogglePlayMode;
 
+            _playIcon = _startButton.Q<VisualElement>("PlayIcon");
+            _editIcon = _startButton.Q<VisualElement>("EditIcon");
+
             _reloadSceneButton = _doc.rootVisualElement.Q<Button>("Reload");
             _reloadSceneButton.clicked += ReloadScene;
 
@@ -46,23 +53,17 @@ namespace Assets.GearMind.Scripts.UI
 
         private void TogglePlayMode()
         {
-            _levelStateMachine.TransitionTo(
-                _levelStateMachine.CurrentState == LevelState.Edit
-                    ? LevelState.Simulate
-                    : LevelState.Edit
-            );
+            _uiModeManager.ToggleMode();
 
             UpdateStartButtonText();
         }
 
         private void UpdateStartButtonText()
         {
-            if (_startButton != null && _levelStateMachine != null)
-            {
-                _startButton.text = _levelStateMachine.CurrentState == LevelState.Simulate
-                    ? "Редактировать"
-                    : "Запуск";
-            }
+            if (_playIcon == null || _editIcon == null) return;
+
+            _playIcon.style.display = _uiModeManager.IsEditMode ? DisplayStyle.Flex : DisplayStyle.None;
+            _editIcon.style.display = _uiModeManager.IsSimulateMode ? DisplayStyle.Flex : DisplayStyle.None;
         }
 
         private void SettingsClicked()

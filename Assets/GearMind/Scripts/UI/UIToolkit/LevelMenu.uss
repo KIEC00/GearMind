@@ -18,18 +18,31 @@
     position: absolute;
     top: 10px;
     left: 10px;
-    width: 10%;
-    height: 10%;
+    width: 97px;
+    height: 63px;
     font-size: 40px;
     border-radius: 10px;
     -unity-font-definition: url("project://database/Assets/TextMesh%20Pro/Fonts/BoldPixels.ttf?fileID=12800000&guid=0da78171e9a8d374b8549aba0c2dd785&type=3#BoldPixels");
     color: rgb(246, 168, 0);
-    background-color: rgb(248, 236, 171);
+    background-color: rgb(255, 255, 255);
     -unity-background-image-tint-color: rgb(255, 255, 255);
     border-left-color: rgb(255, 255, 255);
     border-right-color: rgb(255, 255, 255);
     border-top-color: rgb(255, 255, 255);
     border-bottom-color: rgb(255, 255, 255);
+    background-image: url('project://database/Assets/GearMind/UI/Back.png?fileID=2800000&guid=c81a0f6fc951a1d40b710f0c100178cc&type=3#Back');
+}
+
+.level-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    margin-top: 3%;
+}
+
+.interface-button:hover {
 }
 
 .level-button {
@@ -40,23 +53,17 @@
     align-items: center;
     background-color: rgb(248, 236, 171);
     border-radius: 10px;
-    margin-top: 10px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    margin-left: 10px;
-    border-left-color: rgb(255, 255, 255);
-    border-right-color: rgb(255, 255, 255);
-    border-top-color: rgb(255, 255, 255);
-    border-bottom-color: rgb(255, 255, 255);
+    margin: 10px;
     -unity-font-definition: url("project://database/Assets/TextMesh%20Pro/Fonts/BoldPixels.ttf?fileID=12800000&guid=0da78171e9a8d374b8549aba0c2dd785&type=3#BoldPixels");
     color: rgb(246, 168, 0);
 }
 
-.level-container {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    width: 80%;
-    margin-top: 3%;
+.level-button-shadow {
+    width: 157px;
+    height: 157px;
+    background-color: rgba(248, 236, 171, 0);
+    border-radius: 10px;
+    margin: 10px;
+    -unity-background-image-tint-color: rgba(0, 0, 0, 0.3);
+    position: absolute;
 }
