@@ -12,6 +12,7 @@ using Assets.Utils.Runtime;
 using EditorAttributes;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using VContainer;
 using VContainer.Unity;
@@ -51,6 +52,7 @@ namespace Assets.GearMind.Level
             builder
                 .RegisterEntryPoint<LevelEntryPoint>(Lifetime.Singleton)
                 .WithParameter(_environmentAnchor);
+            builder.Register(LevelContextFactoryMethod, Lifetime.Singleton).AsSelf();
 
             builder.RegisterInstance(_inventoryFactory.CreateInventory()).As<IInventory>();
             builder.RegisterInstance(CreateIdentityPrefabMap(_inventoryFactory));
@@ -100,5 +102,12 @@ namespace Assets.GearMind.Level
                         component.gameObject
                     ))
             );
+
+        private static LevelContext LevelContextFactoryMethod(IObjectResolver c)
+        {
+            var levelProvider = c.Resolve<ILevelProvider>();
+            var levelIndex = levelProvider.IndexOf(SceneManager.GetActiveScene().buildIndex);
+            return new LevelContext(levelIndex, levelProvider);
+        }
     }
 }
