@@ -10,11 +10,13 @@ namespace Assets.GearMind.Test
 {
     public class DefaultRigidObject
         : MonoBehaviour,
-            IGameplayObject,
             IHaveState<Rigidbody2DState>,
             IDragAndDropTarget
     {
         private const float DRAG_ALPHA = 0.5f;
+
+        [SerializeField]
+        private bool _isNeedKinematic = false;
 
         [field: SerializeField]
         public bool IsDragable { get; set; } = false;
@@ -35,12 +37,6 @@ namespace Assets.GearMind.Test
         public  ContactFilter2D _contactFilter { get; private set; }
 
         private readonly RaycastHit2D[] _hits = new RaycastHit2D[1];
-
-        [Button]
-        public virtual void EnterEditMode() => _rigidbody.bodyType = RigidbodyType2D.Kinematic;
-
-        [Button]
-        public virtual void EnterPlayMode() => _rigidbody.bodyType = RigidbodyType2D.Dynamic;
 
         public virtual Rigidbody2DState GetState() => _rigidbody.GetState();
 

@@ -9,13 +9,15 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2832068844101325024}
-  - component: {fileID: 2571482960436824630}
-  - component: {fileID: 3561216923678289303}
-  - component: {fileID: 9181379982914247799}
+  - component: {fileID: 5671121506516292114}
   - component: {fileID: 4666209939045324369}
+  - component: {fileID: 2121922412733017036}
+  - component: {fileID: 8382337516694907414}
+  - component: {fileID: 4638578014725933589}
+  - component: {fileID: 3606307520498140278}
   m_Layer: 7
   m_Name: Ball
-  m_TagString: Instrument
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -36,7 +38,47 @@ Transform:
   - {fileID: 3612888660356808919}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &2571482960436824630
+--- !u!50 &5671121506516292114
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5431714573158688104}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 6200000, guid: 7ebaac0254b2f4b42b8c6f312f360593, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &4666209939045324369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5431714573158688104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ead1deeec281034e840a744d9465d90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.GearMind.Inventory.InventoryIdentityComponent
+  _inventoryIdentitySO: {fileID: 11400000, guid: 01533e2882566f840a6d1a4bd8f1896c, type: 2}
+--- !u!58 &2121922412733017036
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -46,7 +88,7 @@ CircleCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 7ebaac0254b2f4b42b8c6f312f360593, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -72,34 +114,7 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
---- !u!50 &3561216923678289303
-Rigidbody2D:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5431714573158688104}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDamping: 0.1
-  m_AngularDamping: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!114 &9181379982914247799
+--- !u!114 &8382337516694907414
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -108,19 +123,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 5431714573158688104}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7d26c6dcaf8dd0408f797051722fbfc, type: 3}
+  m_Script: {fileID: 11500000, guid: efc0ab50ca3a96a469fa100ba8ec4be9, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CommonGridObject
-  ObstacleLayers:
-    serializedVersion: 2
-    m_Bits: 128
-  GridMaterial: {fileID: 2100000, guid: 5ea290e1fb9abe14eb0f13fe728fa715, type: 2}
-  IsNeedTrigerCollider: 0
-  ObjectCollider: {fileID: 2571482960436824630}
-  ObjectRenderer: {fileID: 2708050142856154460}
-  Rigidbody: {fileID: 3561216923678289303}
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.GearMind.Test.DefaultRigidObject
+  _isNeedKinematic: 0
   <IsDragable>k__BackingField: 1
---- !u!114 &4666209939045324369
+  <_renderer>k__BackingField: {fileID: 2708050142856154460}
+  <_rigidbody>k__BackingField: {fileID: 5671121506516292114}
+  <_collider>k__BackingField: {fileID: 2121922412733017036}
+  <_contactFilter>k__BackingField:
+    useTriggers: 0
+    useLayerMask: 1
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 128
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
+--- !u!114 &4638578014725933589
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -129,10 +154,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 5431714573158688104}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ead1deeec281034e840a744d9465d90, type: 3}
+  m_Script: {fileID: 11500000, guid: 596101423b590cd41baab85e1110a9db, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Assets.GearMind.Inventory.InventoryIdentityComponent
-  _inventoryIdentitySO: {fileID: 11400000, guid: 8f8bbff924b0cc14194a026a0e41ba86, type: 2}
+  m_EditorClassIdentifier: Assembly-CSharp::NotConnectedObject
+--- !u!114 &3606307520498140278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5431714573158688104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fd161a520f32cb448f8e5b3ab2bd14e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DefaultGameplayObject
+  _isNeedKinematic: 0
+  _rigidbody: {fileID: 5671121506516292114}
 --- !u!1 &6631018279442447277
 GameObject:
   m_ObjectHideFlags: 0
@@ -144,9 +182,9 @@ GameObject:
   - component: {fileID: 3612888660356808919}
   - component: {fileID: 5886193106015086714}
   - component: {fileID: 2708050142856154460}
-  m_Layer: 7
-  m_Name: Ball
-  m_TagString: Instrument
+  m_Layer: 0
+  m_Name: View
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

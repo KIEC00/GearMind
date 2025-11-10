@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1895951587472642473}
   - component: {fileID: 5078550567428888148}
   - component: {fileID: 2737294959940705808}
+  - component: {fileID: 8654683411783177411}
   m_Layer: 7
   m_Name: Spring
   m_TagString: Untagged
@@ -135,6 +136,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90c02e75b0cd255479efac3eb115af21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Spring
+  _forseSpring: 600
+  _pushCollider: {fileID: 7575815498322998890}
+  _areaEffector: {fileID: 5348543315721998928}
+  _collider: {fileID: 4010397242072108704}
+--- !u!114 &8654683411783177411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1031691624047743675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684bec6e7934a0f46b4b091a060ca984, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DownConnectRigidObject
+  _isNeedKinematic: 1
   <IsDragable>k__BackingField: 1
   <_renderer>k__BackingField: {fileID: 4045421497018219107}
   <_rigidbody>k__BackingField: {fileID: 1895951587472642473}
@@ -153,7 +171,20 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
-  _pushCollider: {fileID: 7575815498322998890}
+  _filterConnect:
+    useTriggers: 0
+    useLayerMask: 1
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 129
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
 --- !u!1 &3983074457682837769
 GameObject:
   m_ObjectHideFlags: 0
@@ -194,7 +225,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3983074457682837769}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
@@ -221,7 +252,7 @@ BoxCollider2D:
   m_UsedByEffector: 1
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.097467184, y: -1.7486558}
+  m_Offset: {x: -0.097467184, y: -0.9626802}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -231,7 +262,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.7445228, y: 0.7127738}
+  m_Size: {x: 0.7445228, y: 2.284725}
   m_EdgeRadius: 0
 --- !u!249 &5348543315721998928
 AreaEffector2D:
@@ -248,7 +279,7 @@ AreaEffector2D:
     m_Bits: 128
   m_UseGlobalAngle: 0
   m_ForceAngle: 90
-  m_ForceMagnitude: 500
+  m_ForceMagnitude: 700
   m_ForceVariation: 0
   m_ForceTarget: 0
   m_LinearDamping: 0

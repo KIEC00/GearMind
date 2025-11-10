@@ -193,6 +193,7 @@ GameObject:
   - component: {fileID: 845188412800071226}
   - component: {fileID: 7673976342002168705}
   - component: {fileID: 2208296978021786969}
+  - component: {fileID: 1688815826433716285}
   m_Layer: 7
   m_Name: Laser
   m_TagString: Untagged
@@ -304,29 +305,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88d9000f5405dfe47b192c63be123821, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Laser
-  <IsDragable>k__BackingField: 1
-  <_renderer>k__BackingField: {fileID: 8805938851333742499}
-  <_rigidbody>k__BackingField: {fileID: 2135331244874087089}
-  <_collider>k__BackingField: {fileID: 3183604055713033353}
-  <_contactFilter>k__BackingField:
-    useTriggers: 1
-    useLayerMask: 1
-    useDepth: 0
-    useOutsideDepth: 0
-    useNormalAngle: 0
-    useOutsideNormalAngle: 0
-    layerMask:
-      serializedVersion: 2
-      m_Bits: 128
-    minDepth: 0
-    maxDepth: 0
-    minNormalAngle: 0
-    maxNormalAngle: 0
   _maxDistance: 3
   _laserWidth: 0.1
+  _isNeedTurnOn: 0
   _filterLaserHit:
     useTriggers: 0
-    useLayerMask: 0
+    useLayerMask: 1
     useDepth: 0
     useOutsideDepth: 0
     useNormalAngle: 0
@@ -451,3 +435,48 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &1688815826433716285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7006651015358502533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da793c3203d5c9a42b828fb6f8af8eb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VertiHorizConnectRigidObject
+  _isNeedKinematic: 1
+  <IsDragable>k__BackingField: 1
+  <_renderer>k__BackingField: {fileID: 8805938851333742499}
+  <_rigidbody>k__BackingField: {fileID: 2135331244874087089}
+  <_collider>k__BackingField: {fileID: 3183604055713033353}
+  <_contactFilter>k__BackingField:
+    useTriggers: 1
+    useLayerMask: 1
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 128
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
+  _filterConnect:
+    useTriggers: 0
+    useLayerMask: 1
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 129
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0

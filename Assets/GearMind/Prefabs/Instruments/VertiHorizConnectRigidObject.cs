@@ -3,17 +3,13 @@ using UnityEngine;
 
 public class VertiHorizConnectRigidObject : DefaultRigidObject
 {
+    [SerializeField]
+    private ContactFilter2D _filterConnect;
+
     private readonly RaycastHit2D[] _hitsLeft = new RaycastHit2D[3];
     private readonly RaycastHit2D[] _hitsRight = new RaycastHit2D[3];
     private readonly RaycastHit2D[] _hitsUp = new RaycastHit2D[3];
     private readonly RaycastHit2D[] _hitsDown = new RaycastHit2D[3];
-
-
-
-    public override void EnterPlayMode()
-    {
-        
-    }
     public override bool ValidatePlacement()
     {
         return base.ValidatePlacement() && CheckConnect();
@@ -29,12 +25,12 @@ public class VertiHorizConnectRigidObject : DefaultRigidObject
 
     private bool CheckConnectSide(Vector2 direction,  RaycastHit2D[] hits)
     {
-        var countHits = _collider.Cast(direction, _contactFilter, hits, 0.3f);
+        var countHits = _collider.Cast(direction, _filterConnect, hits, 0.3f);
         if (countHits > 0)
         {
             for (var i = 0; i < countHits; i++)
             {
-                if (hits[i].collider.gameObject.TryGetComponent<IConnectGridObject>(out _))
+                if (!hits[i].collider.gameObject.TryGetComponent<INotConnectedObject>(out _))
                     return true;
             }
         }

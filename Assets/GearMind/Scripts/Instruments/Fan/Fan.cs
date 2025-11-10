@@ -1,12 +1,16 @@
+using Assets.GearMind.Objects;
 using EditorAttributes;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Fan : VertiHorizConnectRigidObject, IIncludedObject
+public class Fan : MonoBehaviour,IGameplayObject, IIncludedObject, INotConnectedObject
 {
 
     [SerializeField]
     private float _forceFan = 20;
+
+    [SerializeField]
+    private bool _isNeedTurnOn = false;
 
     [Header("")]
     [SerializeField, Required]
@@ -15,19 +19,27 @@ public class Fan : VertiHorizConnectRigidObject, IIncludedObject
     [SerializeField, Required]
     private AreaEffector2D _effector2D;
 
+    [SerializeField, Required]
+    private Renderer _renderer;
+
+    private Color _initialColor;
+
 
     public bool IsTurnOn { get; private set; } = false;
 
     private void Awake()
     {
+        _initialColor = _renderer.material.color;
         _effector2D.forceMagnitude = _forceFan;
+        if(_isNeedTurnOn)
+            TurnOnOff(true);
     }
 
-    public override void EnterEditMode()
+    public  void EnterEditMode()
     {
-        base.EnterEditMode();
-        TurnOnOff(false);
+        TurnOnOff(_isNeedTurnOn);
     }
+
 
 
     public void TurnOnOff(bool isTurnOn)
@@ -40,14 +52,8 @@ public class Fan : VertiHorizConnectRigidObject, IIncludedObject
             _renderer.material.color = _initialColor;
     }
 
-
-    private void OnEnable()
+    public void EnterPlayMode()
     {
-        TurnOnOff(false);
-    }
 
-    private void OnDisable()
-    {
-        TurnOnOff(false);
     }
 }

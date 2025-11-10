@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
+using Assets.GearMind.Objects;
 using EditorAttributes;
 using R3;
 using R3.Triggers;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class ButtonInstrument : DownConnectRigidObject
+public class ButtonInstrument : MonoBehaviour, IGameplayObject
 {
 
     [Header("FilterIncludeCollider")]
@@ -23,6 +24,9 @@ public class ButtonInstrument : DownConnectRigidObject
     [SerializeField, Required]
     private Renderer _rendererRedButton;
 
+    [SerializeField, Required]
+    private Collider2D _collider;
+
     
 
     
@@ -31,15 +35,14 @@ public class ButtonInstrument : DownConnectRigidObject
 
     private Color _initialiseColor;
 
-    public override void EnterEditMode()
+    public  void EnterEditMode()
     {
-        base.EnterEditMode();
         _collider.enabled = true;
         _pushCollider.enabled = false;
         _includeCollider.enabled = false;
     }
 
-    public override void EnterPlayMode()
+    public  void EnterPlayMode()
     {
         _collider.enabled = false;
         _pushCollider.enabled = true;

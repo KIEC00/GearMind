@@ -3,6 +3,10 @@ using UnityEngine;
 
 public class UpConnectRigidObject : DefaultRigidObject
 {
+
+    [SerializeField]
+    private ContactFilter2D _filterConnect;
+
     private readonly RaycastHit2D[] _hits = new RaycastHit2D[3];
 
     public override bool ValidatePlacement()
@@ -12,12 +16,12 @@ public class UpConnectRigidObject : DefaultRigidObject
 
     private bool CheckConnect()
     {
-        var cust = _collider.Cast(Vector2.up, _contactFilter, _hits, 0.3f);
+        var cust = _collider.Cast(Vector2.up, _filterConnect, _hits, 0.3f);
         if (cust > 0)
         {
             for (var i = 0; i < cust; i++)
             {
-                if (_hits[i].collider.gameObject.TryGetComponent<ConnectObject>(out _))
+                if (!_hits[i].collider.gameObject.TryGetComponent<INotConnectedObject>(out _))
                     return true;
             }
 

@@ -1,8 +1,11 @@
 using System.Collections;
+using System.Collections.Generic;
+using Assets.GearMind.Objects;
+using Assets.Utils.Runtime;
 using EditorAttributes;
 using UnityEngine;
 
-public class Laser : VertiHorizConnectRigidObject, IIncludedObject
+public class Laser : MonoBehaviour, IGameplayObject, IIncludedObject, INotConnectedObject
 {
     [Header("LaserParameters")]
     [SerializeField]
@@ -10,6 +13,9 @@ public class Laser : VertiHorizConnectRigidObject, IIncludedObject
 
     [SerializeField]
     private float _laserWidth = 0.1f;
+
+    [SerializeField]
+    private bool _isNeedTurnOn = false;
 
     [Header("FilterLaserHit")]
     [SerializeField]
@@ -26,7 +32,7 @@ public class Laser : VertiHorizConnectRigidObject, IIncludedObject
     private LineRenderer _lineRenderer;
 
 
-    private RaycastHit2D[] _laserHits = new RaycastHit2D[1];
+    private List<RaycastHit2D> _laserHits = new ();
     private Vector3 _offsetDrawLaserVector;
 
     private Coroutine _updateLaserCoroutine;
@@ -42,15 +48,17 @@ public class Laser : VertiHorizConnectRigidObject, IIncludedObject
         while (true)
         {
             var hit = Physics2D.Raycast(_startLaserPoint.position, transform.right, _filterLaserHit, _laserHits, _maxDistance);
-            var hitCollider = _laserHits[0].collider;
-            if (hitCollider != null)
+            if (hit > 0 && _laserHits[0].collider != null)
             {
-                if (hitCollider.CompareTag("Ball"))
-                {
-                    DestroyCheese(_laserHits[0].collider.gameObject);
-                }
+                
                 _lineRenderer.SetPosition(0, _startLaserPoint.position + _offsetDrawLaserVector);
                 _lineRenderer.SetPosition(1, new Vector3(_laserHits[0].point.x, _laserHits[0].point.y, _offsetDrawLaserVector.z));
+                if (_laserHits[0].collider.CompareTag("Ball"))
+                {
+                    DestroyCheese(_laserHits[0].collider.gameObject);
+                    _laserHits.Clear();
+                    
+                }
             }
             else
             {
@@ -65,7 +73,7 @@ public class Laser : VertiHorizConnectRigidObject, IIncludedObject
 
     public void DestroyCheese(GameObject gameObject)
     {
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
 
@@ -74,6 +82,9 @@ public class Laser : VertiHorizConnectRigidObject, IIncludedObject
         _offsetDrawLaserVector = new Vector3(0,0,_offsetDrawLaser.position.z);
         _lineRenderer.startWidth = _laserWidth;
         _lineRenderer.endWidth = _laserWidth;
+        if (_isNeedTurnOn)
+            TurnOnOff(true);
+
     }
 
 
@@ -83,7 +94,7 @@ public class Laser : VertiHorizConnectRigidObject, IIncludedObject
         if (IsTurnOn)
         {
             _lineRenderer.enabled = true;
-            if(_updateLaserCoroutine != null)
+            if(_updateLaserCoroutine == null)
             {
                 _updateLaserCoroutine = StartCoroutine(UpdateLaser());
             }
@@ -99,8 +110,13 @@ public class Laser : VertiHorizConnectRigidObject, IIncludedObject
         
     }
 
-    public override void EnterEditMode()
+    public void EnterEditMode()
     {
-        TurnOnOff(false);
+
+        TurnOnOff(_isNeedTurnOn);
+    }
+
+    public void EnterPlayMode()
+    {
     }
 }

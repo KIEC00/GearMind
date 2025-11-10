@@ -364,9 +364,10 @@ GameObject:
   - component: {fileID: 2912999878322809634}
   - component: {fileID: 2995878182433360892}
   - component: {fileID: 2186781841508340573}
+  - component: {fileID: 6395811886515609902}
   m_Layer: 7
   m_Name: Button
-  m_TagString: Instrument
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -487,6 +488,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7eb85078973e9f4094e00a78dd2a719, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonInstrument
+  _includeColliderFilter:
+    useTriggers: 1
+    useLayerMask: 0
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 128
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
+  _pushCollider: {fileID: 994965634606156691}
+  _includeCollider: {fileID: 7264750697341144928}
+  _rendererRedButton: {fileID: 8389054993707747352}
+  _collider: {fileID: 7476390955502768585}
+--- !u!114 &6395811886515609902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8731716802768337428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684bec6e7934a0f46b4b091a060ca984, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DownConnectRigidObject
+  _isNeedKinematic: 1
   <IsDragable>k__BackingField: 1
   <_renderer>k__BackingField: {fileID: 8988487523038608583}
   <_rigidbody>k__BackingField: {fileID: 2912999878322809634}
@@ -505,20 +537,17 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
-  _includeColliderFilter:
-    useTriggers: 1
-    useLayerMask: 0
+  _filterConnect:
+    useTriggers: 0
+    useLayerMask: 1
     useDepth: 0
     useOutsideDepth: 0
     useNormalAngle: 0
     useOutsideNormalAngle: 0
     layerMask:
       serializedVersion: 2
-      m_Bits: 128
+      m_Bits: 129
     minDepth: 0
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
-  _pushCollider: {fileID: 994965634606156691}
-  _includeCollider: {fileID: 7264750697341144928}
-  _rendererRedButton: {fileID: 8389054993707747352}

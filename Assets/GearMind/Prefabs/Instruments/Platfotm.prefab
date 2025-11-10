@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 5868221410159736706}
   - component: {fileID: 5637799894335985506}
   - component: {fileID: 4100123532918152660}
-  - component: {fileID: 2438343001647088332}
+  - component: {fileID: 347543126278732335}
   m_Layer: 7
   m_Name: Platfotm
   m_TagString: Untagged
@@ -224,6 +224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efc0ab50ca3a96a469fa100ba8ec4be9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.GearMind.Test.DefaultRigidObject
+  _isNeedKinematic: 1
   <IsDragable>k__BackingField: 1
   <_renderer>k__BackingField: {fileID: 4973064994554192181}
   <_rigidbody>k__BackingField: {fileID: 71372871635264739}
@@ -242,7 +243,7 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
---- !u!114 &2438343001647088332
+--- !u!114 &347543126278732335
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -251,6 +252,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 8903875901613869997}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ab7052830829ed42bc4b475a41cf428, type: 3}
+  m_Script: {fileID: 11500000, guid: 8fd161a520f32cb448f8e5b3ab2bd14e, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ConnectObject
+  m_EditorClassIdentifier: Assembly-CSharp::DefaultGameplayObject
+  _isNeedKinematic: 1
+  _rigidbody: {fileID: 71372871635264739}
