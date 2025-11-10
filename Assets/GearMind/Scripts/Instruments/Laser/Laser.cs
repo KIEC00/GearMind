@@ -44,20 +44,19 @@ public class Laser : MonoBehaviour, IGameplayObject, IIncludedObject, INotConnec
     //добавить обработку столкновения с сыром(когда будет сыр)
     public IEnumerator UpdateLaser()
     {
-
+        ICheese cheese;
         while (true)
         {
             var hit = Physics2D.Raycast(_startLaserPoint.position, transform.right, _filterLaserHit, _laserHits, _maxDistance);
             if (hit > 0 && _laserHits[0].collider != null)
             {
-                
                 _lineRenderer.SetPosition(0, _startLaserPoint.position + _offsetDrawLaserVector);
                 _lineRenderer.SetPosition(1, new Vector3(_laserHits[0].point.x, _laserHits[0].point.y, _offsetDrawLaserVector.z));
-                if (_laserHits[0].collider.CompareTag("Ball"))
+                
+                if (_laserHits[0].collider.TryGetComponent<ICheese>(out cheese))
                 {
-                    DestroyCheese(_laserHits[0].collider.gameObject);
+                    cheese.DestroyCheese();
                     _laserHits.Clear();
-                    
                 }
             }
             else
@@ -94,10 +93,9 @@ public class Laser : MonoBehaviour, IGameplayObject, IIncludedObject, INotConnec
         if (IsTurnOn)
         {
             _lineRenderer.enabled = true;
-            if(_updateLaserCoroutine == null)
-            {
-                _updateLaserCoroutine = StartCoroutine(UpdateLaser());
-            }
+            
+            _updateLaserCoroutine = StartCoroutine(UpdateLaser());
+            
         }
         else
         {

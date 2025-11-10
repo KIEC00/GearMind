@@ -77,7 +77,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ead1deeec281034e840a744d9465d90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.GearMind.Inventory.InventoryIdentityComponent
-  _inventoryIdentitySO: {fileID: 11400000, guid: 01533e2882566f840a6d1a4bd8f1896c, type: 2}
+  _inventoryIdentitySO: {fileID: 11400000, guid: 8f8bbff924b0cc14194a026a0e41ba86, type: 2}
 --- !u!58 &2121922412733017036
 CircleCollider2D:
   m_ObjectHideFlags: 0
