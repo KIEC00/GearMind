@@ -15,9 +15,6 @@ namespace Assets.GearMind.Test
     {
         private const float DRAG_ALPHA = 0.5f;
 
-        [SerializeField]
-        private bool _isNeedKinematic = false;
-
         [field: SerializeField]
         public bool IsDragable { get; set; } = false;
 

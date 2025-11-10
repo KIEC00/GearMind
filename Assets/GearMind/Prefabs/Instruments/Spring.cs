@@ -1,5 +1,8 @@
+using System;
 using Assets.GearMind.Objects;
 using EditorAttributes;
+using R3;
+using R3.Triggers;
 using UnityEngine;
 
 public class Spring : MonoBehaviour,IGameplayObject, INotConnectedObject
@@ -12,14 +15,26 @@ public class Spring : MonoBehaviour,IGameplayObject, INotConnectedObject
     [SerializeField, Required]
     private Collider2D _pushCollider;
 
-    [SerializeField, Required]
-    private AreaEffector2D _areaEffector;
 
     [SerializeField, Required]
     private Collider2D _collider;
 
+    private IDisposable _disposable;
 
 
+    private void RegisterMethods()
+    {
+        if (_disposable != null)
+            _disposable.Dispose();
+        _disposable = _pushCollider.OnTriggerEnter2DAsObservable().Subscribe(collisionCollider => PushObject(collisionCollider)).AddTo(this);
+    }
+
+    public void PushObject(Collider2D collider)
+    {
+        collider.attachedRigidbody.AddForce(-collider.attachedRigidbody.linearVelocity * transform.up , ForceMode2D.Impulse);
+        collider.attachedRigidbody.AddForce(transform.up * _forseSpring, ForceMode2D.Impulse);
+
+    }
 
     public  void EnterEditMode()
     {
@@ -33,8 +48,14 @@ public class Spring : MonoBehaviour,IGameplayObject, INotConnectedObject
         _pushCollider.enabled = true;   
     }
 
-    public void Awake()
+
+    public void OnEnable()
     {
-        _areaEffector.forceMagnitude = _forseSpring;
+        RegisterMethods();
+    }
+
+    public void OnDisable()
+    {
+        _disposable.Dispose();
     }
 }
