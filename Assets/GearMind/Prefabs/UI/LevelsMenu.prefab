@@ -68,3 +68,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80742f12a9fecfe46b018003d0e8227f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.GearMind.Scripts.UI.LevelsController
+  _levelButtonAsset: {fileID: 9197481963319205126, guid: 077ea86c4ebf9a344a3c2787fca8c93c, type: 3}

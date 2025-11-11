@@ -1,6 +1,4 @@
 using System;
-using Assets.GearMind.Level;
-using VContainer;
 
 namespace Assets.GearMind.UI
 {
@@ -9,22 +7,14 @@ namespace Assets.GearMind.UI
         public bool IsEditMode => _isEditMode;
         public bool IsSimulateMode => !_isEditMode;
         public event Action<bool> OnModeChanged;
-        
+        public event Action OnLevelPassed;
         private bool _isEditMode = true;
-        private LevelStateMachine _stateMachine;
-
-        [Inject]
-        public void Construct(LevelStateMachine stateMachine)
-        {
-            _stateMachine = stateMachine;
-        }
 
         public void EnterEditMode()
         {
             if (!_isEditMode)
             {
                 _isEditMode = true;
-                _stateMachine.TransitionTo(LevelState.Edit);
                 OnModeChanged?.Invoke(true);
             }
         }
@@ -34,7 +24,6 @@ namespace Assets.GearMind.UI
             if (_isEditMode)
             {
                 _isEditMode = false;
-                _stateMachine.TransitionTo(LevelState.Simulate);
                 OnModeChanged?.Invoke(false);
             }
         }
@@ -46,5 +35,7 @@ namespace Assets.GearMind.UI
             else
                 EnterEditMode();
         }
+
+        public void OpenNextLevelMenu() => OnLevelPassed?.Invoke();
     }
 }

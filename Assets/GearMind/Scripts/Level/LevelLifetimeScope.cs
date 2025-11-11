@@ -5,6 +5,7 @@ using Assets.GearMind.Grid;
 using Assets.GearMind.Input;
 using Assets.GearMind.Inventory;
 using Assets.GearMind.Level.States;
+using Assets.GearMind.Objects;
 using Assets.GearMind.Scripts.UI;
 using Assets.GearMind.State;
 using Assets.GearMind.UI;
@@ -12,6 +13,7 @@ using Assets.Utils.Runtime;
 using EditorAttributes;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using VContainer;
 using VContainer.Unity;
@@ -43,14 +45,15 @@ namespace Assets.GearMind.Level
         [SerializeField, Required]
         private NextLevelController _nextLevelController;
 
-        [SerializeField, Required]
-        private LevelGoal _levelGoal;
+        [SerializeField, Required, TypeFilter(typeof(ILevelGoalTrigger))]
+        private Component _levelGoalTrigger;
 
         protected override void Configure(IContainerBuilder builder)
         {
             builder
                 .RegisterEntryPoint<LevelEntryPoint>(Lifetime.Singleton)
                 .WithParameter(_environmentAnchor);
+            builder.Register(LevelContextFactoryMethod, Lifetime.Singleton).AsSelf();
 
             builder.RegisterInstance(_inventoryFactory.CreateInventory()).As<IInventory>();
             builder.RegisterInstance(CreateIdentityPrefabMap(_inventoryFactory));
@@ -78,10 +81,9 @@ namespace Assets.GearMind.Level
 
             builder.Register(LevelStateMachineFactoryMethod, Lifetime.Singleton).All();
 
-            builder.Register<LevelManager>(Lifetime.Singleton).AsSelf();
             builder.Register<UIManager>(Lifetime.Singleton);
             builder.RegisterComponent(_nextLevelController);
-            builder.RegisterComponent(_levelGoal);
+            builder.RegisterComponent(_levelGoalTrigger).AsImplementedInterfaces();
         }
 
         private static LevelStateMachine LevelStateMachineFactoryMethod(IObjectResolver c) =>
@@ -100,5 +102,18 @@ namespace Assets.GearMind.Level
                         component.gameObject
                     ))
             );
+
+        private static LevelContext LevelContextFactoryMethod(IObjectResolver c)
+        {
+            var levelProvider = c.Resolve<ILevelProvider>();
+            var levelIndex = levelProvider.IndexOf(SceneManager.GetActiveScene().buildIndex);
+            return new LevelContext(levelIndex, levelProvider);
+        }
+
+        private void OnValidate()
+        {
+            if (!_levelGoalTrigger && _environmentAnchor)
+                _environmentAnchor.GetComponentInChildren<ILevelGoalTrigger>();
+        }
     }
 }

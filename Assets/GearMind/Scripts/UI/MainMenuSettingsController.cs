@@ -1,14 +1,10 @@
-using Assets.GearMind.Level;
-using GearMind.Services.Level;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
-using VContainer;
 
 namespace Assets.GearMind.Scripts.UI
 {
     [RequireComponent(typeof(UIDocument))]
-    public class SettingsController : MonoBehaviour
+    public class MainMenuSettingsController : MonoBehaviour
     {
         public enum Context
         {
@@ -20,19 +16,13 @@ namespace Assets.GearMind.Scripts.UI
         private Button _closeSettingsButton;
         private Button _exitToMainMenuButton;
         private VisualElement _settingsPanel;
-        private IPauseService _pauseService;
-        private LevelContext _levelContext;
 
         public Context CurrentContext { get; private set; }
 
         public bool IsVisible => _settingsPanel.style.display == DisplayStyle.Flex;
 
-        [Inject]
-        public void Construct(IPauseService pauseService, LevelContext levelContext)
+        public void Awake()
         {
-            _pauseService = pauseService;
-            _levelContext = levelContext;
-
             _doc = GetComponent<UIDocument>();
 
             _settingsPanel = _doc.rootVisualElement;
@@ -42,12 +32,9 @@ namespace Assets.GearMind.Scripts.UI
             if (_closeSettingsButton != null)
                 _closeSettingsButton.clicked += CloseSettings;
 
-            if (_exitToMainMenuButton != null)
-                _exitToMainMenuButton.clicked += ExitToMainMenu;
-
             _settingsPanel.style.display = DisplayStyle.None;
 
-            SetContext(Context.Gameplay);
+            SetContext(Context.MainMenu);
         }
 
         public void SetContext(Context context)
@@ -61,21 +48,14 @@ namespace Assets.GearMind.Scripts.UI
             }
         }
 
-        private void ExitToMainMenu()
-        {
-            SceneManager.LoadScene(_levelContext.MenuSceneID);
-        }
-
         private void OpenSettings()
         {
             _settingsPanel.style.display = DisplayStyle.Flex;
-            _pauseService.Pause();
         }
 
         private void CloseSettings()
         {
             _settingsPanel.style.display = DisplayStyle.None;
-            _pauseService.Unpause();
         }
 
         public void Toggle()
@@ -89,7 +69,6 @@ namespace Assets.GearMind.Scripts.UI
         private void OnDisable()
         {
             _closeSettingsButton.clicked -= CloseSettings;
-            _exitToMainMenuButton.clicked -= ExitToMainMenu;
         }
     }
 }

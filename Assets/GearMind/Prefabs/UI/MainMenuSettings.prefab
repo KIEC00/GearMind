@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1513220005878074201}
-  - component: {fileID: 2654648785810511863}
+  - component: {fileID: -4494815224837611547}
   - component: {fileID: 7814173888643522900}
   - component: {fileID: 8798910413799441382}
   m_Layer: 0
-  m_Name: Settings
+  m_Name: MainMenuSettings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34,7 +34,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2654648785810511863
+--- !u!114 &-4494815224837611547
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,9 +43,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 7770774455957259304}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e89f1f16782b296488af64d2eae6686a, type: 3}
+  m_Script: {fileID: 11500000, guid: e3a9203a32f79534b957bd6024194900, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Assets.GearMind.Scripts.UI.SettingsController
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.GearMind.Scripts.UI.MainMenuSettingsController
 --- !u!114 &7814173888643522900
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,18 +1,17 @@
 using System;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Assets.GearMind.Level
 {
     public class LevelManager
     {
-        private readonly LevelStateMachine _stateMachine;
+        private LevelContext _context;
 
         public event Action OnLevelCompleted;
 
-        public LevelManager(LevelStateMachine stateMachine)
+        public LevelManager(LevelContext context)
         {
-            _stateMachine = stateMachine;
+            _context = context;
         }
 
         public void CompleteLevel()
@@ -22,22 +21,13 @@ namespace Assets.GearMind.Level
 
         public void LoadNextLevel()
         {
-            int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-            int nextSceneIndex = currentSceneIndex + 1;
-
-            if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
-                SceneManager.LoadScene(nextSceneIndex);
-            else
-            {
-                Debug.Log("Все уровни пройдены");
-                SceneManager.LoadScene(0);
-            }
+            var id = _context.IsLast ? _context.MenuSceneID : _context.Next.Level.SceneID;
+            SceneManager.LoadScene(id);
         }
 
         public void RestartLevel()
         {
-            int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-            SceneManager.LoadScene(currentSceneIndex);
+            SceneManager.LoadScene(_context.Level.SceneID);
         }
     }
 }

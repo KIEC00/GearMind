@@ -1,73 +1,70 @@
 using System.Collections.Generic;
+using Assets.GearMind.Level;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
+using VContainer;
 
 namespace Assets.GearMind.Scripts.UI
 {
+    [RequireComponent(typeof(UIDocument))]
     public class LevelsController : MonoBehaviour
     {
+        [SerializeField]
+        private VisualTreeAsset _levelButtonAsset;
+
         private UIDocument _doc;
         private Button _closeLevelsMenuButton;
         private VisualElement _levelsPanel;
 
-        private Dictionary<string, string> _levelScenes = new Dictionary<string, string>
-        {
-            { "1", "SceneTemplate" },
-            { "2", "Level2" }
-        };
-
         public bool IsVisible => _levelsPanel.style.display == DisplayStyle.Flex;
 
-
-        private void Awake()
+        [Inject]
+        public void Construct(ILevelProvider levelProvider)
         {
             _doc = GetComponent<UIDocument>();
-        }
 
-        private void OnEnable()
-        {
+            CreateButtons(levelProvider.Levels);
+
             _levelsPanel = _doc.rootVisualElement;
             _closeLevelsMenuButton = _doc.rootVisualElement.Q<Button>("CloseButton");
 
             if (_closeLevelsMenuButton != null)
                 _closeLevelsMenuButton.clicked += CloseLevelsMenu;
 
-            var levelButtons = _doc.rootVisualElement.Query<Button>(className: "level-button").ToList();
-            foreach (var button in levelButtons)
+            _levelsPanel.style.display = DisplayStyle.None;
+        }
+
+        private void CreateButtons(IReadOnlyList<LevelData> levels)
+        {
+            var levelsContainer = _doc.rootVisualElement.Q("LevelsContainer");
+            for (int i = 0; i < levels.Count; i++)
             {
-                var levelText = button.text;
-                button.clicked += () => LoadLevel(levelText);
+                var level = levels[i];
+
+                var buttonTree = _levelButtonAsset.CloneTree();
+
+                var button = buttonTree.Q<Button>(className: "level-button");
+                button.text = (i + 1).ToString();
+                button.clicked += () => LoadLevel(level);
+
+                levelsContainer.Add(buttonTree);
             }
-
-            _levelsPanel.style.display = DisplayStyle.None;
         }
 
-        private void OpenLevelsMenu()
-        {
-            _levelsPanel.style.display = DisplayStyle.Flex;
-        }
+        private void OpenLevelsMenu() => _levelsPanel.style.display = DisplayStyle.Flex;
 
-        private void CloseLevelsMenu()
-        {
-            _levelsPanel.style.display = DisplayStyle.None;
-        }
+        private void CloseLevelsMenu() => _levelsPanel.style.display = DisplayStyle.None;
 
         public void Toggle()
         {
-            if (IsVisible) CloseLevelsMenu();
-            else OpenLevelsMenu();
+            if (IsVisible)
+                CloseLevelsMenu();
+            else
+                OpenLevelsMenu();
         }
 
-        private void LoadLevel(string levelNumber)
-        {
-            if (_levelScenes.ContainsKey(levelNumber))
-            {
-                var sceneName = _levelScenes[levelNumber];
-                SceneManager.LoadScene(sceneName);
-            }
-            else return;
-        }
+        private void LoadLevel(LevelData level) => SceneManager.LoadScene(level.SceneID);
 
         private void OnDisable()
         {

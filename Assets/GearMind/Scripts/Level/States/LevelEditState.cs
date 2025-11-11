@@ -1,4 +1,5 @@
 using Assets.GearMind.State;
+using Assets.GearMind.UI;
 
 namespace Assets.GearMind.Level
 {
@@ -7,16 +8,19 @@ namespace Assets.GearMind.Level
         private readonly PlacementService _placementService;
         private readonly IGameplayObjectService _objectService;
         private readonly IStateService _stateService;
+        private readonly UIManager _uiManager;
 
         public LevelEditState(
             PlacementService placementService,
             IGameplayObjectService objectService,
-            IStateService stateService
+            IStateService stateService,
+            UIManager uiManager
         )
         {
             _placementService = placementService;
             _objectService = objectService;
             _stateService = stateService;
+            _uiManager = uiManager;
         }
 
         public void Enter()
@@ -24,6 +28,7 @@ namespace Assets.GearMind.Level
             _placementService.Enable();
             _objectService.EnterEditMode();
             _stateService.LoadStates();
+            _uiManager.EnterEditMode();
         }
 
         public void Exit()

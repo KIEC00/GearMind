@@ -1,10 +1,13 @@
-using System.Collections;
+using Assets.GearMind.Level;
+using Assets.GearMind.Storage.Endpoints;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
+using VContainer;
 
 namespace Assets.GearMind.Scripts.UI
 {
+    [RequireComponent(typeof(UIDocument))]
     public class MenuController : MonoBehaviour
     {
         private UIDocument _doc;
@@ -14,18 +17,24 @@ namespace Assets.GearMind.Scripts.UI
         private Button _settingsButton;
 
         [SerializeField]
-        private SettingsController _settingsController;
+        private MainMenuSettingsController _settingsController;
+
         [SerializeField]
         private LevelsController _levelsController;
 
-        private void Awake()
+        private ILevelProvider _levelProvider;
+        private PassedLevelsIdsSet _passedLevels;
+
+        [Inject]
+        public void Construct(
+            ILevelProvider levelProvider,
+            LevelProgressEndpoint levelProgressEndpoint
+        )
         {
             _doc = GetComponent<UIDocument>();
+            _levelProvider = levelProvider;
+            _passedLevels = levelProgressEndpoint.Load();
 
-        }
-
-        private void OnEnable()
-        {
             _playButton = _doc.rootVisualElement.Q<Button>("Play");
             _playButton.clicked += PlayClicked;
 
@@ -38,49 +47,31 @@ namespace Assets.GearMind.Scripts.UI
             _levelsButton = _doc.rootVisualElement.Q<Button>("Levels");
             _levelsButton.clicked += LevelsClicked;
 
-            _settingsController.SetContext(SettingsController.Context.MainMenu);
-
+            _settingsController.SetContext(MainMenuSettingsController.Context.MainMenu);
         }
 
+        private void PlayClicked() => LoadLastLevel();
 
-        private void PlayClicked()
+        private void ExitClicked() => ExitGame();
+
+        private void SettingsClicked() => _settingsController.Toggle();
+
+        private void LevelsClicked() => _levelsController.Toggle();
+
+        private void LoadLastLevel()
         {
-            StartCoroutine(LoadScene());
-        }
-
-        private void ExitClicked()
-        {
-            ExitGame();
-        }
-
-        private void SettingsClicked()
-        {
-            _settingsController.Toggle();
-        }
-
-        private void LevelsClicked()
-        {
-            _levelsController.Toggle();
-        }
-
-        private IEnumerator LoadScene()
-        {
-            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("SceneTemplate");
-
-            // Можно добавить загрузочный экран
-            while (!asyncLoad.isDone)
+            foreach (var level in _levelProvider.Levels)
             {
-                float progress = Mathf.Clamp01(asyncLoad.progress / 0.9f);
-                Debug.Log("Загрузка: " + (progress * 100) + "%");
-                yield return null;
+                if (_passedLevels.Contains(level.SceneID))
+                    continue;
+                SceneManager.LoadScene(level.SceneID);
+                return;
             }
+            if (_levelProvider.Levels.Count > 0)
+                SceneManager.LoadScene(_levelProvider.Levels[0].SceneID);
         }
 
-        public void ExitGame()
-        {
-            Application.Quit();
-            Debug.Log("ExitGame");
-        }
+        public void ExitGame() => Application.Quit();
 
         private void OnDisable()
         {
