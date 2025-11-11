@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Assets.GearMind.Objects;
 using Assets.GearMind.State;
 using Assets.GearMind.State.Utils;
@@ -6,24 +5,26 @@ using Assets.Utils.Runtime;
 using EditorAttributes;
 using UnityEngine;
 using UnityEngine.UIElements;
-using UnityEngine.VFX;
 
 public class CommonGridObject : MonoBehaviour, IDragAndDropTarget, IHaveState<Rigidbody2DState>, IGameplayObject
 {
     [SerializeField] private LayerMask ObstacleLayers;
-    [SerializeField] private Material GridMaterial;
     [SerializeField] private bool IsNeedTrigerCollider;
-    
+    [SerializeField] private Texture2D WhiteTexture;
+
     private Collider2D[] ListCollidersCollisions = new Collider2D[10];
     private Collider2D ObjectCollider;
     private ContactFilter2D Filter;
     private Renderer ObjectRenderer;
     private RigidbodyType2D TypeObjectRigidbody;
-
     private Rigidbody2D Rigidbody;
+
+
     private const float DRAG_ALPHA = 0.5f;
     private Color InitialColor;
+    private Texture2D InitialTexture;
     private Material InitialMaterial;
+
 
     [field: SerializeField]
     public bool IsDragable { get; set; } = false;
@@ -36,9 +37,15 @@ public class CommonGridObject : MonoBehaviour, IDragAndDropTarget, IHaveState<Ri
         Filter = new ContactFilter2D();
         Filter.SetLayerMask(ObstacleLayers);
         Filter.useTriggers = true;
+
         ObjectRenderer = GetComponent<Renderer>();
-        InitialColor = ObjectRenderer.material.color;
-        InitialMaterial = ObjectRenderer.material;
+        if (ObjectRenderer == null)
+        {
+            ObjectRenderer = GetComponentInChildren<Renderer>(true);
+        }
+        InitialMaterial = ObjectRenderer.sharedMaterial;
+        InitialColor = InitialMaterial.GetColor("_BaseColor");
+        InitialTexture = InitialMaterial.GetTexture("_BaseMap") as Texture2D;
         TypeObjectRigidbody = Rigidbody.bodyType;
 
     }
@@ -59,7 +66,7 @@ public class CommonGridObject : MonoBehaviour, IDragAndDropTarget, IHaveState<Ri
         return ObjectCollider.Overlap(Filter, ListCollidersCollisions) == 0;
     }
 
-    
+
 
     public virtual Rigidbody2DState GetState() => Rigidbody.GetState();
     public virtual void SetState(Rigidbody2DState state) => Rigidbody.SetState(state);
@@ -78,22 +85,47 @@ public class CommonGridObject : MonoBehaviour, IDragAndDropTarget, IHaveState<Ri
 
     public void SetError(bool isError)
     {
-        ObjectRenderer.material.color = isError
-            ? Color.red.WithAlpha(DRAG_ALPHA)
-            : InitialColor.WithAlpha(DRAG_ALPHA);
+        if (ObjectRenderer?.material == null) return;
+
+        Material mat = ObjectRenderer.material;
+
+        if (isError)
+        {
+            if (WhiteTexture != null)
+            {
+                mat.SetTexture("_BaseMap", WhiteTexture);
+            }
+            mat.SetColor("_BaseColor", new Color(0.7f, 0.1f, 0.1f, DRAG_ALPHA));
+        }
+        else
+        {
+            if (InitialTexture != null)
+            {
+                mat.SetTexture("_BaseMap", InitialTexture);
+            }
+            mat.SetColor("_BaseColor", InitialColor.WithAlpha(DRAG_ALPHA));
+        }
     }
 
 
     public void OnDragEnd()
     {
-        
-        ObjectRenderer.material = InitialMaterial;
+        ObjectCollider.isTrigger = IsNeedTrigerCollider;
+
+        if (ObjectRenderer.material != InitialMaterial)
+        {
+            Destroy(ObjectRenderer.material);
+        }
+        ObjectRenderer.sharedMaterial = InitialMaterial;
     }
 
     public void OnDragStart()
     {
+        if (ObjectRenderer == null) return;
+
         ObjectCollider.isTrigger = true;
-        ObjectRenderer.material = GridMaterial;
+        Material dragMat = Instantiate(InitialMaterial);
+        ObjectRenderer.material = dragMat;
+        SetError(false);
     }
 }
-

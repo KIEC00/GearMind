@@ -171,8 +171,8 @@ MonoBehaviour:
   ObstacleLayers:
     serializedVersion: 2
     m_Bits: 0
-  GridMaterial: {fileID: 2100000, guid: 5ea290e1fb9abe14eb0f13fe728fa715, type: 2}
   IsNeedTrigerCollider: 0
+  WhiteTexture: {fileID: 2800000, guid: 4a4169b7818ecf545bb4dfa5e8596390, type: 3}
   <IsDragable>k__BackingField: 1
 --- !u!114 &4666209939045324369
 MonoBehaviour:

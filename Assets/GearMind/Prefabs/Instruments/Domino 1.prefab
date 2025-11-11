@@ -214,6 +214,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   IsNeedTrigerCollider: 0
+  WhiteTexture: {fileID: 2800000, guid: 4a4169b7818ecf545bb4dfa5e8596390, type: 3}
   <IsDragable>k__BackingField: 1
 --- !u!114 &153870466632814307
 MonoBehaviour:
