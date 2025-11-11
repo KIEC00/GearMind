@@ -5,7 +5,8 @@ namespace Assets.GearMind.Storage
 {
     public class PrefsStorage : IStorage<string, string>, IDisposable
     {
-        public string Load(string key) => PlayerPrefs.GetString(key, null);
+        public string Load(string key) =>
+            PlayerPrefs.HasKey(key) ? PlayerPrefs.GetString(key) : null;
 
         public void Save(string key, string value) => PlayerPrefs.SetString(key, value);
 

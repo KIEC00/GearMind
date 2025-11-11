@@ -1,15 +1,22 @@
 using Assets.GearMind.Level;
 using Assets.GearMind.UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 using VContainer;
 
 namespace Assets.GearMind.Scripts.UI
 {
+    [RequireComponent(typeof(UIDocument))]
     public class InterfaceContoller : MonoBehaviour
     {
+        [SerializeField]
+        private NextLevelController _nextLevelController;
+
+        [SerializeField]
+        private SettingsController _settingsController;
+
         private UIManager _uiModeManager;
-        private LevelManager _levelManager;
 
         private UIDocument _doc;
         private Button _startButton;
@@ -19,19 +26,15 @@ namespace Assets.GearMind.Scripts.UI
         private VisualElement _playIcon;
         private VisualElement _editIcon;
 
-        [SerializeField]
-        private SettingsController _settingsController;
+        private LevelContext _levelContext;
 
         [Inject]
-        public void Construct(UIManager uiModeManager, LevelManager levelManager)
-        {
-            _uiModeManager = uiModeManager;
-            _levelManager = levelManager;
-        }
-
-        private void Awake()
+        public void Construct(UIManager uiModeManager, LevelContext levelContext)
         {
             _doc = GetComponent<UIDocument>();
+            _uiModeManager = uiModeManager;
+            _uiModeManager.OnLevelPassed += OnLevelPassed;
+            _levelContext = levelContext;
         }
 
         private void OnEnable()
@@ -60,27 +63,29 @@ namespace Assets.GearMind.Scripts.UI
 
         private void UpdateStartButtonText()
         {
-            if (_playIcon == null || _editIcon == null) return;
+            if (_playIcon == null || _editIcon == null)
+                return;
 
-            _playIcon.style.display = _uiModeManager.IsEditMode ? DisplayStyle.Flex : DisplayStyle.None;
-            _editIcon.style.display = _uiModeManager.IsSimulateMode ? DisplayStyle.Flex : DisplayStyle.None;
+            _playIcon.style.display = _uiModeManager.IsEditMode
+                ? DisplayStyle.Flex
+                : DisplayStyle.None;
+            _editIcon.style.display = _uiModeManager.IsSimulateMode
+                ? DisplayStyle.Flex
+                : DisplayStyle.None;
         }
 
-        private void SettingsClicked()
-        {
-            _settingsController.Toggle();
-        }
+        private void SettingsClicked() => _settingsController.Toggle();
 
-        private void ReloadScene()
-        {
-            _levelManager.RestartLevel();
-        }
+        private void ReloadScene() => SceneManager.LoadScene(_levelContext.Level.SceneID);
+
+        private void OnLevelPassed() => _nextLevelController.ShowNextLevelPanel();
 
         private void OnDisable()
         {
             _startButton.clicked -= TogglePlayMode;
             _settingsButton.clicked -= SettingsClicked;
             _reloadSceneButton.clicked -= ReloadScene;
+            _uiModeManager.OnLevelPassed -= OnLevelPassed;
         }
     }
 }

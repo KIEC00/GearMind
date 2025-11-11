@@ -1,28 +1,29 @@
-using UnityEngine;
-using UnityEngine.UIElements;
 using Assets.GearMind.Level;
+using UnityEditor.Build.Content;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 using VContainer;
 
 namespace Assets.GearMind.Scripts.UI
 {
+    [RequireComponent(typeof(UIDocument))]
     public class NextLevelController : MonoBehaviour
     {
         private UIDocument _doc;
         private Button _nextLevelButton;
         private VisualElement _nextLevelPanel;
-        private LevelManager _levelManager;
+
+        private LevelContext _levelContext;
 
         [Inject]
-        public void Construct(LevelManager levelManager)
-        {
-            _levelManager = levelManager;
-            _levelManager.OnLevelCompleted += ShowNextLevelPanel;
-        }
-
-        private void Awake()
+        public void Construct(LevelContext levelContext)
         {
             _doc = GetComponent<UIDocument>();
+            _levelContext = levelContext;
         }
+
+        public void ShowNextLevelPanel() => _nextLevelPanel.style.display = DisplayStyle.Flex;
 
         private void OnEnable()
         {
@@ -32,25 +33,14 @@ namespace Assets.GearMind.Scripts.UI
             _nextLevelButton.clicked += HandleNextLevelClick;
         }
 
-        private void ShowNextLevelPanel()
-        {
-            _nextLevelPanel.style.display = DisplayStyle.Flex;
-
-        }
-
         private void HandleNextLevelClick()
         {
-            _levelManager.LoadNextLevel();
+            var sceneID = _levelContext.IsLast
+                ? _levelContext.MenuSceneID
+                : _levelContext.Next.Level.SceneID;
+            SceneManager.LoadScene(sceneID);
         }
 
-        private void OnDisable()
-        {
-            _nextLevelButton.clicked -= HandleNextLevelClick;
-        }
-
-        private void OnDestroy()
-        {
-            _levelManager.OnLevelCompleted -= ShowNextLevelPanel;
-        }
+        private void OnDisable() => _nextLevelButton.clicked -= HandleNextLevelClick;
     }
 }
