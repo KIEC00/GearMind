@@ -145,7 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ead1deeec281034e840a744d9465d90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.GearMind.Inventory.InventoryIdentityComponent
-  _inventoryIdentitySO: {fileID: 11400000, guid: 83c9b447ea056f04aa14e9b9b41a76af, type: 2}
+  _inventoryIdentitySO: {fileID: 11400000, guid: 744294393da78f84f9e1c3b5ec39d059, type: 2}
 --- !u!1 &6002969385393822116
 GameObject:
   m_ObjectHideFlags: 0
