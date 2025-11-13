@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5400000}
   - component: {fileID: 6400000}
   m_Layer: 0
-  m_Name: OneTon_Rigidbody
+  m_Name: Weight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

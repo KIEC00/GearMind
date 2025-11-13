@@ -553,7 +553,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CommonGridObject
   ObstacleLayers:
     serializedVersion: 2
-    m_Bits: 128
-  GridMaterial: {fileID: 2100000, guid: 5ea290e1fb9abe14eb0f13fe728fa715, type: 2}
+    m_Bits: 0
   IsNeedTrigerCollider: 0
+  WhiteTexture: {fileID: 0}
   <IsDragable>k__BackingField: 1
