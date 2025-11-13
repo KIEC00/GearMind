@@ -68,4 +68,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a44cfdce23331442b2faa016f59a114, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.GearMind.Scripts.UI.InterfaceContoller
+  _nextLevelController: {fileID: 0}
   _settingsController: {fileID: 0}

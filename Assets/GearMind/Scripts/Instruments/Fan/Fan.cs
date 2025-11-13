@@ -1,41 +1,59 @@
+using Assets.GearMind.Objects;
+using EditorAttributes;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Fan : MonoBehaviour, IPointerClickHandler, IIncludedObject
+public class Fan : MonoBehaviour,IGameplayObject, IIncludedObject, INotConnectedObject
 {
-    public bool IsTurnOn { get; private set; } = false;
-    [SerializeField] private GameObject VentilatorEffect;
-    [SerializeField] private float ForceVentilator = 10;
 
-    [SerializeField] private Material TurnOnMaterial;
-    [SerializeField] private Material TurnOffMaterial;
+    [SerializeField]
+    private float _forceFan = 20;
+
+    [SerializeField]
+    private bool _isNeedTurnOn = false;
+
+    [Header("")]
+    [SerializeField, Required]
+    private Collider2D _fanEffectCollider;
+
+    [SerializeField, Required]
+    private AreaEffector2D _effector2D;
+
+    [SerializeField, Required]
+    private Renderer _renderer;
+
+    private Color _initialColor;
+
+
+    public bool IsTurnOn { get; private set; } = false;
+
+    private void Awake()
+    {
+        _initialColor = _renderer.material.color;
+        _effector2D.forceMagnitude = _forceFan;
+        if(_isNeedTurnOn)
+            TurnOnOff(true);
+    }
+
+    public  void EnterEditMode()
+    {
+        TurnOnOff(_isNeedTurnOn);
+    }
+
+
 
     public void TurnOnOff(bool isTurnOn)
     {
-        VentilatorEffect.SetActive(isTurnOn);
-        IsTurnOn = !IsTurnOn;
+        _fanEffectCollider.enabled = isTurnOn;
+        IsTurnOn = isTurnOn;
         if (isTurnOn)
-            gameObject.GetComponent<Renderer>().material = TurnOnMaterial;
+            _renderer.material.color = Color.green;
         else
-            gameObject.GetComponent<Renderer>().material = TurnOffMaterial;
+            _renderer.material.color = _initialColor;
     }
 
-    public void RotateVentilator()
+    public void EnterPlayMode()
     {
-        transform.Rotate(new Vector3(0, 0, -90));
-        
-    }
-
-    public void VentilatorPush(Rigidbody2D rb)
-    {
-        rb.AddForce(-transform.right * ForceVentilator);
-    }
-
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        TurnOnOff(!IsTurnOn);
 
     }
-
-    
 }
