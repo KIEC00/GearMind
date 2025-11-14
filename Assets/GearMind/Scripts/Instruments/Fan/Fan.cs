@@ -3,9 +3,8 @@ using EditorAttributes;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Fan : MonoBehaviour,IGameplayObject, IIncludedObject, INotConnectedObject
+public class Fan : MonoBehaviour, IGameplayObject, ISwitchable, INotConnectedObject
 {
-
     [SerializeField]
     private float _forceFan = 20;
 
@@ -24,36 +23,30 @@ public class Fan : MonoBehaviour,IGameplayObject, IIncludedObject, INotConnected
 
     private Color _initialColor;
 
-
-    public bool IsTurnOn { get; private set; } = false;
+    public bool IsActive { get; private set; } = false;
 
     private void Awake()
     {
         _initialColor = _renderer.material.color;
         _effector2D.forceMagnitude = _forceFan;
-        if(_isNeedTurnOn)
-            TurnOnOff(true);
+        if (_isNeedTurnOn)
+            SetActive(true);
     }
 
-    public  void EnterEditMode()
+    public void EnterEditMode()
     {
-        TurnOnOff(_isNeedTurnOn);
+        SetActive(_isNeedTurnOn);
     }
 
-
-
-    public void TurnOnOff(bool isTurnOn)
+    public void SetActive(bool isTurnOn)
     {
         _fanEffectCollider.enabled = isTurnOn;
-        IsTurnOn = isTurnOn;
+        IsActive = isTurnOn;
         if (isTurnOn)
             _renderer.material.color = Color.green;
         else
             _renderer.material.color = _initialColor;
     }
 
-    public void EnterPlayMode()
-    {
-
-    }
+    public void EnterPlayMode() { }
 }

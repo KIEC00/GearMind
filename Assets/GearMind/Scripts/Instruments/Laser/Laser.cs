@@ -1,120 +1,93 @@
 using System.Collections;
-using System.Collections.Generic;
 using Assets.GearMind.Objects;
 using Assets.Utils.Runtime;
 using EditorAttributes;
 using UnityEngine;
 
-public class Laser : MonoBehaviour, IGameplayObject, IIncludedObject, INotConnectedObject
+[SelectionBase]
+public class Laser : MonoBehaviour, IGameplayObject, ISwitchable, INotConnectedObject
 {
-    [Header("LaserParameters")]
-    [SerializeField]
-    private int _maxDistance = 3;
+    public bool IsActive { get; private set; }
 
-    [SerializeField]
-    private float _laserWidth = 0.1f;
+    [Header("Params")]
+    [SerializeField, Clamp(0f, 10_000f)]
+    private float _maxDistance = float.MaxValue;
 
-    [SerializeField]
+    [SerializeField, OnValueChanged(nameof(DebugToggle))]
     private bool _isNeedTurnOn = false;
 
-    [Header("FilterLaserHit")]
+    [SerializeField, Required]
+    private LaserBeam _laserBeam;
+
+    [Header("Hits detections")]
     [SerializeField]
     private ContactFilter2D _filterLaserHit;
 
-    [Header("")]
-    [SerializeField, Required]
-    private Transform _startLaserPoint;
+    [SerializeField]
+    private Vector3 _castOffset;
 
-    [SerializeField, Required]
-    private Transform _offsetDrawLaser;
-    
-    [SerializeField, Required]
-    private LineRenderer _lineRenderer;
-
-
-    private List<RaycastHit2D> _laserHits = new ();
-    private Vector3 _offsetDrawLaserVector;
-
+    private readonly RaycastHit2D[] _laserHits = new RaycastHit2D[1];
     private Coroutine _updateLaserCoroutine;
+    private readonly YieldInstruction _waitFixedFrameInstruction = new WaitForFixedUpdate();
 
-    public bool IsTurnOn { get; private set; }
+    private Vector2 CastStart => transform.position + transform.rotation * _castOffset;
 
+    private void Awake() => SetActive(_isNeedTurnOn);
 
-
-    //добавить обработку столкновения с сыром(когда будет сыр)
-    public IEnumerator UpdateLaser()
+    public IEnumerator UpdateLaserRoutine()
     {
-        ICheese cheese;
         while (true)
         {
-            var hit = Physics2D.Raycast(_startLaserPoint.position, transform.right, _filterLaserHit, _laserHits, _maxDistance);
-            if (hit > 0 && _laserHits[0].collider != null)
-            {
-                _lineRenderer.SetPosition(0, _startLaserPoint.position + _offsetDrawLaserVector);
-                _lineRenderer.SetPosition(1, new Vector3(_laserHits[0].point.x, _laserHits[0].point.y, _offsetDrawLaserVector.z));
-                
-                if (_laserHits[0].collider.TryGetComponent<ICheese>(out cheese))
-                {
-                    cheese.DestroyCheese();
-                    _laserHits.Clear();
-                }
-            }
-            else
-            {
-                _lineRenderer.SetPosition(1, _startLaserPoint.position + transform.right * _maxDistance + _offsetDrawLaserVector);
-                _lineRenderer.SetPosition(0, _startLaserPoint.position + _offsetDrawLaserVector);
-
-            }
-            yield return null;
+            PerformCast();
+            yield return _waitFixedFrameInstruction;
         }
-        
     }
 
-    public void DestroyCheese(GameObject gameObject)
+    public void PerformCast()
     {
-        gameObject.SetActive(false);
-    }
+        int hitCount = RayCast();
 
-
-    public void Awake()
-    {
-        _offsetDrawLaserVector = new Vector3(0,0,_offsetDrawLaser.position.z);
-        _lineRenderer.startWidth = _laserWidth;
-        _lineRenderer.endWidth = _laserWidth;
-        if (_isNeedTurnOn)
-            TurnOnOff(true);
-
-    }
-
-
-    public void TurnOnOff(bool isActive)
-    {
-        IsTurnOn = isActive;
-        if (IsTurnOn)
+        if (hitCount > 0)
         {
-            _lineRenderer.enabled = true;
-            
-            _updateLaserCoroutine = StartCoroutine(UpdateLaser());
-            
+            var hitPosition = _laserHits[0].point;
+            UpdateBeam(hitPosition);
+
+            if (_laserHits[0].collider.TryGetComponent<IDamageable>(out var damageable))
+                damageable.ApplyDamage();
+
+            return;
         }
-        else
-        {
-            if(_updateLaserCoroutine!= null)
-            {
-                StopCoroutine(_updateLaserCoroutine);
-            }  
-            _lineRenderer.enabled = false;
-        }
-        
+
+        UpdateBeam(transform.right * _maxDistance);
+    }
+
+    private int RayCast() =>
+        Physics2D.Raycast(CastStart, transform.right, _filterLaserHit, _laserHits, _maxDistance);
+
+    private void UpdateBeam(Vector2 hitPosition) =>
+        _laserBeam.UpdateBeam(CastStart, hitPosition.WithZ(_castOffset.z));
+
+    public void SetActive(bool isActive)
+    {
+        IsActive = isActive;
+        _laserBeam.enabled = isActive;
+
+        if (IsActive)
+            _updateLaserCoroutine = StartCoroutine(UpdateLaserRoutine());
+        else if (_updateLaserCoroutine != null)
+            StopCoroutine(_updateLaserCoroutine);
     }
 
     public void EnterEditMode()
     {
-
-        TurnOnOff(_isNeedTurnOn);
+        SetActive(_isNeedTurnOn);
     }
 
-    public void EnterPlayMode()
+    public void EnterPlayMode() { }
+
+    private void DebugToggle()
     {
+        if (Application.isPlaying)
+            SetActive(_isNeedTurnOn);
     }
 }

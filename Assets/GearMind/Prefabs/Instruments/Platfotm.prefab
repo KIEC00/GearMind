@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1186365694710828945}
   - component: {fileID: 717343508856918313}
   - component: {fileID: 4973064994554192181}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Platfotm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 5637799894335985506}
   - component: {fileID: 4100123532918152660}
   - component: {fileID: 347543126278732335}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Platfotm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -224,7 +224,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efc0ab50ca3a96a469fa100ba8ec4be9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.GearMind.Test.DefaultRigidObject
-  _isNeedKinematic: 1
   <IsDragable>k__BackingField: 1
   <_renderer>k__BackingField: {fileID: 4973064994554192181}
   <_rigidbody>k__BackingField: {fileID: 71372871635264739}

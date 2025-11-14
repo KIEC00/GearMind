@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4095832073628198103}
   - component: {fileID: 8907722668919015543}
   - component: {fileID: 8990695548326783652}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: View (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 4554185999724717127}
   - component: {fileID: 7835043318914105262}
   - component: {fileID: 6688262489291349940}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FanEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -199,7 +199,7 @@ GameObject:
   - component: {fileID: 7832612116865359119}
   - component: {fileID: 1322621283852194294}
   - component: {fileID: 2314787012202226156}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -292,7 +292,7 @@ GameObject:
   - component: {fileID: 7911705496374542885}
   - component: {fileID: 5637799894335985506}
   - component: {fileID: 5784808042112266230}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Fan
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -431,7 +431,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da793c3203d5c9a42b828fb6f8af8eb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VertiHorizConnectRigidObject
-  _isNeedKinematic: 1
   <IsDragable>k__BackingField: 1
   <_renderer>k__BackingField: {fileID: 2314787012202226156}
   <_rigidbody>k__BackingField: {fileID: 71372871635264739}

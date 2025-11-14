@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1808507397696296779}
   - component: {fileID: 1465195290846562408}
   - component: {fileID: 8389054993707747352}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: SphereView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 5450290649923110474}
   - component: {fileID: 994965634606156691}
   - component: {fileID: 8450656885485766311}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,7 +191,7 @@ GameObject:
   - component: {fileID: 3223422030814006357}
   - component: {fileID: 7264750697341144928}
   - component: {fileID: 1172753061233886802}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Button (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -272,7 +272,7 @@ GameObject:
   - component: {fileID: 8759353774880712377}
   - component: {fileID: 5852812025129757296}
   - component: {fileID: 8988487523038608583}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: ButtonView
   m_TagString: Instrument
   m_Icon: {fileID: 0}
@@ -365,7 +365,7 @@ GameObject:
   - component: {fileID: 2995878182433360892}
   - component: {fileID: 2186781841508340573}
   - component: {fileID: 6395811886515609902}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -518,7 +518,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 684bec6e7934a0f46b4b091a060ca984, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DownConnectRigidObject
-  _isNeedKinematic: 1
   <IsDragable>k__BackingField: 1
   <_renderer>k__BackingField: {fileID: 8988487523038608583}
   <_rigidbody>k__BackingField: {fileID: 2912999878322809634}

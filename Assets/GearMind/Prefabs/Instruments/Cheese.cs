@@ -2,7 +2,7 @@ using Assets.GearMind.Objects;
 using EditorAttributes;
 using UnityEngine;
 
-public class Cheese : MonoBehaviour, IGameplayObject, ICheese
+public class Cheese : MonoBehaviour, IGameplayObject, IDamageable
 {
     [SerializeField, Required]
     private Collider2D _collider;
@@ -15,11 +15,9 @@ public class Cheese : MonoBehaviour, IGameplayObject, ICheese
 
     public void EnterEditMode()
     {
-        
         _cheeseView.SetActive(true);
         _collider.enabled = true;
         _rigidbody.bodyType = RigidbodyType2D.Kinematic;
-
     }
 
     public void EnterPlayMode()
@@ -27,11 +25,10 @@ public class Cheese : MonoBehaviour, IGameplayObject, ICheese
         _collider.attachedRigidbody.bodyType = RigidbodyType2D.Dynamic;
     }
 
-    public void DestroyCheese()
+    public void ApplyDamage()
     {
         _rigidbody.bodyType = RigidbodyType2D.Kinematic;
         _collider.enabled = false;
         _cheeseView.SetActive(false);
     }
-    
 }

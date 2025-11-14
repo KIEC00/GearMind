@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4323466276586689302}
   - component: {fileID: 3043249727315847653}
   - component: {fileID: 8288361580665560484}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 1198575533217209661}
   - component: {fileID: 1936773939552081378}
   - component: {fileID: 359480415259845033}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Cheese
   m_TagString: Cheese
   m_Icon: {fileID: 0}
@@ -215,7 +215,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efc0ab50ca3a96a469fa100ba8ec4be9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.GearMind.Test.DefaultRigidObject
-  _isNeedKinematic: 0
   <IsDragable>k__BackingField: 1
   <_renderer>k__BackingField: {fileID: 8288361580665560484}
   <_rigidbody>k__BackingField: {fileID: 8390775034521615786}

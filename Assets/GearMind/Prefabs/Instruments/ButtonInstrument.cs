@@ -9,7 +9,6 @@ using UnityEngine;
 
 public class ButtonInstrument : MonoBehaviour, IGameplayObject
 {
-
     [Header("FilterIncludeCollider")]
     [SerializeField]
     private ContactFilter2D _includeColliderFilter;
@@ -27,22 +26,19 @@ public class ButtonInstrument : MonoBehaviour, IGameplayObject
     [SerializeField, Required]
     private Collider2D _collider;
 
-    
-
-    
     private int CountPushObjects;
     private Collider2D[] _collisionColiders = new Collider2D[10];
 
     private Color _initialiseColor;
 
-    public  void EnterEditMode()
+    public void EnterEditMode()
     {
         _collider.enabled = true;
         _pushCollider.enabled = false;
         _includeCollider.enabled = false;
     }
 
-    public  void EnterPlayMode()
+    public void EnterPlayMode()
     {
         _collider.enabled = false;
         _pushCollider.enabled = true;
@@ -54,6 +50,7 @@ public class ButtonInstrument : MonoBehaviour, IGameplayObject
         RegisterObservable();
         _initialiseColor = _rendererRedButton.material.color;
     }
+
     public void OnEnable()
     {
         _includeCollider.enabled = false;
@@ -64,17 +61,21 @@ public class ButtonInstrument : MonoBehaviour, IGameplayObject
         _includeCollider.enabled = false;
     }
 
-
     private void RegisterObservable()
     {
-        _pushCollider.OnTriggerEnter2DAsObservable().Subscribe(triger => PressButton(triger)).AddTo(gameObject);
-        _pushCollider.OnTriggerExit2DAsObservable().Subscribe(triger => PopButton(triger)).AddTo(gameObject);
+        _pushCollider
+            .OnTriggerEnter2DAsObservable()
+            .Subscribe(triger => PressButton(triger))
+            .AddTo(gameObject);
+        _pushCollider
+            .OnTriggerExit2DAsObservable()
+            .Subscribe(triger => PopButton(triger))
+            .AddTo(gameObject);
     }
-
 
     private void PressButton(Collider2D collider)
     {
-        if(collider.isTrigger == false)
+        if (collider.isTrigger == false)
         {
             CountPushObjects += 1;
             if (CountPushObjects == 1)
@@ -82,7 +83,7 @@ public class ButtonInstrument : MonoBehaviour, IGameplayObject
                 CheckIncludeObjectkCollision();
                 _rendererRedButton.material.color = Color.green;
             }
-        } 
+        }
     }
 
     private void PopButton(Collider2D collider)
@@ -90,19 +91,17 @@ public class ButtonInstrument : MonoBehaviour, IGameplayObject
         if (collider.isTrigger == false)
         {
             CountPushObjects -= 1;
-            if(CountPushObjects == 0)
+            if (CountPushObjects == 0)
             {
                 _rendererRedButton.material.color = _initialiseColor;
             }
         }
     }
 
-    
-
     private void CheckIncludeObjectkCollision()
     {
         var countCollision = _includeCollider.Overlap(_includeColliderFilter, _collisionColiders);
-        for(var i = 0; i < countCollision; i++)
+        for (var i = 0; i < countCollision; i++)
         {
             IncludeInstruments(_collisionColiders[i]);
         }
@@ -110,15 +109,10 @@ public class ButtonInstrument : MonoBehaviour, IGameplayObject
 
     private void IncludeInstruments(Collider2D collider)
     {
-        IIncludedObject includedObject;
-        if (collider.gameObject.TryGetComponent<IIncludedObject>(out includedObject))
+        ISwitchable includedObject;
+        if (collider.gameObject.TryGetComponent<ISwitchable>(out includedObject))
         {
-            includedObject.TurnOnOff(!includedObject.IsTurnOn);
+            includedObject.SetActive(!includedObject.IsActive);
         }
     }
-
-   
-
-
-
 }

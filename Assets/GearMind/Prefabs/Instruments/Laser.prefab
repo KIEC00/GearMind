@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7222081488893193204}
   - component: {fileID: 8805938851333742499}
   - component: {fileID: 1223821586661790303}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 7661770495605167983}
   - component: {fileID: 377683928363986141}
   - component: {fileID: 7602589033160001026}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: LaserView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -192,9 +192,10 @@ GameObject:
   - component: {fileID: 2135331244874087089}
   - component: {fileID: 845188412800071226}
   - component: {fileID: 7673976342002168705}
+  - component: {fileID: 5186536025927866156}
   - component: {fileID: 2208296978021786969}
   - component: {fileID: 1688815826433716285}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Laser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -209,14 +210,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7006651015358502533}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
-  m_LocalPosition: {x: 2.181, y: -0.982, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7222081488893193204}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &3183604055713033353
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -305,9 +306,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88d9000f5405dfe47b192c63be123821, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Laser
-  _maxDistance: 3
-  _laserWidth: 0.1
+  _maxDistance: 10000
   _isNeedTurnOn: 0
+  _laserBeam: {fileID: 5186536025927866156}
   _filterLaserHit:
     useTriggers: 0
     useLayerMask: 1
@@ -317,14 +318,26 @@ MonoBehaviour:
     useOutsideNormalAngle: 0
     layerMask:
       serializedVersion: 2
-      m_Bits: 128
+      m_Bits: 65
     minDepth: 0
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
-  _startLaserPoint: {fileID: 6692293590414776848}
-  _offsetDrawLaser: {fileID: 7661770495605167983}
+  _castOffset: {x: 0, y: 0, z: -0.5}
+--- !u!114 &5186536025927866156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7006651015358502533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4dd3e522e581d24cb137cfa78b1bc39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LaserBeam
   _lineRenderer: {fileID: 2208296978021786969}
+  _laserWidth: 0.1
 --- !u!120 &2208296978021786969
 LineRenderer:
   serializedVersion: 2
@@ -375,7 +388,7 @@ LineRenderer:
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 1}
+  - {x: 0, y: 0, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -384,7 +397,16 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
+        value: 0.1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 0.1
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -447,7 +469,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da793c3203d5c9a42b828fb6f8af8eb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VertiHorizConnectRigidObject
-  _isNeedKinematic: 1
   <IsDragable>k__BackingField: 1
   <_renderer>k__BackingField: {fileID: 8805938851333742499}
   <_rigidbody>k__BackingField: {fileID: 2135331244874087089}

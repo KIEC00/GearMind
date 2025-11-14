@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1066270140557127053}
   - component: {fileID: 8206296908776112007}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 1381427188887278190}
   - component: {fileID: 4171811124577714772}
   - component: {fileID: 5694458440021819636}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Rope
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -364,7 +364,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f4fa696e8091074fa45538405c249e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UpConnectRigidObject
-  _isNeedKinematic: 1
   <IsDragable>k__BackingField: 1
   <_renderer>k__BackingField: {fileID: 1615563767918855156}
   <_rigidbody>k__BackingField: {fileID: 2627316391312074395}
@@ -408,7 +407,7 @@ GameObject:
   - component: {fileID: 4815563353843560433}
   - component: {fileID: 1568777946201942951}
   - component: {fileID: 1615563767918855156}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CheckClick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -497,7 +496,7 @@ GameObject:
   - component: {fileID: 2450327073528893037}
   - component: {fileID: 4054556335415678335}
   - component: {fileID: 7390408560034086644}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ConnectView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -586,7 +585,7 @@ GameObject:
   - component: {fileID: 3318380237576937231}
   - component: {fileID: 3459646497933431875}
   - component: {fileID: 7978852610878585377}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Rope
   m_TagString: Untagged
   m_Icon: {fileID: 0}
