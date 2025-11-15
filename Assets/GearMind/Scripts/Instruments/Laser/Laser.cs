@@ -5,7 +5,7 @@ using EditorAttributes;
 using UnityEngine;
 
 [SelectionBase]
-public class Laser : MonoBehaviour, IGameplayObject, ISwitchable, INotConnectedObject
+public class Laser : MonoBehaviour, IGameplayObject, ISwitchable, INotConnectedObject, IRotatable
 {
     public bool IsActive { get; private set; }
 
@@ -65,7 +65,7 @@ public class Laser : MonoBehaviour, IGameplayObject, ISwitchable, INotConnectedO
         Physics2D.Raycast(CastStart, transform.right, _filterLaserHit, _laserHits, _maxDistance);
 
     private void UpdateBeam(Vector2 hitPosition) =>
-        _laserBeam.UpdateBeam(CastStart, hitPosition.WithZ(_castOffset.z));
+        _laserBeam.UpdateBeam(CastStart.WithZ(_castOffset.z), hitPosition.WithZ(_castOffset.z));
 
     public void SetActive(bool isActive)
     {
@@ -90,4 +90,6 @@ public class Laser : MonoBehaviour, IGameplayObject, ISwitchable, INotConnectedO
         if (Application.isPlaying)
             SetActive(_isNeedTurnOn);
     }
+
+    public void Rotate() => transform.Rotate(new(0f, 0f, -90f));
 }
