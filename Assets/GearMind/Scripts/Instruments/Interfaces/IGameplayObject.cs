@@ -1,4 +1,4 @@
-namespace Assets.GearMind.Objects
+namespace Assets.GearMind.Instruments
 {
     public interface IGameplayObject
     {

@@ -2,7 +2,7 @@ using System;
 using Assets.GearMind.Common;
 using Assets.GearMind.Grid;
 using Assets.GearMind.Input;
-using Assets.GearMind.Objects;
+using Assets.GearMind.Instruments;
 using UnityEngine;
 
 namespace Assets.GearMind.Level

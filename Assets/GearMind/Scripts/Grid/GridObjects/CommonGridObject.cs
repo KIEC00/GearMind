@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Assets.GearMind.Objects;
+using Assets.GearMind.Instruments;
 using Assets.GearMind.State;
 using Assets.GearMind.State.Utils;
 using Assets.Utils.Runtime;
@@ -8,19 +8,33 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.VFX;
 
-public class CommonGridObject : MonoBehaviour, IDragAndDropTarget, IHaveState<Rigidbody2DState>, IGameplayObject
+public class CommonGridObject
+    : MonoBehaviour,
+        IDragAndDropTarget,
+        IHaveState<Rigidbody2DState>,
+        IGameplayObject
 {
-    [SerializeField] private LayerMask ObstacleLayers;
-    [SerializeField] private Material GridMaterial;
-    [SerializeField] private bool IsNeedTrigerCollider;
-    
+    [SerializeField]
+    private LayerMask ObstacleLayers;
+
+    [SerializeField]
+    private Material GridMaterial;
+
+    [SerializeField]
+    private bool IsNeedTrigerCollider;
+
     private Collider2D[] ListCollidersCollisions = new Collider2D[10];
-    [SerializeField, Required] private Collider2D ObjectCollider;
+
+    [SerializeField, Required]
+    private Collider2D ObjectCollider;
     private ContactFilter2D Filter;
-    [SerializeField, Required] private Renderer ObjectRenderer;
+
+    [SerializeField, Required]
+    private Renderer ObjectRenderer;
     private RigidbodyType2D TypeObjectRigidbody;
 
-    [SerializeField, Required] private Rigidbody2D Rigidbody;
+    [SerializeField, Required]
+    private Rigidbody2D Rigidbody;
     private const float DRAG_ALPHA = 0.5f;
     private Color InitialColor;
     private Material InitialMaterial;
@@ -38,7 +52,6 @@ public class CommonGridObject : MonoBehaviour, IDragAndDropTarget, IHaveState<Ri
         TypeObjectRigidbody = Rigidbody.bodyType;
 
         EnterEditMode();
-
     }
 
     public void DestroyObject()
@@ -57,9 +70,8 @@ public class CommonGridObject : MonoBehaviour, IDragAndDropTarget, IHaveState<Ri
         return ObjectCollider.Overlap(Filter, ListCollidersCollisions) == 0;
     }
 
-    
-
     public virtual Rigidbody2DState GetState() => Rigidbody.GetState();
+
     public virtual void SetState(Rigidbody2DState state) => Rigidbody.SetState(state);
 
     [Button]
@@ -81,10 +93,8 @@ public class CommonGridObject : MonoBehaviour, IDragAndDropTarget, IHaveState<Ri
             : InitialColor.WithAlpha(DRAG_ALPHA);
     }
 
-
     public void OnDragEnd()
     {
-        
         ObjectRenderer.material = InitialMaterial;
     }
 
@@ -94,4 +104,3 @@ public class CommonGridObject : MonoBehaviour, IDragAndDropTarget, IHaveState<Ri
         ObjectRenderer.material = GridMaterial;
     }
 }
-

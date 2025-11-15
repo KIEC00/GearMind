@@ -1,4 +1,4 @@
-using Assets.GearMind.Objects;
+using Assets.GearMind.Instruments;
 using Assets.GearMind.Test;
 using EditorAttributes;
 using R3;
@@ -26,15 +26,12 @@ public class Rope : MonoBehaviour, IGameplayObject, INotConnectedObject
 
     private Vector3 _offsetRopeView;
 
-    
-
     private Vector3 _startConnectColliderPosition;
 
     public void EnterPlayMode()
     {
         _connectCollider.enabled = true;
         _connectCollider.attachedRigidbody.bodyType = RigidbodyType2D.Dynamic;
-
     }
 
     public void EnterEditMode()
@@ -43,13 +40,15 @@ public class Rope : MonoBehaviour, IGameplayObject, INotConnectedObject
         _connectCollider.gameObject.SetActive(true);
         _connectCollider.attachedRigidbody.bodyType = RigidbodyType2D.Kinematic;
         _connectCollider.enabled = false;
-        
-
     }
 
     public void Connect(Collider2D collider)
     {
-        if (collider.isTrigger == false && collider.TryGetComponent<DefaultRigidObject>(out _) && !collider.TryGetComponent<IConnectGridObject>(out _))
+        if (
+            collider.isTrigger == false
+            && collider.TryGetComponent<DefaultRigidObject>(out _)
+            && !collider.TryGetComponent<IConnectGridObject>(out _)
+        )
         {
             var rigidbody = collider.attachedRigidbody;
             _distanceJoint.connectedBody = rigidbody;
@@ -59,7 +58,10 @@ public class Rope : MonoBehaviour, IGameplayObject, INotConnectedObject
 
     private void RegisterMethods()
     {
-        _connectCollider.OnTriggerEnter2DAsObservable().Subscribe(collider => Connect(collider)).AddTo(this);
+        _connectCollider
+            .OnTriggerEnter2DAsObservable()
+            .Subscribe(collider => Connect(collider))
+            .AddTo(this);
     }
 
     public void Awake()
@@ -67,7 +69,7 @@ public class Rope : MonoBehaviour, IGameplayObject, INotConnectedObject
         RegisterMethods();
         _startConnectColliderPosition = _connectCollider.transform.localPosition;
         SetWidthRope();
-        _offsetRopeView = new Vector3(0,0, _startRopeViewTransform.position.z);
+        _offsetRopeView = new Vector3(0, 0, _startRopeViewTransform.position.z);
     }
 
     private void ReturnStartState()
@@ -79,7 +81,10 @@ public class Rope : MonoBehaviour, IGameplayObject, INotConnectedObject
     public void Update()
     {
         _lineRenderer.SetPosition(0, _startRopeViewTransform.position);
-        _lineRenderer.SetPosition(1, _distanceJoint.connectedBody.gameObject.transform.position + _offsetRopeView);
+        _lineRenderer.SetPosition(
+            1,
+            _distanceJoint.connectedBody.gameObject.transform.position + _offsetRopeView
+        );
     }
 
     private void SetWidthRope()
@@ -87,8 +92,4 @@ public class Rope : MonoBehaviour, IGameplayObject, INotConnectedObject
         _lineRenderer.startWidth = _widthRope;
         _lineRenderer.endWidth = _widthRope;
     }
-
-    
-
-    
 }

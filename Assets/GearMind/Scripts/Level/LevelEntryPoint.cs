@@ -1,5 +1,5 @@
 using System;
-using Assets.GearMind.Objects;
+using Assets.GearMind.Instruments;
 using Assets.GearMind.State;
 using Assets.GearMind.Storage.Endpoints;
 using Assets.GearMind.UI;

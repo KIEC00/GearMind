@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Assets.GearMind.Objects;
+using Assets.GearMind.Instruments;
 using EditorAttributes;
 using R3;
 using R3.Triggers;
