@@ -263,6 +263,10 @@ PrefabInstance:
       propertyPath: _settingsController
       value: 
       objectReference: {fileID: 5228099736116745919}
+    - target: {fileID: 3758373114877854132, guid: 09a3e03a732efba438f74015c5b1d327, type: 3}
+      propertyPath: _nextLevelController
+      value: 
+      objectReference: {fileID: 6665376249569424794}
     - target: {fileID: 7319172370752098938, guid: 09a3e03a732efba438f74015c5b1d327, type: 3}
       propertyPath: m_Name
       value: Interface
@@ -334,6 +338,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc3203a6aaa91f945b7cc600b97a2499, type: 3}
+--- !u!114 &6665376249569424794 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 545593777320364637, guid: cc3203a6aaa91f945b7cc600b97a2499, type: 3}
+  m_PrefabInstance: {fileID: 6562442590223941575}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e460df422344c6143a210141c57f236a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.GearMind.Scripts.UI.NextLevelController
 --- !u!4 &6997672297983541929 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4183495667803995502, guid: cc3203a6aaa91f945b7cc600b97a2499, type: 3}
