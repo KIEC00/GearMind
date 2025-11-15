@@ -1,4 +1,4 @@
-using Assets.GearMind.Objects;
+using Assets.GearMind.Instruments;
 using EditorAttributes;
 using UnityEngine;
 
@@ -9,7 +9,6 @@ public class DefaultGameplayObject : MonoBehaviour, IGameplayObject
 
     [SerializeField, Required]
     private Rigidbody2D _rigidbody;
-
 
     public void EnterEditMode()
     {

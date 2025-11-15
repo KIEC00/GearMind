@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Assets.GearMind.Objects;
+using Assets.GearMind.Instruments;
 using Assets.GearMind.State;
 using Assets.GearMind.State.Utils;
 using Assets.Utils.Runtime;
@@ -18,20 +18,19 @@ namespace Assets.GearMind.Test
         [field: SerializeField]
         public bool IsDragable { get; set; } = false;
 
-        [field:SerializeField, Required]
+        [field: SerializeField, Required]
         public Renderer _renderer { get; private set; }
 
         protected Color _initialColor;
 
-        [field:SerializeField, Required]
+        [field: SerializeField, Required]
         public Rigidbody2D _rigidbody { get; private set; }
 
         [field: SerializeField, Required]
         public Collider2D _collider { get; private set; }
 
-
         [field: SerializeField]
-        public  ContactFilter2D _contactFilter { get; private set; }
+        public ContactFilter2D _contactFilter { get; private set; }
 
         private readonly RaycastHit2D[] _hits = new RaycastHit2D[1];
 
@@ -46,7 +45,7 @@ namespace Assets.GearMind.Test
         public void OnDragEnd() => _renderer.material.color = _initialColor.WithAlpha(1f);
 
         public virtual bool ValidatePlacement() =>
-            _collider.Cast(Vector2.zero, _contactFilter, _hits, 0f) == 0; 
+            _collider.Cast(Vector2.zero, _contactFilter, _hits, 0f) == 0;
 
         public void SetError(bool isError)
         {
@@ -56,7 +55,5 @@ namespace Assets.GearMind.Test
         }
 
         private void Awake() => _initialColor = _renderer.material.color;
-
-        
     }
 }

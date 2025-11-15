@@ -2,7 +2,7 @@ using System;
 using Assets.GearMind.Level;
 using UnityEngine;
 
-namespace Assets.GearMind.Objects
+namespace Assets.GearMind.Instruments
 {
     public class LevelGoalTrigger : MonoBehaviour, ILevelGoalTrigger
     {

@@ -1,6 +1,6 @@
 using System;
+using Assets.GearMind.Instruments;
 using Assets.GearMind.Inventory;
-using Assets.GearMind.Objects;
 using Assets.GearMind.State;
 using UnityEngine;
 

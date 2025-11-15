@@ -1,5 +1,5 @@
 using System.Collections;
-using Assets.GearMind.Objects;
+using Assets.GearMind.Instruments;
 using Assets.Utils.Runtime;
 using EditorAttributes;
 using UnityEngine;

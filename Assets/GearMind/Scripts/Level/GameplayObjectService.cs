@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Assets.GearMind.Objects;
+using Assets.GearMind.Instruments;
 
 namespace Assets.GearMind.Level
 {

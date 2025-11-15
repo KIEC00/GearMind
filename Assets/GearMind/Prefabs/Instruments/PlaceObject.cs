@@ -1,4 +1,4 @@
-using Assets.GearMind.Objects;
+using Assets.GearMind.Instruments;
 using Assets.GearMind.State;
 using Assets.GearMind.State.Utils;
 using EditorAttributes;
@@ -6,7 +6,11 @@ using Newtonsoft.Json.Serialization;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlaceObjectClass : MonoBehaviour, IDragAndDropTarget, IHaveState<Rigidbody2DState>, IGameplayObject
+public class PlaceObjectClass
+    : MonoBehaviour,
+        IDragAndDropTarget,
+        IHaveState<Rigidbody2DState>,
+        IGameplayObject
 {
     private const float DRAG_ALPHA = 0.5f;
 
@@ -23,7 +27,6 @@ public class PlaceObjectClass : MonoBehaviour, IDragAndDropTarget, IHaveState<Ri
 
     [SerializeField]
     private ContactFilter2D _contactFilter;
-
 
     public virtual void EnterEditMode()
     {

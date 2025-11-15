@@ -1,4 +1,4 @@
-using Assets.GearMind.Objects;
+using Assets.GearMind.Instruments;
 
 namespace Assets.GearMind.Level
 {
