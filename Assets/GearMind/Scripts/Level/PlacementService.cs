@@ -82,6 +82,8 @@ namespace Assets.GearMind.Level
             _draggingData = new() { DragTarget = draggable };
             if (gameObject.TryGetComponent<IGameplayObject>(out var gameplayObject))
                 _draggingData.GameplayObject = gameplayObject;
+            if (gameObject.TryGetComponent<IRotatable>(out var rotatable))
+                _draggingData.Rotatable = rotatable;
             return true;
         }
 
@@ -117,6 +119,13 @@ namespace Assets.GearMind.Level
             _draggingData.DragTarget = null;
         }
 
+        private void HandleRotate()
+        {
+            if (!_draggingData)
+                return;
+            _draggingData.Rotatable?.Rotate();
+        }
+
         private void HandlePlace(DraggingData draggingData)
         {
             draggingData.DragTarget.OnDragEnd();
@@ -137,6 +146,7 @@ namespace Assets.GearMind.Level
 
             _input.OnDragStart += HandleStartDrag;
             _input.OnDrag += HandleDrag;
+            _input.OnRotatePressed += HandleRotate;
             _input.OnDragEnd += HandleDragEnd;
 
             _input.Enable();
@@ -147,6 +157,11 @@ namespace Assets.GearMind.Level
             if (!_enabled)
                 return;
             _enabled = false;
+
+            _input.OnDragStart -= HandleStartDrag;
+            _input.OnDrag -= HandleDrag;
+            _input.OnRotatePressed -= HandleRotate;
+            _input.OnDragEnd -= HandleDragEnd;
 
             _input.Disable();
         }
@@ -184,6 +199,7 @@ namespace Assets.GearMind.Level
         {
             public IDragAndDropTarget DragTarget;
             public IGameplayObject GameplayObject;
+            public IRotatable Rotatable;
             public Vector3 DragOffset;
 
             public static implicit operator bool(DraggingData data) => data.DragTarget != null;

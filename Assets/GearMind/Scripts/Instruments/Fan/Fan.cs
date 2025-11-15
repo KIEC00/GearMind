@@ -1,9 +1,8 @@
 using Assets.GearMind.Instruments;
 using EditorAttributes;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-public class Fan : MonoBehaviour, IGameplayObject, ISwitchable, INotConnectedObject
+public class Fan : MonoBehaviour, IGameplayObject, ISwitchable, INotConnectedObject, IRotatable
 {
     [SerializeField]
     private float _forceFan = 20;
@@ -11,7 +10,6 @@ public class Fan : MonoBehaviour, IGameplayObject, ISwitchable, INotConnectedObj
     [SerializeField]
     private bool _isNeedTurnOn = false;
 
-    [Header("")]
     [SerializeField, Required]
     private Collider2D _fanEffectCollider;
 
@@ -49,4 +47,6 @@ public class Fan : MonoBehaviour, IGameplayObject, ISwitchable, INotConnectedObj
     }
 
     public void EnterPlayMode() { }
+
+    public void Rotate() => transform.Rotate(new Vector3(0f, 0f, -90f));
 }
