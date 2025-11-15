@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3e2d8495d1fd6144a92b6b3dac79fcf1, type: 3}
-  m_Name: Level 5
+  m_Name: Level 6
   m_EditorClassIdentifier: Assembly-CSharp::Assets.GearMind.Inventory.InventoryFactorySO
   _inventory:
     _serializedList:
-    - Key: {fileID: 5637799894335985506, guid: 6a44225e693563447a75394d681111cf, type: 3}
+    - Key: {fileID: 5078550567428888148, guid: 45f3d433a994a304987e2963d588eaae, type: 3}
       Value: 1
     - Key: {fileID: 2995878182433360892, guid: 262591131f741f540b65874c0e4f7548, type: 3}
       Value: 1
