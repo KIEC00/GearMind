@@ -9,6 +9,7 @@ using UnityEngine;
 
 namespace Assets.GearMind.Test
 {
+    [SelectionBase]
     public class DefaultRigidObject
         : MonoBehaviour,
             IHaveState<Rigidbody2DState>,
