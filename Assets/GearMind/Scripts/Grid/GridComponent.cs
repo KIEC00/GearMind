@@ -1,4 +1,5 @@
 using System;
+using Assets.Utils.Runtime;
 using EditorAttributes;
 using UnityEngine;
 
@@ -33,6 +34,10 @@ namespace Assets.GearMind.Grid
             position.x >= 0 && position.x < Size.x && position.y >= 0 && position.y < Size.y;
 
         public bool InBounds(Vector2 position) => WordRect.Contains(position);
+
+        public bool InBounds(Rect rect) => WordRect.Contains(rect);
+
+        public bool InBounds(Bounds bounds) => InBounds(bounds.ToRect());
 
         [Button("TriggerChangeEvent")]
         public void TriggerChangeEvent() => OnGridChangedOrInit?.Invoke();
