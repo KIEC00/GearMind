@@ -1,9 +1,10 @@
-using System.Collections.Generic;
+using Assets.GearMind.Grid;
 using Assets.GearMind.Instruments;
 using Assets.GearMind.State;
 using Assets.GearMind.State.Utils;
 using Assets.Utils.Runtime;
 using EditorAttributes;
+using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 
 namespace Assets.GearMind.Test
@@ -31,6 +32,7 @@ namespace Assets.GearMind.Test
 
         [field: SerializeField]
         public ContactFilter2D _contactFilter { get; private set; }
+        public GridComponent Grid { get; set; }
 
         private readonly RaycastHit2D[] _hits = new RaycastHit2D[1];
 
@@ -45,7 +47,8 @@ namespace Assets.GearMind.Test
         public void OnDragEnd() => _renderer.material.color = _initialColor.WithAlpha(1f);
 
         public virtual bool ValidatePlacement() =>
-            _collider.Cast(Vector2.zero, _contactFilter, _hits, 0f) == 0;
+            Grid.InBounds(_collider.bounds)
+            && _collider.Cast(Vector2.zero, _contactFilter, _hits, 0f) == 0;
 
         public void SetError(bool isError)
         {

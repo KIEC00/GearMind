@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efc0ab50ca3a96a469fa100ba8ec4be9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.GearMind.Test.DefaultRigidObject
-  <IsDragable>k__BackingField: 1
+  <IsDragable>k__BackingField: 0
   <_renderer>k__BackingField: {fileID: 2708050142856154460}
   <_rigidbody>k__BackingField: {fileID: 5671121506516292114}
   <_collider>k__BackingField: {fileID: 2121922412733017036}
@@ -139,7 +139,7 @@ MonoBehaviour:
     useOutsideNormalAngle: 0
     layerMask:
       serializedVersion: 2
-      m_Bits: 128
+      m_Bits: 193
     minDepth: 0
     maxDepth: 0
     minNormalAngle: 0

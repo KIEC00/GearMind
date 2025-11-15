@@ -119,8 +119,8 @@ Transform:
   m_GameObject: {fileID: 8903875901613869997}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.0896, y: 0.87693, z: 0}
-  m_LocalScale: {x: 3, y: 0.9, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 3, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1186365694710828945}
@@ -187,7 +187,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.0026434064, y: 0.000009998679}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -197,7 +197,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.95265615, y: 0.8771039}
+  m_Size: {x: 0.95, y: 0.95}
   m_EdgeRadius: 0
 --- !u!114 &5637799894335985506
 MonoBehaviour:
@@ -224,12 +224,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efc0ab50ca3a96a469fa100ba8ec4be9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.GearMind.Test.DefaultRigidObject
-  <IsDragable>k__BackingField: 1
+  <IsDragable>k__BackingField: 0
   <_renderer>k__BackingField: {fileID: 4973064994554192181}
   <_rigidbody>k__BackingField: {fileID: 71372871635264739}
   <_collider>k__BackingField: {fileID: 5868221410159736706}
   <_contactFilter>k__BackingField:
-    useTriggers: 1
+    useTriggers: 0
     useLayerMask: 1
     useDepth: 0
     useOutsideDepth: 0
@@ -237,7 +237,7 @@ MonoBehaviour:
     useOutsideNormalAngle: 0
     layerMask:
       serializedVersion: 2
-      m_Bits: 128
+      m_Bits: 193
     minDepth: 0
     maxDepth: 0
     minNormalAngle: 0

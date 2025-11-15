@@ -318,7 +318,7 @@ MonoBehaviour:
     useOutsideNormalAngle: 0
     layerMask:
       serializedVersion: 2
-      m_Bits: 65
+      m_Bits: 193
     minDepth: 0
     maxDepth: 0
     minNormalAngle: 0
@@ -469,12 +469,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da793c3203d5c9a42b828fb6f8af8eb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VertiHorizConnectRigidObject
-  <IsDragable>k__BackingField: 1
+  <IsDragable>k__BackingField: 0
   <_renderer>k__BackingField: {fileID: 8805938851333742499}
   <_rigidbody>k__BackingField: {fileID: 2135331244874087089}
   <_collider>k__BackingField: {fileID: 3183604055713033353}
   <_contactFilter>k__BackingField:
-    useTriggers: 1
+    useTriggers: 0
     useLayerMask: 1
     useDepth: 0
     useOutsideDepth: 0
@@ -482,7 +482,7 @@ MonoBehaviour:
     useOutsideNormalAngle: 0
     layerMask:
       serializedVersion: 2
-      m_Bits: 128
+      m_Bits: 193
     minDepth: 0
     maxDepth: 0
     minNormalAngle: 0
@@ -496,7 +496,7 @@ MonoBehaviour:
     useOutsideNormalAngle: 0
     layerMask:
       serializedVersion: 2
-      m_Bits: 129
+      m_Bits: 65
     minDepth: 0
     maxDepth: 0
     minNormalAngle: 0

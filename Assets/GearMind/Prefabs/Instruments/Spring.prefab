@@ -151,12 +151,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 684bec6e7934a0f46b4b091a060ca984, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DownConnectRigidObject
-  <IsDragable>k__BackingField: 1
+  <IsDragable>k__BackingField: 0
   <_renderer>k__BackingField: {fileID: 4045421497018219107}
   <_rigidbody>k__BackingField: {fileID: 1895951587472642473}
   <_collider>k__BackingField: {fileID: 4010397242072108704}
   <_contactFilter>k__BackingField:
-    useTriggers: 1
+    useTriggers: 0
     useLayerMask: 1
     useDepth: 0
     useOutsideDepth: 0
@@ -164,7 +164,7 @@ MonoBehaviour:
     useOutsideNormalAngle: 0
     layerMask:
       serializedVersion: 2
-      m_Bits: 128
+      m_Bits: 193
     minDepth: 0
     maxDepth: 0
     minNormalAngle: 0
@@ -178,7 +178,7 @@ MonoBehaviour:
     useOutsideNormalAngle: 0
     layerMask:
       serializedVersion: 2
-      m_Bits: 129
+      m_Bits: 65
     minDepth: 0
     maxDepth: 0
     minNormalAngle: 0
