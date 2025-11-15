@@ -2,6 +2,7 @@ using Assets.GearMind.Instruments;
 using EditorAttributes;
 using UnityEngine;
 
+[SelectionBase]
 public class Fan : MonoBehaviour, IGameplayObject, ISwitchable, INotConnectedObject, IRotatable
 {
     [SerializeField]
