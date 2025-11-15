@@ -1,3 +1,4 @@
+using Assets.GearMind.Grid;
 using Assets.GearMind.Instruments;
 using Assets.GearMind.State;
 using Assets.GearMind.State.Utils;
@@ -16,6 +17,7 @@ public class PlaceObjectClass
 
     [field: SerializeField]
     public bool IsDragable { get; set; } = false;
+    public GridComponent Grid { get; set; }
 
     [SerializeField, Required]
     private Renderer _renderer;

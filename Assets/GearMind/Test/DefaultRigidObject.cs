@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using Assets.GearMind.Grid;
 using Assets.GearMind.Instruments;
 using Assets.GearMind.State;
 using Assets.GearMind.State.Utils;
@@ -31,6 +31,7 @@ namespace Assets.GearMind.Test
 
         [field: SerializeField]
         public ContactFilter2D _contactFilter { get; private set; }
+        public GridComponent Grid { get; set; }
 
         private readonly RaycastHit2D[] _hits = new RaycastHit2D[1];
 

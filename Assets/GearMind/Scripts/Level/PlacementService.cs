@@ -100,10 +100,13 @@ namespace Assets.GearMind.Level
             if (!_draggingData)
                 return;
             GetPositions(move.Current, out var planePositionWithOffset, out var gridPosition);
+            var grid = gridPosition != null ? _grid : null;
+            if (_draggingData.DragTarget.Grid != grid)
+                _draggingData.DragTarget.Grid = grid;
+            _draggingData.DragTarget.OnDrag(gridPosition ?? planePositionWithOffset);
             var canPlaceObject =
                 gridPosition.HasValue && _draggingData.DragTarget.ValidatePlacement();
             _draggingData.DragTarget.SetError(!canPlaceObject);
-            _draggingData.DragTarget.OnDrag(gridPosition ?? planePositionWithOffset);
         }
 
         private void HandleDragEnd(Vector2 screenPosition)

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Assets.GearMind.Grid;
 using Assets.GearMind.Instruments;
 using Assets.GearMind.State;
 using Assets.GearMind.State.Utils;
@@ -41,6 +42,7 @@ public class CommonGridObject
 
     [field: SerializeField]
     public bool IsDragable { get; set; } = false;
+    public GridComponent Grid { get; set; }
 
     public void Awake()
     {
