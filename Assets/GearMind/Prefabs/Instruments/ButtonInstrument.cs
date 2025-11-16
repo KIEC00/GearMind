@@ -27,6 +27,9 @@ public class ButtonInstrument : MonoBehaviour, IGameplayObject
     [SerializeField, Required]
     private Collider2D _collider;
 
+    [SerializeField, Required]
+    private GameObject _viewRadius;
+
     
 
     
@@ -40,6 +43,7 @@ public class ButtonInstrument : MonoBehaviour, IGameplayObject
         _collider.enabled = true;
         _pushCollider.enabled = false;
         _includeCollider.enabled = false;
+        _viewRadius.SetActive(true);
     }
 
     public  void EnterPlayMode()
@@ -47,6 +51,7 @@ public class ButtonInstrument : MonoBehaviour, IGameplayObject
         _collider.enabled = false;
         _pushCollider.enabled = true;
         _includeCollider.enabled = true;
+        _viewRadius.SetActive(false);
     }
 
     public void Awake()

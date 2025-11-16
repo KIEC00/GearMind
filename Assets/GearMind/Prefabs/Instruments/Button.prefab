@@ -273,7 +273,7 @@ GameObject:
   - component: {fileID: 393856840693846552}
   - component: {fileID: 2649463904052136135}
   m_Layer: 0
-  m_Name: Circle
+  m_Name: ViewCircle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -597,6 +597,7 @@ MonoBehaviour:
   _includeCollider: {fileID: 7264750697341144928}
   _rendererRedButton: {fileID: 8389054993707747352}
   _collider: {fileID: 7476390955502768585}
+  _viewRadius: {fileID: 7840274063198428393}
 --- !u!114 &6395811886515609902
 MonoBehaviour:
   m_ObjectHideFlags: 0
