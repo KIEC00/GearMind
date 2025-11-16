@@ -1,4 +1,4 @@
-using System;
+using UnityEngine;
 
 namespace Assets.GearMind.Level
 {
@@ -18,7 +18,10 @@ namespace Assets.GearMind.Level
         public LevelContext(int levelIndex, ILevelProvider provider)
         {
             if (levelIndex < 0 || levelIndex >= provider.Levels.Count)
-                throw new ArgumentException("Invalid level index");
+            {
+                Debug.LogError("Invalid level index " + levelIndex);
+                levelIndex = -1;
+            }
 
             _levelIndex = levelIndex;
             _provider = provider;
