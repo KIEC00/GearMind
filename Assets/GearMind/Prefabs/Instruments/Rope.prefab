@@ -39,7 +39,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2045895148954564688}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
@@ -242,6 +242,8 @@ MonoBehaviour:
   _connectCollider: {fileID: 3459646497933431875}
   _startRopeViewTransform: {fileID: 4815563353843560433}
   _lineRenderer: {fileID: 4171811124577714772}
+  _colider: {fileID: 6181322659007285641}
+  _clickCollider: {fileID: 8206296908776112007}
 --- !u!120 &4171811124577714772
 LineRenderer:
   serializedVersion: 2
@@ -364,7 +366,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f4fa696e8091074fa45538405c249e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UpConnectRigidObject
-  _isNeedKinematic: 1
   <IsDragable>k__BackingField: 1
   <_renderer>k__BackingField: {fileID: 1615563767918855156}
   <_rigidbody>k__BackingField: {fileID: 2627316391312074395}
@@ -409,7 +410,7 @@ GameObject:
   - component: {fileID: 1568777946201942951}
   - component: {fileID: 1615563767918855156}
   m_Layer: 0
-  m_Name: CheckClick
+  m_Name: View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -587,7 +588,7 @@ GameObject:
   - component: {fileID: 3459646497933431875}
   - component: {fileID: 7978852610878585377}
   m_Layer: 0
-  m_Name: Rope
+  m_Name: Connect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

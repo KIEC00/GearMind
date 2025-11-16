@@ -7,7 +7,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Rope : MonoBehaviour, IGameplayObject, INotConnectedObject
+public class Rope : MonoBehaviour, IGameplayObject, INotConnectedObject, IPointerClickHandler
 {
     [SerializeField]
     private float _widthRope = 0.2f;
@@ -24,6 +24,16 @@ public class Rope : MonoBehaviour, IGameplayObject, INotConnectedObject
     [SerializeField, Required]
     private LineRenderer _lineRenderer;
 
+    [SerializeField, Required]
+    private Collider2D _colider;
+
+    [SerializeField, Required]
+    private Collider2D _clickCollider;
+
+    private bool _isCanClick;
+
+    private bool _isCanBreak;
+
     private Vector3 _offsetRopeView;
 
     
@@ -34,16 +44,23 @@ public class Rope : MonoBehaviour, IGameplayObject, INotConnectedObject
     {
         _connectCollider.enabled = true;
         _connectCollider.attachedRigidbody.bodyType = RigidbodyType2D.Dynamic;
+        _isCanClick = true;
+        _clickCollider.enabled = true;
+        _colider.enabled = false;
 
     }
 
     public void EnterEditMode()
     {
+        _colider.enabled = true;
+        _clickCollider.enabled = false;
         ReturnStartState();
         _connectCollider.gameObject.SetActive(true);
         _connectCollider.attachedRigidbody.bodyType = RigidbodyType2D.Kinematic;
         _connectCollider.enabled = false;
+        _isCanClick = false;
         
+
 
     }
 
@@ -54,6 +71,7 @@ public class Rope : MonoBehaviour, IGameplayObject, INotConnectedObject
             var rigidbody = collider.attachedRigidbody;
             _distanceJoint.connectedBody = rigidbody;
             _connectCollider.gameObject.SetActive(false);
+            _isCanBreak = true;
         }
     }
 
@@ -88,7 +106,8 @@ public class Rope : MonoBehaviour, IGameplayObject, INotConnectedObject
         _lineRenderer.endWidth = _widthRope;
     }
 
-    
-
-    
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        
+    }
 }

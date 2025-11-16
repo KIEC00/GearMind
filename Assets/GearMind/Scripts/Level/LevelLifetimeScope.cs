@@ -9,6 +9,7 @@ using Assets.GearMind.Scripts.UI;
 using Assets.GearMind.State;
 using Assets.Utils.Runtime;
 using EditorAttributes;
+using NUnit.Framework.Internal;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -76,6 +77,8 @@ namespace Assets.GearMind.Level
             builder.Register<LevelManager>(Lifetime.Singleton).AsSelf();
             builder.RegisterComponent(_nextLevelController);
             builder.RegisterComponent(_levelGoal);
+
+            builder.Register<InputCutRope>(Lifetime.Singleton).AsSelf();
         }
 
         private static LevelStateMachine LevelStateMachineFactoryMethod(IObjectResolver c) =>

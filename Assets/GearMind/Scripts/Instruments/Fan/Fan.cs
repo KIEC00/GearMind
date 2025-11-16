@@ -1,5 +1,8 @@
+using System;
 using Assets.GearMind.Objects;
 using EditorAttributes;
+using R3;
+using R3.Triggers;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -14,15 +17,17 @@ public class Fan : MonoBehaviour,IGameplayObject, IIncludedObject, INotConnected
 
     [Header("")]
     [SerializeField, Required]
-    private Collider2D _fanEffectCollider;
-
-    [SerializeField, Required]
-    private AreaEffector2D _effector2D;
+    private Collider2D _effectCollider;
 
     [SerializeField, Required]
     private Renderer _renderer;
 
+    [SerializeField, Required]
+    private GameObject _viewEffect;
+
     private Color _initialColor;
+
+    private IDisposable _disposable;
 
 
     public bool IsTurnOn { get; private set; } = false;
@@ -30,7 +35,6 @@ public class Fan : MonoBehaviour,IGameplayObject, IIncludedObject, INotConnected
     private void Awake()
     {
         _initialColor = _renderer.material.color;
-        _effector2D.forceMagnitude = _forceFan;
         if(_isNeedTurnOn)
             TurnOnOff(true);
     }
@@ -40,11 +44,22 @@ public class Fan : MonoBehaviour,IGameplayObject, IIncludedObject, INotConnected
         TurnOnOff(_isNeedTurnOn);
     }
 
+    public void PushObject(Collider2D collider)
+    {
+        if(!collider.isTrigger)
+            collider.attachedRigidbody.AddForce(transform.right * _forceFan, ForceMode2D.Force);
+    }
+
+    public void RegisterMethods()
+    {
+        _disposable = _effectCollider.OnTriggerStay2DAsObservable().Subscribe(collider => PushObject(collider)).AddTo(gameObject);
+    }
 
 
     public void TurnOnOff(bool isTurnOn)
     {
-        _fanEffectCollider.enabled = isTurnOn;
+        _effectCollider.enabled = isTurnOn;
+        _viewEffect.SetActive(isTurnOn);
         IsTurnOn = isTurnOn;
         if (isTurnOn)
             _renderer.material.color = Color.green;
@@ -55,5 +70,15 @@ public class Fan : MonoBehaviour,IGameplayObject, IIncludedObject, INotConnected
     public void EnterPlayMode()
     {
 
+    }
+
+    public void OnEnable()
+    {
+        RegisterMethods();
+    }
+
+    public void OnDisable()
+    {
+        _disposable.Dispose();
     }
 }

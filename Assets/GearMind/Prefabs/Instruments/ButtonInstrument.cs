@@ -31,7 +31,7 @@ public class ButtonInstrument : MonoBehaviour, IGameplayObject
 
     
     private int CountPushObjects;
-    private Collider2D[] _collisionColiders = new Collider2D[10];
+    private Collider2D[] _collisionColiders = new Collider2D[30];
 
     private Color _initialiseColor;
 
