@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PortalMaterial
+  m_Name: PortalGreen
   m_Shader: {fileID: -6465566751694194690, guid: 6f5e0ff4bbbb58845a4323dd3064bbdd, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -47,9 +47,9 @@ Material:
     - _QueueOffset: 0
     - _Scale: 2.5
     - _Speed: 0.3
-    - _TwirlStrength: 20
+    - _TwirlStrength: 21.93
     m_Colors:
-    - _Color: {r: 32.936428, g: 111.09435, b: 19.389109, a: 1}
+    - _Color: {r: 8.234107, g: 27.773588, b: 4.847277, a: 1}
     - _Scale: {r: 2.5, g: 0, b: 0, a: 0}
     - _TwirlStrenght: {r: 7, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
