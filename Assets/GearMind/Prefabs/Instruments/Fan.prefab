@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4095832073628198103}
   - component: {fileID: 8907722668919015543}
   - component: {fileID: 8990695548326783652}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: View (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 4554185999724717127}
   - component: {fileID: 7835043318914105262}
   - component: {fileID: 6688262489291349940}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: FanEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -180,7 +180,7 @@ AreaEffector2D:
   m_UseColliderMask: 1
   m_ColliderMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 64
   m_UseGlobalAngle: 0
   m_ForceAngle: 0
   m_ForceMagnitude: 10
@@ -199,7 +199,7 @@ GameObject:
   - component: {fileID: 7832612116865359119}
   - component: {fileID: 1322621283852194294}
   - component: {fileID: 2314787012202226156}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
