@@ -49,7 +49,7 @@ Material:
     - _Speed: 0.3
     - _TwirlStrength: 21.93
     m_Colors:
-    - _Color: {r: 37.079926, g: 1.408517, b: 0, a: 1}
+    - _Color: {r: 74.15985, g: 2.817034, b: 0, a: 1}
     - _Scale: {r: 2.5, g: 0, b: 0, a: 0}
     - _TwirlStrenght: {r: 7, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

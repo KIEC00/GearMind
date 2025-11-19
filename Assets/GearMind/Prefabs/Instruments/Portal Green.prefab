@@ -31,7 +31,7 @@ Transform:
   m_LocalScale: {x: 0.33027, y: 0.27989998, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6611240964552993438}
+  m_Father: {fileID: 3316942965822298472}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &4930165705350274709
 ParticleSystem:
@@ -4858,7 +4858,7 @@ GameObject:
   - component: {fileID: 5305282575754596372}
   - component: {fileID: 7196428037380765451}
   m_Layer: 0
-  m_Name: Portal
+  m_Name: Portal Green
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4873,13 +4873,11 @@ Transform:
   m_GameObject: {fileID: 3265841108409927585}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.49716, y: 0.04, z: -0.6983}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3316942965822298472}
-  - {fileID: 1499601413360880846}
-  - {fileID: 4148130220036557495}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1806880536958828938
@@ -4895,6 +4893,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Portal
   _toPortal: {fileID: 0}
+  _collider: {fileID: 7196428037380765451}
 --- !u!50 &5305282575754596372
 Rigidbody2D:
   serializedVersion: 5
@@ -4952,11 +4951,11 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.010404408, y: -0.002312079}
+  m_Offset: {x: -0.0030754805, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -4966,7 +4965,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.73873377, y: 0.81965685}
+  m_Size: {x: 0.9384905, y: 0.9384905}
   m_EdgeRadius: 0
 --- !u!1 &4280244965152045014
 GameObject:
@@ -4998,7 +4997,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1499601413360880846}
+  - {fileID: 4148130220036557495}
   m_Father: {fileID: 6611240964552993438}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4188213205212180778
@@ -5083,12 +5084,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6091805893789865546}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6611240964552993438}
+  m_Father: {fileID: 3316942965822298472}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!198 &1176427395110227389
 ParticleSystem:
@@ -5344,7 +5345,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2
+      scalar: 1
       minScalar: 1
       maxCurve:
         serializedVersion: 2

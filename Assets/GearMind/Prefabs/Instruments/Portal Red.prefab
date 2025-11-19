@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1806880536958828938, guid: 47a7799ce1d037c498e295891a31a709, type: 3}
+      propertyPath: _collider
+      value: 
+      objectReference: {fileID: 3588413565553182988}
     - target: {fileID: 3265841108409927585, guid: 47a7799ce1d037c498e295891a31a709, type: 3}
       propertyPath: m_Name
       value: Portal 1 Variant
@@ -30,15 +34,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6611240964552993438, guid: 47a7799ce1d037c498e295891a31a709, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6611240964552993438, guid: 47a7799ce1d037c498e295891a31a709, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.04
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6611240964552993438, guid: 47a7799ce1d037c498e295891a31a709, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.6983
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6611240964552993438, guid: 47a7799ce1d037c498e295891a31a709, type: 3}
       propertyPath: m_LocalRotation.w
@@ -73,3 +77,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47a7799ce1d037c498e295891a31a709, type: 3}
+--- !u!61 &3588413565553182988 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 7196428037380765451, guid: 47a7799ce1d037c498e295891a31a709, type: 3}
+  m_PrefabInstance: {fileID: 5913861879364615687}
+  m_PrefabAsset: {fileID: 0}
