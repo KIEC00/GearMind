@@ -62,10 +62,6 @@ namespace Assets.GearMind.Scripts.UI
                 CloseLevelsMenu();
             else
                 OpenLevelsMenu();
-            if (IsVisible)
-                CloseLevelsMenu();
-            else
-                OpenLevelsMenu();
         }
 
         private void LoadLevel(LevelData level) => SceneManager.LoadScene(level.SceneID);
