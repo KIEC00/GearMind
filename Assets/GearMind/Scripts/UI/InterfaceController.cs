@@ -22,6 +22,8 @@ namespace Assets.GearMind.Scripts.UI
         private Button _startButton;
         private Button _reloadSceneButton;
         private Button _settingsButton;
+        private Button _rotateLeftButton;
+        private Button _rotateRightButton;
 
         private VisualElement _playIcon;
         private VisualElement _editIcon;
@@ -51,7 +53,11 @@ namespace Assets.GearMind.Scripts.UI
             _settingsButton = _doc.rootVisualElement.Q<Button>("Settings");
             _settingsButton.clicked += SettingsClicked;
 
+            _rotateLeftButton = _doc.rootVisualElement.Q<Button>("RotateLeft");
+            _rotateRightButton = _doc.rootVisualElement.Q<Button>("RotateRight");
+
             UpdateStartButtonText();
+            UpdateButtonsForCurrentLevel();
         }
 
         private void TogglePlayMode()
@@ -72,6 +78,21 @@ namespace Assets.GearMind.Scripts.UI
             _editIcon.style.display = _uiModeManager.IsSimulateMode
                 ? DisplayStyle.Flex
                 : DisplayStyle.None;
+        }
+
+        private void UpdateButtonsForCurrentLevel()
+        {
+            int levelNumber = _levelContext.LevelNumber;
+
+            _startButton.style.display = (levelNumber == 3)
+                ? DisplayStyle.None
+                : DisplayStyle.Flex;
+
+            bool showRotation = (levelNumber == 3);
+            var rotationDisplay = showRotation ? DisplayStyle.Flex : DisplayStyle.None;
+
+            _rotateLeftButton.style.display = rotationDisplay;
+            _rotateRightButton.style.display = rotationDisplay;
         }
 
         private void SettingsClicked() => _settingsController.Toggle();
