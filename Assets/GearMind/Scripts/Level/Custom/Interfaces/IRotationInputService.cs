@@ -14,7 +14,7 @@ namespace Assets.GearMind.Custom.Input
 
     public enum Direction : int
     {
-        Clockwise = 1,
-        Counterclockwise = -1,
+        Clockwise = -1,
+        Counterclockwise = 1,
     }
 }
