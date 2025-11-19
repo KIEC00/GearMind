@@ -3,7 +3,7 @@
     "name": "InputActions",
     "maps": [
         {
-            "name": "GamePlay",
+            "name": "Gameplay",
             "id": "2d2c2f1e-bac1-4e59-8b57-c85883b6fc71",
             "actions": [
                 {
@@ -125,6 +125,96 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "RotatePressed",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "RotationGameplay",
+            "id": "a7f54e37-4294-45b2-ab5b-dae1e5d57c23",
+            "actions": [
+                {
+                    "name": "RotateCounterclockwise",
+                    "type": "Button",
+                    "id": "a1a3b7c2-21ee-49b0-a127-df629d8c4866",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RotateClockwise",
+                    "type": "Button",
+                    "id": "dcee8350-16ba-40e4-b738-ea9919697d93",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Esc",
+                    "type": "Button",
+                    "id": "e737f4e8-2e8d-4c47-b9a6-cc9fac4e9032",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "8bc50c2e-e01f-4142-b842-b809bb9f20ea",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RotateCounterclockwise",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4769cbab-cfa5-448d-94a4-cb01b1e52481",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RotateCounterclockwise",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "826fb1b5-5069-4333-a9a9-249010ced906",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RotateClockwise",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8db74308-3c91-4fa3-8c72-a284ca0b458f",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RotateClockwise",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "78380bb3-a12d-43a2-a37c-7885769e5408",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Esc",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

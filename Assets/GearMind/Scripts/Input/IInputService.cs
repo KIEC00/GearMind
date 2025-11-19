@@ -1,14 +1,11 @@
 using System;
+using Assets.GearMind.Common;
 using UnityEngine;
 
 namespace Assets.GearMind.Input
 {
-    public interface IInputService
+    public interface IInputService : IToggable
     {
-        bool Enabled { get; set; }
-        void Enable();
-        void Disable();
-
         bool IsPointerDown { get; }
         event Action<Vector2> OnPointerReleased;
         event Action<Vector2> OnPointerPressed;
