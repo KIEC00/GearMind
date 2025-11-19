@@ -15,6 +15,11 @@ namespace Assets.GearMind.Instruments
 
         public void EnterPlayMode() => _collider.isTrigger = true;
 
-        private void OnTriggerEnter2D(Collider2D collision) => Trigger?.Invoke();
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if(collision.CompareTag("Cheese"))
+                Trigger?.Invoke();
+        }
+
     }
 }
