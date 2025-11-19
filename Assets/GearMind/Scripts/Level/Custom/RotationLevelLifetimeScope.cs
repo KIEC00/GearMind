@@ -1,5 +1,7 @@
 using Assets.GearMind.Custom.Input;
 using Assets.GearMind.Level;
+using Assets.GearMind.Scripts.UI;
+using Assets.GearMind.UI;
 using EditorAttributes;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -20,6 +22,9 @@ namespace Assets.GearMind.Custom.Level
         [SerializeField, Required, TypeFilter(typeof(ILevelGoalTrigger))]
         private Component _levelGoalTrigger;
 
+        [SerializeField, Required]
+        private NextLevelController _nextLevelController;
+
         protected override void Configure(IContainerBuilder builder)
         {
             builder
@@ -31,6 +36,9 @@ namespace Assets.GearMind.Custom.Level
 
             builder.Register<PauseService>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<RotationInputService>(Lifetime.Singleton).AsImplementedInterfaces();
+
+            builder.Register<UIManager>(Lifetime.Singleton);
+            builder.RegisterComponent(_nextLevelController);
         }
 
         private static LevelContext LevelContextFactoryMethod(IObjectResolver c)
