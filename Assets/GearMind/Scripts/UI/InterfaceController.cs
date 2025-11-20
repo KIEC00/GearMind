@@ -1,3 +1,5 @@
+using System;
+using Assets.GearMind.Custom.Input;
 using Assets.GearMind.Level;
 using Assets.GearMind.UI;
 using EditorAttributes;
@@ -11,10 +13,13 @@ namespace Assets.GearMind.Scripts.UI
     [RequireComponent(typeof(UIDocument))]
     public class InterfaceContoller : MonoBehaviour
     {
-        [SerializeField]
+        public event Action<Direction> OnRotateButtonStarted;
+        public event Action OnRotateButtonStoped;
+
+        [SerializeField, Required]
         private NextLevelController _nextLevelController;
 
-        [SerializeField]
+        [SerializeField, Required]
         private SettingsController _settingsController;
 
         [SerializeField]
@@ -43,12 +48,15 @@ namespace Assets.GearMind.Scripts.UI
 
         private void Awake() => BindDocument();
 
+        public void OnLevelPassed() => _nextLevelController.ShowNextLevelPanel();
+
         private void BindDocument()
         {
             _doc = GetComponent<UIDocument>();
             _startButton = _doc.rootVisualElement.Q<Button>("Start");
             _playIcon = _startButton.Q<VisualElement>("PlayIcon");
             _editIcon = _startButton.Q<VisualElement>("EditIcon");
+
             _reloadSceneButton = _doc.rootVisualElement.Q<Button>("Reload");
             _settingsButton = _doc.rootVisualElement.Q<Button>("Settings");
             _rotateLeftButton = _doc.rootVisualElement.Q<Button>("RotateLeft");
@@ -64,8 +72,23 @@ namespace Assets.GearMind.Scripts.UI
             _reloadSceneButton.clicked += ReloadScene;
             _settingsButton.clicked += SettingsClicked;
 
+            _rotateLeftButton.RegisterCallback<MouseDownEvent>(HandleRotateLeftStart);
+            _rotateLeftButton.RegisterCallback<MouseUpEvent>(HandleRotateLeftStop);
+            _rotateRightButton.RegisterCallback<MouseDownEvent>(HandleRotateRightStart);
+            _rotateRightButton.RegisterCallback<MouseUpEvent>(HandleRotateRightStop);
+
             _uiManager.OnLevelPassed += OnLevelPassed;
         }
+
+        private void HandleRotateLeftStart(MouseDownEvent e) =>
+            OnRotateButtonStarted?.Invoke(Direction.Clockwise);
+
+        private void HandleRotateLeftStop(MouseUpEvent e) => OnRotateButtonStoped?.Invoke();
+
+        private void HandleRotateRightStart(MouseDownEvent e) =>
+            OnRotateButtonStarted?.Invoke(Direction.Counterclockwise);
+
+        private void HandleRotateRightStop(MouseUpEvent e) => OnRotateButtonStoped?.Invoke();
 
         private void TogglePlayMode()
         {
@@ -96,14 +119,17 @@ namespace Assets.GearMind.Scripts.UI
 
         private void ReloadScene() => SceneManager.LoadScene(_levelContext.Level.SceneID);
 
-        private void OnLevelPassed() => _nextLevelController.ShowNextLevelPanel();
-
         private void OnDisable()
         {
             _startButton.clicked -= TogglePlayMode;
             _settingsButton.clicked -= SettingsClicked;
             _reloadSceneButton.clicked -= ReloadScene;
             _uiManager.OnLevelPassed -= OnLevelPassed;
+
+            _rotateLeftButton.UnregisterCallback<MouseDownEvent>(HandleRotateLeftStart);
+            _rotateLeftButton.UnregisterCallback<MouseUpEvent>(HandleRotateLeftStop);
+            _rotateRightButton.UnregisterCallback<MouseDownEvent>(HandleRotateRightStart);
+            _rotateRightButton.UnregisterCallback<MouseUpEvent>(HandleRotateRightStop);
         }
     }
 

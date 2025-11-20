@@ -25,6 +25,9 @@ namespace Assets.GearMind.Custom.Level
         [SerializeField, Required]
         private NextLevelController _nextLevelController;
 
+        [SerializeField, Required]
+        private InterfaceContoller _interfaceContoller;
+
         protected override void Configure(IContainerBuilder builder)
         {
             builder
@@ -38,6 +41,7 @@ namespace Assets.GearMind.Custom.Level
             builder.Register<RotationInputService>(Lifetime.Singleton).AsImplementedInterfaces();
 
             builder.Register<UIManager>(Lifetime.Singleton);
+            builder.RegisterComponent(_interfaceContoller);
             builder.RegisterComponent(_nextLevelController);
         }
 

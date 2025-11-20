@@ -1,6 +1,7 @@
 using System;
 using Assets.GearMind.Custom.Input;
 using Assets.GearMind.Level;
+using Assets.GearMind.Scripts.UI;
 using Assets.GearMind.Storage.Endpoints;
 using Assets.GearMind.UI;
 using GearMind.Services.Level;
@@ -18,7 +19,7 @@ namespace Assets.GearMind.Custom.Level
         private readonly IPauseService _pauseService;
         private readonly LevelContext _levelContext;
         private readonly LevelProgressEndpoint _levelProgressEndpoint;
-        private readonly UIManager _uiManager;
+        private readonly InterfaceContoller _interfaceContoller;
 
         public RotationLevelEntryPoint(
             Transform enviromentAnchor,
@@ -28,7 +29,7 @@ namespace Assets.GearMind.Custom.Level
             IPauseService pauseService,
             LevelContext levelContext,
             LevelProgressEndpoint levelProgressEndpoint,
-            UIManager uiManager
+            InterfaceContoller interfaceContoller
         )
         {
             _enviromentAnchor = enviromentAnchor;
@@ -38,7 +39,7 @@ namespace Assets.GearMind.Custom.Level
             _pauseService = pauseService;
             _levelContext = levelContext;
             _levelProgressEndpoint = levelProgressEndpoint;
-            _uiManager = uiManager;
+            _interfaceContoller = interfaceContoller;
         }
 
         public void PostInitialize() { }
@@ -56,6 +57,9 @@ namespace Assets.GearMind.Custom.Level
 
             _inputService.RotationStart += _rotationTarget.StartRotation;
             _inputService.RotationStop += _rotationTarget.StopRotation;
+
+            _interfaceContoller.OnRotateButtonStarted += _rotationTarget.StartRotation;
+            _interfaceContoller.OnRotateButtonStoped += _rotationTarget.StopRotation;
         }
 
         private void Unsubscribe()
@@ -65,6 +69,9 @@ namespace Assets.GearMind.Custom.Level
 
             _inputService.RotationStart -= _rotationTarget.StartRotation;
             _inputService.RotationStop -= _rotationTarget.StopRotation;
+
+            _interfaceContoller.OnRotateButtonStarted -= _rotationTarget.StartRotation;
+            _interfaceContoller.OnRotateButtonStoped -= _rotationTarget.StopRotation;
         }
 
         private void OnLevelPassed()
@@ -75,7 +82,7 @@ namespace Assets.GearMind.Custom.Level
                 passedLevelsIds.Add(_levelContext.Level.SceneID);
                 _levelProgressEndpoint.Save(passedLevelsIds);
             }
-            _uiManager.OpenNextLevelMenu();
+            _interfaceContoller.OnLevelPassed();
         }
 
         private void OnPauseChange(bool isPaused) => Time.timeScale = isPaused ? 0 : 1;
