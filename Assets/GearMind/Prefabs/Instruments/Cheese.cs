@@ -2,6 +2,7 @@ using Assets.GearMind.Instruments;
 using EditorAttributes;
 using UnityEngine;
 
+[SelectionBase]
 public class Cheese : MonoBehaviour, IGameplayObject, IDamageable
 {
     [SerializeField, Required]

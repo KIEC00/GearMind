@@ -91,7 +91,7 @@ namespace Assets.GearMind.Input
     ""name"": ""InputActions"",
     ""maps"": [
         {
-            ""name"": ""GamePlay"",
+            ""name"": ""Gameplay"",
             ""id"": ""2d2c2f1e-bac1-4e59-8b57-c85883b6fc71"",
             ""actions"": [
                 {
@@ -213,6 +213,96 @@ namespace Assets.GearMind.Input
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""RotatePressed"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""RotationGameplay"",
+            ""id"": ""a7f54e37-4294-45b2-ab5b-dae1e5d57c23"",
+            ""actions"": [
+                {
+                    ""name"": ""RotateCounterclockwise"",
+                    ""type"": ""Button"",
+                    ""id"": ""a1a3b7c2-21ee-49b0-a127-df629d8c4866"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RotateClockwise"",
+                    ""type"": ""Button"",
+                    ""id"": ""dcee8350-16ba-40e4-b738-ea9919697d93"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Esc"",
+                    ""type"": ""Button"",
+                    ""id"": ""e737f4e8-2e8d-4c47-b9a6-cc9fac4e9032"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""8bc50c2e-e01f-4142-b842-b809bb9f20ea"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateCounterclockwise"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4769cbab-cfa5-448d-94a4-cb01b1e52481"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateCounterclockwise"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""826fb1b5-5069-4333-a9a9-249010ced906"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateClockwise"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8db74308-3c91-4fa3-8c72-a284ca0b458f"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateClockwise"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""78380bb3-a12d-43a2-a37c-7885769e5408"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Esc"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -798,14 +888,19 @@ namespace Assets.GearMind.Input
         }
     ]
 }");
-            // GamePlay
-            m_GamePlay = asset.FindActionMap("GamePlay", throwIfNotFound: true);
-            m_GamePlay_PointerPosition = m_GamePlay.FindAction("PointerPosition", throwIfNotFound: true);
-            m_GamePlay_PointerMove = m_GamePlay.FindAction("PointerMove", throwIfNotFound: true);
-            m_GamePlay_MouseLeftButton = m_GamePlay.FindAction("MouseLeftButton", throwIfNotFound: true);
-            m_GamePlay_MouseRightButton = m_GamePlay.FindAction("MouseRightButton", throwIfNotFound: true);
-            m_GamePlay_EscPressed = m_GamePlay.FindAction("EscPressed", throwIfNotFound: true);
-            m_GamePlay_RotatePressed = m_GamePlay.FindAction("RotatePressed", throwIfNotFound: true);
+            // Gameplay
+            m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
+            m_Gameplay_PointerPosition = m_Gameplay.FindAction("PointerPosition", throwIfNotFound: true);
+            m_Gameplay_PointerMove = m_Gameplay.FindAction("PointerMove", throwIfNotFound: true);
+            m_Gameplay_MouseLeftButton = m_Gameplay.FindAction("MouseLeftButton", throwIfNotFound: true);
+            m_Gameplay_MouseRightButton = m_Gameplay.FindAction("MouseRightButton", throwIfNotFound: true);
+            m_Gameplay_EscPressed = m_Gameplay.FindAction("EscPressed", throwIfNotFound: true);
+            m_Gameplay_RotatePressed = m_Gameplay.FindAction("RotatePressed", throwIfNotFound: true);
+            // RotationGameplay
+            m_RotationGameplay = asset.FindActionMap("RotationGameplay", throwIfNotFound: true);
+            m_RotationGameplay_RotateCounterclockwise = m_RotationGameplay.FindAction("RotateCounterclockwise", throwIfNotFound: true);
+            m_RotationGameplay_RotateClockwise = m_RotationGameplay.FindAction("RotateClockwise", throwIfNotFound: true);
+            m_RotationGameplay_Esc = m_RotationGameplay.FindAction("Esc", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -822,7 +917,8 @@ namespace Assets.GearMind.Input
 
         ~@InputActions()
         {
-            UnityEngine.Debug.Assert(!m_GamePlay.enabled, "This will cause a leak and performance issues, InputActions.GamePlay.Disable() has not been called.");
+            UnityEngine.Debug.Assert(!m_Gameplay.enabled, "This will cause a leak and performance issues, InputActions.Gameplay.Disable() has not been called.");
+            UnityEngine.Debug.Assert(!m_RotationGameplay.enabled, "This will cause a leak and performance issues, InputActions.RotationGameplay.Disable() has not been called.");
             UnityEngine.Debug.Assert(!m_UI.enabled, "This will cause a leak and performance issues, InputActions.UI.Disable() has not been called.");
         }
 
@@ -896,54 +992,54 @@ namespace Assets.GearMind.Input
             return asset.FindBinding(bindingMask, out action);
         }
 
-        // GamePlay
-        private readonly InputActionMap m_GamePlay;
-        private List<IGamePlayActions> m_GamePlayActionsCallbackInterfaces = new List<IGamePlayActions>();
-        private readonly InputAction m_GamePlay_PointerPosition;
-        private readonly InputAction m_GamePlay_PointerMove;
-        private readonly InputAction m_GamePlay_MouseLeftButton;
-        private readonly InputAction m_GamePlay_MouseRightButton;
-        private readonly InputAction m_GamePlay_EscPressed;
-        private readonly InputAction m_GamePlay_RotatePressed;
+        // Gameplay
+        private readonly InputActionMap m_Gameplay;
+        private List<IGameplayActions> m_GameplayActionsCallbackInterfaces = new List<IGameplayActions>();
+        private readonly InputAction m_Gameplay_PointerPosition;
+        private readonly InputAction m_Gameplay_PointerMove;
+        private readonly InputAction m_Gameplay_MouseLeftButton;
+        private readonly InputAction m_Gameplay_MouseRightButton;
+        private readonly InputAction m_Gameplay_EscPressed;
+        private readonly InputAction m_Gameplay_RotatePressed;
         /// <summary>
-        /// Provides access to input actions defined in input action map "GamePlay".
+        /// Provides access to input actions defined in input action map "Gameplay".
         /// </summary>
-        public struct GamePlayActions
+        public struct GameplayActions
         {
             private @InputActions m_Wrapper;
 
             /// <summary>
             /// Construct a new instance of the input action map wrapper class.
             /// </summary>
-            public GamePlayActions(@InputActions wrapper) { m_Wrapper = wrapper; }
+            public GameplayActions(@InputActions wrapper) { m_Wrapper = wrapper; }
             /// <summary>
-            /// Provides access to the underlying input action "GamePlay/PointerPosition".
+            /// Provides access to the underlying input action "Gameplay/PointerPosition".
             /// </summary>
-            public InputAction @PointerPosition => m_Wrapper.m_GamePlay_PointerPosition;
+            public InputAction @PointerPosition => m_Wrapper.m_Gameplay_PointerPosition;
             /// <summary>
-            /// Provides access to the underlying input action "GamePlay/PointerMove".
+            /// Provides access to the underlying input action "Gameplay/PointerMove".
             /// </summary>
-            public InputAction @PointerMove => m_Wrapper.m_GamePlay_PointerMove;
+            public InputAction @PointerMove => m_Wrapper.m_Gameplay_PointerMove;
             /// <summary>
-            /// Provides access to the underlying input action "GamePlay/MouseLeftButton".
+            /// Provides access to the underlying input action "Gameplay/MouseLeftButton".
             /// </summary>
-            public InputAction @MouseLeftButton => m_Wrapper.m_GamePlay_MouseLeftButton;
+            public InputAction @MouseLeftButton => m_Wrapper.m_Gameplay_MouseLeftButton;
             /// <summary>
-            /// Provides access to the underlying input action "GamePlay/MouseRightButton".
+            /// Provides access to the underlying input action "Gameplay/MouseRightButton".
             /// </summary>
-            public InputAction @MouseRightButton => m_Wrapper.m_GamePlay_MouseRightButton;
+            public InputAction @MouseRightButton => m_Wrapper.m_Gameplay_MouseRightButton;
             /// <summary>
-            /// Provides access to the underlying input action "GamePlay/EscPressed".
+            /// Provides access to the underlying input action "Gameplay/EscPressed".
             /// </summary>
-            public InputAction @EscPressed => m_Wrapper.m_GamePlay_EscPressed;
+            public InputAction @EscPressed => m_Wrapper.m_Gameplay_EscPressed;
             /// <summary>
-            /// Provides access to the underlying input action "GamePlay/RotatePressed".
+            /// Provides access to the underlying input action "Gameplay/RotatePressed".
             /// </summary>
-            public InputAction @RotatePressed => m_Wrapper.m_GamePlay_RotatePressed;
+            public InputAction @RotatePressed => m_Wrapper.m_Gameplay_RotatePressed;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
-            public InputActionMap Get() { return m_Wrapper.m_GamePlay; }
+            public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
             /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
             public void Enable() { Get().Enable(); }
             /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
@@ -951,9 +1047,9 @@ namespace Assets.GearMind.Input
             /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
             public bool enabled => Get().enabled;
             /// <summary>
-            /// Implicitly converts an <see ref="GamePlayActions" /> to an <see ref="InputActionMap" /> instance.
+            /// Implicitly converts an <see ref="GameplayActions" /> to an <see ref="InputActionMap" /> instance.
             /// </summary>
-            public static implicit operator InputActionMap(GamePlayActions set) { return set.Get(); }
+            public static implicit operator InputActionMap(GameplayActions set) { return set.Get(); }
             /// <summary>
             /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
             /// </summary>
@@ -961,11 +1057,11 @@ namespace Assets.GearMind.Input
             /// <remarks>
             /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
             /// </remarks>
-            /// <seealso cref="GamePlayActions" />
-            public void AddCallbacks(IGamePlayActions instance)
+            /// <seealso cref="GameplayActions" />
+            public void AddCallbacks(IGameplayActions instance)
             {
-                if (instance == null || m_Wrapper.m_GamePlayActionsCallbackInterfaces.Contains(instance)) return;
-                m_Wrapper.m_GamePlayActionsCallbackInterfaces.Add(instance);
+                if (instance == null || m_Wrapper.m_GameplayActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_GameplayActionsCallbackInterfaces.Add(instance);
                 @PointerPosition.started += instance.OnPointerPosition;
                 @PointerPosition.performed += instance.OnPointerPosition;
                 @PointerPosition.canceled += instance.OnPointerPosition;
@@ -992,8 +1088,8 @@ namespace Assets.GearMind.Input
             /// <remarks>
             /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
             /// </remarks>
-            /// <seealso cref="GamePlayActions" />
-            private void UnregisterCallbacks(IGamePlayActions instance)
+            /// <seealso cref="GameplayActions" />
+            private void UnregisterCallbacks(IGameplayActions instance)
             {
                 @PointerPosition.started -= instance.OnPointerPosition;
                 @PointerPosition.performed -= instance.OnPointerPosition;
@@ -1016,12 +1112,12 @@ namespace Assets.GearMind.Input
             }
 
             /// <summary>
-            /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="GamePlayActions.UnregisterCallbacks(IGamePlayActions)" />.
+            /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="GameplayActions.UnregisterCallbacks(IGameplayActions)" />.
             /// </summary>
-            /// <seealso cref="GamePlayActions.UnregisterCallbacks(IGamePlayActions)" />
-            public void RemoveCallbacks(IGamePlayActions instance)
+            /// <seealso cref="GameplayActions.UnregisterCallbacks(IGameplayActions)" />
+            public void RemoveCallbacks(IGameplayActions instance)
             {
-                if (m_Wrapper.m_GamePlayActionsCallbackInterfaces.Remove(instance))
+                if (m_Wrapper.m_GameplayActionsCallbackInterfaces.Remove(instance))
                     UnregisterCallbacks(instance);
             }
 
@@ -1031,21 +1127,139 @@ namespace Assets.GearMind.Input
             /// <remarks>
             /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
             /// </remarks>
-            /// <seealso cref="GamePlayActions.AddCallbacks(IGamePlayActions)" />
-            /// <seealso cref="GamePlayActions.RemoveCallbacks(IGamePlayActions)" />
-            /// <seealso cref="GamePlayActions.UnregisterCallbacks(IGamePlayActions)" />
-            public void SetCallbacks(IGamePlayActions instance)
+            /// <seealso cref="GameplayActions.AddCallbacks(IGameplayActions)" />
+            /// <seealso cref="GameplayActions.RemoveCallbacks(IGameplayActions)" />
+            /// <seealso cref="GameplayActions.UnregisterCallbacks(IGameplayActions)" />
+            public void SetCallbacks(IGameplayActions instance)
             {
-                foreach (var item in m_Wrapper.m_GamePlayActionsCallbackInterfaces)
+                foreach (var item in m_Wrapper.m_GameplayActionsCallbackInterfaces)
                     UnregisterCallbacks(item);
-                m_Wrapper.m_GamePlayActionsCallbackInterfaces.Clear();
+                m_Wrapper.m_GameplayActionsCallbackInterfaces.Clear();
                 AddCallbacks(instance);
             }
         }
         /// <summary>
-        /// Provides a new <see cref="GamePlayActions" /> instance referencing this action map.
+        /// Provides a new <see cref="GameplayActions" /> instance referencing this action map.
         /// </summary>
-        public GamePlayActions @GamePlay => new GamePlayActions(this);
+        public GameplayActions @Gameplay => new GameplayActions(this);
+
+        // RotationGameplay
+        private readonly InputActionMap m_RotationGameplay;
+        private List<IRotationGameplayActions> m_RotationGameplayActionsCallbackInterfaces = new List<IRotationGameplayActions>();
+        private readonly InputAction m_RotationGameplay_RotateCounterclockwise;
+        private readonly InputAction m_RotationGameplay_RotateClockwise;
+        private readonly InputAction m_RotationGameplay_Esc;
+        /// <summary>
+        /// Provides access to input actions defined in input action map "RotationGameplay".
+        /// </summary>
+        public struct RotationGameplayActions
+        {
+            private @InputActions m_Wrapper;
+
+            /// <summary>
+            /// Construct a new instance of the input action map wrapper class.
+            /// </summary>
+            public RotationGameplayActions(@InputActions wrapper) { m_Wrapper = wrapper; }
+            /// <summary>
+            /// Provides access to the underlying input action "RotationGameplay/RotateCounterclockwise".
+            /// </summary>
+            public InputAction @RotateCounterclockwise => m_Wrapper.m_RotationGameplay_RotateCounterclockwise;
+            /// <summary>
+            /// Provides access to the underlying input action "RotationGameplay/RotateClockwise".
+            /// </summary>
+            public InputAction @RotateClockwise => m_Wrapper.m_RotationGameplay_RotateClockwise;
+            /// <summary>
+            /// Provides access to the underlying input action "RotationGameplay/Esc".
+            /// </summary>
+            public InputAction @Esc => m_Wrapper.m_RotationGameplay_Esc;
+            /// <summary>
+            /// Provides access to the underlying input action map instance.
+            /// </summary>
+            public InputActionMap Get() { return m_Wrapper.m_RotationGameplay; }
+            /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+            public void Enable() { Get().Enable(); }
+            /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+            public void Disable() { Get().Disable(); }
+            /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+            public bool enabled => Get().enabled;
+            /// <summary>
+            /// Implicitly converts an <see ref="RotationGameplayActions" /> to an <see ref="InputActionMap" /> instance.
+            /// </summary>
+            public static implicit operator InputActionMap(RotationGameplayActions set) { return set.Get(); }
+            /// <summary>
+            /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+            /// </summary>
+            /// <param name="instance">Callback instance.</param>
+            /// <remarks>
+            /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+            /// </remarks>
+            /// <seealso cref="RotationGameplayActions" />
+            public void AddCallbacks(IRotationGameplayActions instance)
+            {
+                if (instance == null || m_Wrapper.m_RotationGameplayActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_RotationGameplayActionsCallbackInterfaces.Add(instance);
+                @RotateCounterclockwise.started += instance.OnRotateCounterclockwise;
+                @RotateCounterclockwise.performed += instance.OnRotateCounterclockwise;
+                @RotateCounterclockwise.canceled += instance.OnRotateCounterclockwise;
+                @RotateClockwise.started += instance.OnRotateClockwise;
+                @RotateClockwise.performed += instance.OnRotateClockwise;
+                @RotateClockwise.canceled += instance.OnRotateClockwise;
+                @Esc.started += instance.OnEsc;
+                @Esc.performed += instance.OnEsc;
+                @Esc.canceled += instance.OnEsc;
+            }
+
+            /// <summary>
+            /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+            /// </summary>
+            /// <remarks>
+            /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+            /// </remarks>
+            /// <seealso cref="RotationGameplayActions" />
+            private void UnregisterCallbacks(IRotationGameplayActions instance)
+            {
+                @RotateCounterclockwise.started -= instance.OnRotateCounterclockwise;
+                @RotateCounterclockwise.performed -= instance.OnRotateCounterclockwise;
+                @RotateCounterclockwise.canceled -= instance.OnRotateCounterclockwise;
+                @RotateClockwise.started -= instance.OnRotateClockwise;
+                @RotateClockwise.performed -= instance.OnRotateClockwise;
+                @RotateClockwise.canceled -= instance.OnRotateClockwise;
+                @Esc.started -= instance.OnEsc;
+                @Esc.performed -= instance.OnEsc;
+                @Esc.canceled -= instance.OnEsc;
+            }
+
+            /// <summary>
+            /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="RotationGameplayActions.UnregisterCallbacks(IRotationGameplayActions)" />.
+            /// </summary>
+            /// <seealso cref="RotationGameplayActions.UnregisterCallbacks(IRotationGameplayActions)" />
+            public void RemoveCallbacks(IRotationGameplayActions instance)
+            {
+                if (m_Wrapper.m_RotationGameplayActionsCallbackInterfaces.Remove(instance))
+                    UnregisterCallbacks(instance);
+            }
+
+            /// <summary>
+            /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+            /// </summary>
+            /// <remarks>
+            /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+            /// </remarks>
+            /// <seealso cref="RotationGameplayActions.AddCallbacks(IRotationGameplayActions)" />
+            /// <seealso cref="RotationGameplayActions.RemoveCallbacks(IRotationGameplayActions)" />
+            /// <seealso cref="RotationGameplayActions.UnregisterCallbacks(IRotationGameplayActions)" />
+            public void SetCallbacks(IRotationGameplayActions instance)
+            {
+                foreach (var item in m_Wrapper.m_RotationGameplayActionsCallbackInterfaces)
+                    UnregisterCallbacks(item);
+                m_Wrapper.m_RotationGameplayActionsCallbackInterfaces.Clear();
+                AddCallbacks(instance);
+            }
+        }
+        /// <summary>
+        /// Provides a new <see cref="RotationGameplayActions" /> instance referencing this action map.
+        /// </summary>
+        public RotationGameplayActions @RotationGameplay => new RotationGameplayActions(this);
 
         // UI
         private readonly InputActionMap m_UI;
@@ -1307,11 +1521,11 @@ namespace Assets.GearMind.Input
             }
         }
         /// <summary>
-        /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "GamePlay" which allows adding and removing callbacks.
+        /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Gameplay" which allows adding and removing callbacks.
         /// </summary>
-        /// <seealso cref="GamePlayActions.AddCallbacks(IGamePlayActions)" />
-        /// <seealso cref="GamePlayActions.RemoveCallbacks(IGamePlayActions)" />
-        public interface IGamePlayActions
+        /// <seealso cref="GameplayActions.AddCallbacks(IGameplayActions)" />
+        /// <seealso cref="GameplayActions.RemoveCallbacks(IGameplayActions)" />
+        public interface IGameplayActions
         {
             /// <summary>
             /// Method invoked when associated input action "PointerPosition" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
@@ -1355,6 +1569,35 @@ namespace Assets.GearMind.Input
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnRotatePressed(InputAction.CallbackContext context);
+        }
+        /// <summary>
+        /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "RotationGameplay" which allows adding and removing callbacks.
+        /// </summary>
+        /// <seealso cref="RotationGameplayActions.AddCallbacks(IRotationGameplayActions)" />
+        /// <seealso cref="RotationGameplayActions.RemoveCallbacks(IRotationGameplayActions)" />
+        public interface IRotationGameplayActions
+        {
+            /// <summary>
+            /// Method invoked when associated input action "RotateCounterclockwise" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnRotateCounterclockwise(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "RotateClockwise" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnRotateClockwise(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "Esc" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnEsc(InputAction.CallbackContext context);
         }
         /// <summary>
         /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

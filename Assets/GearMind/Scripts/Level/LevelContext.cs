@@ -1,10 +1,10 @@
-using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Assets.GearMind.Level
 {
     public class LevelContext
     {
-        public LevelData Level => _provider.Levels[LevelIndex];
+        public LevelData Level => GetLevelData(_levelIndex, _provider);
         public int LevelIndex => _levelIndex;
         public int LevelNumber => LevelIndex + 1;
         public bool IsLast => LevelIndex == _provider.Levels.Count - 1;
@@ -17,14 +17,28 @@ namespace Assets.GearMind.Level
 
         public LevelContext(int levelIndex, ILevelProvider provider)
         {
-            if (levelIndex < 0 || levelIndex >= provider.Levels.Count)
+            if (!IsValidIndex(levelIndex, provider))
             {
-                Debug.LogError("Invalid level index " + levelIndex);
-                levelIndex = -1;
+#if !UNITY_EDITOR
+                Debug.LogError($"LevelProvider does not contains level with index {levelIndex}");
+#endif
+                levelIndex = int.MinValue;
             }
 
             _levelIndex = levelIndex;
             _provider = provider;
+        }
+
+        private static bool IsValidIndex(int levelIndex, ILevelProvider provider) =>
+            levelIndex >= 0 || levelIndex >= provider.Levels.Count;
+
+        private static LevelData GetLevelData(int levelIndex, ILevelProvider provider)
+        {
+#if UNITY_EDITOR
+            if (!IsValidIndex(levelIndex, provider))
+                return new(SceneManager.GetActiveScene().buildIndex);
+#endif
+            return provider.Levels[levelIndex];
         }
     }
 }

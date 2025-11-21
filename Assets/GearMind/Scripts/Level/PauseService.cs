@@ -1,5 +1,6 @@
 using System;
 using GearMind.Services.Level;
+using UnityEngine;
 
 public class PauseService : IPauseService, IDisposable
 {
@@ -12,6 +13,7 @@ public class PauseService : IPauseService, IDisposable
         if (IsPaused)
             return;
         IsPaused = true;
+        Time.timeScale = 0;
         OnPauseChange?.Invoke(IsPaused);
     }
 
@@ -20,6 +22,7 @@ public class PauseService : IPauseService, IDisposable
         if (!IsPaused)
             return;
         IsPaused = false;
+        Time.timeScale = 1;
         OnPauseChange?.Invoke(IsPaused);
     }
 

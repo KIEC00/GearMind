@@ -113,7 +113,8 @@ namespace Assets.GearMind.Level
         private void OnValidate()
         {
             if (!_levelGoalTrigger && _environmentAnchor)
-                _environmentAnchor.GetComponentInChildren<ILevelGoalTrigger>();
+                _levelGoalTrigger = (Component)
+                    _environmentAnchor.GetComponentInChildren<ILevelGoalTrigger>();
         }
     }
 }

@@ -61,3 +61,31 @@
     display: none;
 }
 
+.rotation-controls {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    top: auto;
+    height: 60px;
+}
+
+.rotation-button {
+    position: absolute;
+    width: 150px;
+    height: 100px;
+    bottom: 100px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0);
+    font-size: 45px;
+}
+
+.rotation-button.left {
+    left: 300px;
+    background-color: rgb(247, 237, 173);
+}
+
+.rotation-button.right {
+    right: 300px;
+    background-color: rgb(247, 236, 173);
+}

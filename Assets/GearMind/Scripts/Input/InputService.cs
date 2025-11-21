@@ -37,7 +37,7 @@ namespace Assets.GearMind.Input
         public event Action OnEscPressed;
 
         private readonly InputActions _inputAction = new();
-        private InputActions.GamePlayActions Actions => _inputAction.GamePlay;
+        private InputActions.GameplayActions Actions => _inputAction.Gameplay;
 
         private Vector2 _pointerPressedPosition = Vector2.zero;
 
