@@ -109,8 +109,8 @@ namespace Assets.GearMind.Scripts.UI
             _startButton.style.display =
                 _levelType == LevelType.Rotation ? DisplayStyle.None : DisplayStyle.Flex;
 
-            var rotationDisplay =
-                _levelType == LevelType.Rotation ? DisplayStyle.Flex : DisplayStyle.None;
+            var rotationDisplay = DisplayStyle.None; //TODO
+            //    // _levelType == LevelType.Rotation ? DisplayStyle.Flex : DisplayStyle.None;
             _rotateLeftButton.style.display = rotationDisplay;
             _rotateRightButton.style.display = rotationDisplay;
         }
