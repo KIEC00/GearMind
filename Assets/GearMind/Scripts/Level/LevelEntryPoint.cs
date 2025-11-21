@@ -76,15 +76,9 @@ namespace Assets.GearMind.Level
         private void OnPauseChange(bool isPaused)
         {
             if (isPaused)
-            {
                 _levelStateMachine.Pause();
-                Time.timeScale = 0;
-            }
             else
-            {
                 _levelStateMachine.Continue();
-                Time.timeScale = 1;
-            }
         }
 
         public void Dispose()

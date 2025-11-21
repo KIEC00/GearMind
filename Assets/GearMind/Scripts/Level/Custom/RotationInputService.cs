@@ -65,7 +65,7 @@ namespace Assets.GearMind.Custom.Input
             if (_direction.HasValue)
                 RotationStop?.Invoke();
             _direction = direction;
-            RotationStart(_direction.Value);
+            RotationStart?.Invoke(_direction.Value);
         }
 
         private void HandleEndRotate(Direction direction)
@@ -83,7 +83,7 @@ namespace Assets.GearMind.Custom.Input
                 _direction = null;
 
             if (_direction.HasValue)
-                RotationStart.Invoke(_direction.Value);
+                RotationStart?.Invoke(_direction.Value);
         }
 
         private void HandleEscPressed(InputAction.CallbackContext context) => EscPressed?.Invoke();

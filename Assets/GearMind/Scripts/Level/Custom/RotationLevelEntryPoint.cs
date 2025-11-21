@@ -12,7 +12,6 @@ namespace Assets.GearMind.Custom.Level
 {
     public class RotationLevelEntryPoint : IStartable, IPostInitializable, IDisposable
     {
-        private readonly Transform _enviromentAnchor;
         private readonly IRotationTarget _rotationTarget;
         private readonly IRotationInputService _inputService;
         private readonly ILevelGoalTrigger _levelGoalTrigger;
@@ -22,7 +21,6 @@ namespace Assets.GearMind.Custom.Level
         private readonly InterfaceContoller _interfaceContoller;
 
         public RotationLevelEntryPoint(
-            Transform enviromentAnchor,
             IRotationTarget rotationTarget,
             IRotationInputService inputService,
             ILevelGoalTrigger levelGoalTrigger,
@@ -32,7 +30,6 @@ namespace Assets.GearMind.Custom.Level
             InterfaceContoller interfaceContoller
         )
         {
-            _enviromentAnchor = enviromentAnchor;
             _rotationTarget = rotationTarget;
             _inputService = inputService;
             _levelGoalTrigger = levelGoalTrigger;
@@ -54,7 +51,18 @@ namespace Assets.GearMind.Custom.Level
         {
             _levelGoalTrigger.Trigger += OnLevelPassed;
             _pauseService.OnPauseChange += OnPauseChange;
+            SubscribeGameplay();
+        }
 
+        private void Unsubscribe()
+        {
+            _levelGoalTrigger.Trigger -= OnLevelPassed;
+            _pauseService.OnPauseChange -= OnPauseChange;
+            UnsubscribeGameplay();
+        }
+
+        private void SubscribeGameplay()
+        {
             _inputService.RotationStart += _rotationTarget.StartRotation;
             _inputService.RotationStop += _rotationTarget.StopRotation;
 
@@ -62,11 +70,8 @@ namespace Assets.GearMind.Custom.Level
             _interfaceContoller.OnRotateButtonStoped += _rotationTarget.StopRotation;
         }
 
-        private void Unsubscribe()
+        private void UnsubscribeGameplay()
         {
-            _levelGoalTrigger.Trigger -= OnLevelPassed;
-            _pauseService.OnPauseChange -= OnPauseChange;
-
             _inputService.RotationStart -= _rotationTarget.StartRotation;
             _inputService.RotationStop -= _rotationTarget.StopRotation;
 
@@ -83,9 +88,20 @@ namespace Assets.GearMind.Custom.Level
                 _levelProgressEndpoint.Save(passedLevelsIds);
             }
             _interfaceContoller.OnLevelPassed();
+            _pauseService.Pause();
         }
 
-        private void OnPauseChange(bool isPaused) => Time.timeScale = isPaused ? 0 : 1;
+        private void OnPauseChange(bool isPaused)
+        {
+            if (isPaused)
+            {
+                UnsubscribeGameplay();
+                _rotationTarget.StopRotation();
+            }
+            else
+                SubscribeGameplay();
+            _inputService.Enabled = !isPaused;
+        }
 
         public void Dispose()
         {
