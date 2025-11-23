@@ -21,13 +21,13 @@ public class Portal : MonoBehaviour, IGameplayObject
     public void EnterEditMode()
     {
         if (_collider != null)
-            _collider.isTrigger = false;
+            _collider.enabled = false;
     }
 
     public void EnterPlayMode()
     {
         if (_collider != null)
-            _collider.isTrigger = true;
+            _collider.enabled = true;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
