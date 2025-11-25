@@ -407,6 +407,7 @@ MonoBehaviour:
   _fanEffectCollider: {fileID: 7835043318914105262}
   _effector2D: {fileID: 6688262489291349940}
   _renderer: {fileID: 2314787012202226156}
+  _windEffect: {fileID: 4159407270224343092}
 --- !u!114 &5637799894335985506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -472,6 +473,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5860981469629403040}
     m_Modifications:
+    - target: {fileID: 4165457435146807015, guid: d65194a05adab3f469202155b6e44a28, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5038421115954276898, guid: d65194a05adab3f469202155b6e44a28, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -533,6 +538,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d65194a05adab3f469202155b6e44a28, type: 3}
+--- !u!198 &4159407270224343092 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4165457435146807015, guid: d65194a05adab3f469202155b6e44a28, type: 3}
+  m_PrefabInstance: {fileID: 33640281098770131}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5015764131383442673 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5038421115954276898, guid: d65194a05adab3f469202155b6e44a28, type: 3}

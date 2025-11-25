@@ -20,6 +20,9 @@ public class Fan : MonoBehaviour, IGameplayObject, ISwitchable, INotConnectedObj
     [SerializeField, Required]
     private Renderer _renderer;
 
+    [SerializeField, Required]
+    private ParticleSystem _windEffect;
+
     private Color _initialColor;
 
     public bool IsActive { get; private set; } = false;
@@ -28,6 +31,7 @@ public class Fan : MonoBehaviour, IGameplayObject, ISwitchable, INotConnectedObj
     {
         _initialColor = _renderer.material.color;
         _effector2D.forceMagnitude = _forceFan;
+        _windEffect.Stop(withChildren: true, ParticleSystemStopBehavior.StopEmittingAndClear);
         if (_isNeedTurnOn)
             SetActive(true);
     }
@@ -42,9 +46,15 @@ public class Fan : MonoBehaviour, IGameplayObject, ISwitchable, INotConnectedObj
         _fanEffectCollider.enabled = isTurnOn;
         IsActive = isTurnOn;
         if (isTurnOn)
+        {
             _renderer.material.color = Color.green;
+            _windEffect.Play(withChildren: true);
+        }
         else
+        {
             _renderer.material.color = _initialColor;
+            _windEffect.Stop(withChildren: true, ParticleSystemStopBehavior.StopEmitting);
+        }
     }
 
     public void EnterPlayMode() { }
