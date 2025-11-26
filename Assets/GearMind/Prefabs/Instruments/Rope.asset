@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Rope
   m_EditorClassIdentifier: Assembly-CSharp::Assets.GearMind.Inventory.InventoryIdentitySO
   <Name>k__BackingField: Rope
+  <Icon>k__BackingField: {fileID: 21300000, guid: c778335f85da3e944ba557625ec06f3f, type: 3}

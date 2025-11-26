@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Domino
   m_EditorClassIdentifier: Assembly-CSharp::Assets.GearMind.Inventory.InventoryIdentitySO
   <Name>k__BackingField: Domino
+  <Icon>k__BackingField: {fileID: 21300000, guid: 9d54f8bdd4d926b45bcd0e79b26c5b90, type: 3}

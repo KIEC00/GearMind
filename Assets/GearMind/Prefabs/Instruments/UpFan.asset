@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: UpFan
   m_EditorClassIdentifier: Assembly-CSharp::Assets.GearMind.Inventory.InventoryIdentitySO
   <Name>k__BackingField: UpFan
+  <Icon>k__BackingField: {fileID: 21300000, guid: b6d82c09337e2184eb4046367525d864, type: 3}

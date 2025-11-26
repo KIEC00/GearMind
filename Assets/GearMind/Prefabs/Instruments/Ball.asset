@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Ball
   m_EditorClassIdentifier: Assembly-CSharp::Assets.GearMind.Inventory.InventoryIdentitySO
   <Name>k__BackingField: Ball
+  <Icon>k__BackingField: {fileID: 21300000, guid: f2d1ee556fbf0db46979dbee1b49e0f0, type: 3}

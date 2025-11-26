@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Button
   m_EditorClassIdentifier: Assembly-CSharp::Assets.GearMind.Inventory.InventoryIdentitySO
   <Name>k__BackingField: Button
+  <Icon>k__BackingField: {fileID: 21300000, guid: 34383bb2b9f68bb42b71f8a0b940ba62, type: 3}
