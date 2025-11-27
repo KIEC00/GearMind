@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Platform
   m_EditorClassIdentifier: Assembly-CSharp::Assets.GearMind.Inventory.InventoryIdentitySO
   <Name>k__BackingField: Platform
+  <Icon>k__BackingField: {fileID: 21300000, guid: 041aee970319cdd4bb6c21bd0e34276e, type: 3}

@@ -108,6 +108,7 @@ namespace Assets.GearMind.UI
             int quantity
         )
         {
+            button.Icon = identity.Icon;
             button.Name = identity.Name;
             button.Quantity = quantity;
             button.Interactable = quantity > 0;

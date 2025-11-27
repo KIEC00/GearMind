@@ -33,7 +33,7 @@ namespace Assets.GearMind.Scripts.UI
         private Button _settingsButton;
         private Button _rotateLeftButton;
         private Button _rotateRightButton;
-
+        private VisualElement _rotationControls;
         private VisualElement _playIcon;
         private VisualElement _editIcon;
 
@@ -61,6 +61,7 @@ namespace Assets.GearMind.Scripts.UI
             _settingsButton = _doc.rootVisualElement.Q<Button>("Settings");
             _rotateLeftButton = _doc.rootVisualElement.Q<Button>("RotateLeft");
             _rotateRightButton = _doc.rootVisualElement.Q<Button>("RotateRight");
+            _rotationControls = _doc.rootVisualElement.Q<VisualElement>("RotationControls");
         }
 
         private void OnEnable()
@@ -76,7 +77,7 @@ namespace Assets.GearMind.Scripts.UI
             _rotateLeftButton.RegisterCallback<MouseUpEvent>(HandleRotateLeftStop);
             _rotateRightButton.RegisterCallback<MouseDownEvent>(HandleRotateRightStart);
             _rotateRightButton.RegisterCallback<MouseUpEvent>(HandleRotateRightStop);
-
+            _rotationControls = _doc.rootVisualElement.Q<VisualElement>("RotationControls");
             _uiManager.OnLevelPassed += OnLevelPassed;
         }
 
@@ -111,8 +112,7 @@ namespace Assets.GearMind.Scripts.UI
 
             var rotationDisplay = DisplayStyle.None; //TODO
             //    // _levelType == LevelType.Rotation ? DisplayStyle.Flex : DisplayStyle.None;
-            _rotateLeftButton.style.display = rotationDisplay;
-            _rotateRightButton.style.display = rotationDisplay;
+            _rotationControls.style.display = rotationDisplay;
         }
 
         private void SettingsClicked() => _settingsController.Toggle();
