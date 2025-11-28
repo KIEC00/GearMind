@@ -1263,6 +1263,17 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 669181309}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &750672102 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5533721847746322052, guid: 60700c6b46fd36c4b8d6c956c0b01b16, type: 3}
+  m_PrefabInstance: {fileID: 209687000}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd9779b28b6958047a2a64ab9836755d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.GearMind.Objects.LevelGoalTrigger
 --- !u!1 &760374987
 GameObject:
   m_ObjectHideFlags: 0
@@ -1949,17 +1960,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1256292802 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5604706277192017924, guid: 60700c6b46fd36c4b8d6c956c0b01b16, type: 3}
-  m_PrefabInstance: {fileID: 209687000}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4973fa0d5c5364b44bde722278acf3b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Assets.GearMind.Level.LevelGoal
 --- !u!1 &1387469225
 GameObject:
   m_ObjectHideFlags: 0
@@ -2373,7 +2373,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1929917976}
+  - {fileID: 1975715031}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2671,12 +2671,15 @@ MonoBehaviour:
   - {fileID: 1787585522}
   - {fileID: 660383488}
   _inventoryFactory: {fileID: 11400000, guid: 8e28b4f6adb8a7a49847eef5229d5545, type: 2}
+  _dragLayers:
+    serializedVersion: 2
+    m_Bits: 0
   _environmentAnchor: {fileID: 787784652}
   _graphicRaycaster: {fileID: 660383489}
   _eventSystem: {fileID: 1232593318}
   _grid: {fileID: 808227210}
   _nextLevelController: {fileID: 2087702807}
-  _levelGoal: {fileID: 1256292802}
+  _levelGoalTrigger: {fileID: 750672102}
 --- !u!114 &1787585525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2845,7 +2848,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 0.86144125}
   m_EdgeRadius: 0
---- !u!21 &1929917976
+--- !u!21 &1975715031
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0

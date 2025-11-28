@@ -73,6 +73,7 @@ namespace Assets.GearMind.Level
             builder.Register<ObjectService>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<StateService>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<GameplayObjectService>(Lifetime.Singleton).AsImplementedInterfaces();
+            builder.Register<InputCutRope>(Lifetime.Singleton).AsSelf();
             builder
                 .Register<PlacementService>(Lifetime.Singleton)
                 .WithParameter("objectsParent", _environmentAnchor)
