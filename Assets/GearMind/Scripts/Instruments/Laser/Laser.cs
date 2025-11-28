@@ -73,8 +73,12 @@ public class Laser : MonoBehaviour, IGameplayObject, ISwitchable, INotConnectedO
         _laserBeam.enabled = isActive;
 
         if (IsActive)
-            _updateLaserCoroutine = StartCoroutine(UpdateLaserRoutine());
-        else if (_updateLaserCoroutine != null)
+        {
+            if(_updateLaserCoroutine == null)
+                _updateLaserCoroutine = StartCoroutine(UpdateLaserRoutine());
+        }
+            
+        else
             StopCoroutine(_updateLaserCoroutine);
     }
 

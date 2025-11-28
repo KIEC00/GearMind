@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7222081488893193204}
   - component: {fileID: 8805938851333742499}
   - component: {fileID: 1223821586661790303}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 7661770495605167983}
   - component: {fileID: 377683928363986141}
   - component: {fileID: 7602589033160001026}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: LaserView
   m_TagString: Untagged
   m_Icon: {fileID: 0}

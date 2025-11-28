@@ -7,11 +7,19 @@ public class UpConnectRigidObject : DefaultRigidObject
     [SerializeField]
     private ContactFilter2D _filterConnect;
 
+    [SerializeField]
+    private ContactFilter2D _secondContactFilter;
+
     private readonly RaycastHit2D[] _hits = new RaycastHit2D[3];
 
     public override bool ValidatePlacement()
     {
-        return base.ValidatePlacement() && CheckConnect();
+        return base.ValidatePlacement() && SecondValidate() && CheckConnect();
+    }
+
+    private bool SecondValidate()
+    {
+        return _collider.Cast(Vector2.zero, _secondContactFilter, _hits, 0f) == 0;
     }
 
     private bool CheckConnect()

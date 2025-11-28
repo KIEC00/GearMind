@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1186365694710828945}
   - component: {fileID: 717343508856918313}
   - component: {fileID: 4973064994554192181}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Platfotm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -224,12 +224,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efc0ab50ca3a96a469fa100ba8ec4be9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.GearMind.Test.DefaultRigidObject
-  <IsDragable>k__BackingField: 0
+  <IsDragable>k__BackingField: 1
   <_renderer>k__BackingField: {fileID: 4973064994554192181}
   <_rigidbody>k__BackingField: {fileID: 71372871635264739}
   <_collider>k__BackingField: {fileID: 5868221410159736706}
   <_contactFilter>k__BackingField:
-    useTriggers: 0
+    useTriggers: 1
     useLayerMask: 1
     useDepth: 0
     useOutsideDepth: 0

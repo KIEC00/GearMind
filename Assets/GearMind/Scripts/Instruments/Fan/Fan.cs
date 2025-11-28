@@ -1,5 +1,8 @@
+using System;
 using Assets.GearMind.Instruments;
 using EditorAttributes;
+using R3;
+using R3.Triggers;
 using UnityEngine;
 
 [SelectionBase]
@@ -24,6 +27,7 @@ public class Fan : MonoBehaviour, IGameplayObject, ISwitchable, INotConnectedObj
     private ParticleSystem _windEffect;
 
     private Color _initialColor;
+    private IDisposable _disposable;
 
     public bool IsActive { get; private set; } = false;
 
@@ -34,6 +38,20 @@ public class Fan : MonoBehaviour, IGameplayObject, ISwitchable, INotConnectedObj
         _windEffect.Stop(withChildren: true, ParticleSystemStopBehavior.StopEmittingAndClear);
         if (_isNeedTurnOn)
             SetActive(true);
+    }
+
+    public void RegisterMethods()
+    {
+        _disposable = _fanEffectCollider
+            .OnTriggerStay2DAsObservable()
+            .Subscribe(colliderPush => PushInstrument(colliderPush))
+            .AddTo(this);
+    }
+
+    public void PushInstrument(Collider2D collider)
+    {
+        if (!collider.isTrigger)
+            collider.attachedRigidbody.AddForce(transform.right * _forceFan, ForceMode2D.Force);
     }
 
     public void EnterEditMode()
@@ -60,4 +78,14 @@ public class Fan : MonoBehaviour, IGameplayObject, ISwitchable, INotConnectedObj
     public void EnterPlayMode() { }
 
     public void Rotate() => transform.Rotate(new Vector3(0f, 0f, -90f));
+
+    public void OnEnable()
+    {
+        RegisterMethods();
+    }
+
+    public void OnDisable()
+    {
+        _disposable.Dispose();
+    }
 }
