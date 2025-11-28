@@ -1,3 +1,4 @@
+using System;
 using Assets.GearMind.Level;
 using UnityEditor.Build.Content;
 using UnityEngine;
@@ -12,7 +13,7 @@ namespace Assets.GearMind.Scripts.UI
     {
         private UIDocument _doc;
         private Button _nextLevelButton;
-        private VisualElement _nextLevelPanel;
+        private VisualElement _nextLevelPanel; 
 
         private LevelContext _levelContext;
 
