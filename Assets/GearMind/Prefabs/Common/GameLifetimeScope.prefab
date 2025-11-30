@@ -50,10 +50,12 @@ MonoBehaviour:
   parentReference:
     TypeName: 
   autoRun: 1
-  autoInjectGameObjects: []
+  autoInjectGameObjects:
+  - {fileID: 9009373061797249030}
   _levelProvider: {fileID: 11400000, guid: fd46fd30c048a3742bfaaa5055b66642, type: 2}
-  _audioVolumeControlComponent: {fileID: 8360735933519736064}
+  _audioVolumeControl: {fileID: 8360735933519736064}
   _musicQueue: {fileID: 11400000, guid: a4fb646bc4f10fa4ba665c11fc5b5ebd, type: 2}
+  _musicControl: {fileID: 5684917625212024232}
 --- !u!114 &8360735933519736064
 MonoBehaviour:
   m_ObjectHideFlags: 0

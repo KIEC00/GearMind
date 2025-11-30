@@ -12,4 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f0ebc7bcc6cbb344b805a4de1af2345, type: 3}
   m_Name: MusicQueue
   m_EditorClassIdentifier: Assembly-CSharp::MusicQueue
-  _clips: []
+  _clips:
+  - {fileID: 8300000, guid: 6be74b2a5ef2e2a4c8699a719682522e, type: 3}
+  - {fileID: 8300000, guid: 105857fe2e82dc548ace1b11f615d4f3, type: 3}
+  - {fileID: 8300000, guid: 6526a79d3c020fc47abf8043fb2b8fb6, type: 3}
+  - {fileID: 8300000, guid: e58f563ec7cfcea4380e776d9b726693, type: 3}
+  - {fileID: 8300000, guid: 7acb0cae1a4d918428f5840ad3896300, type: 3}
