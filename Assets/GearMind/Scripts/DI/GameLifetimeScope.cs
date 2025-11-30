@@ -17,7 +17,13 @@ namespace Assets.GearMind.DI
         private LevelProviderSO _levelProvider;
 
         [SerializeField, Required]
-        private AudioVolumeControlComponent _audioVolumeControlComponent;
+        private AudioVolumeControlComponent _audioVolumeControl;
+
+        [SerializeField, Required]
+        private MusicQueue _musicQueue;
+
+        [SerializeField, Required]
+        private MusicControlComponent _musicControl;
 
         protected override void Configure(IContainerBuilder builder)
         {
@@ -28,7 +34,15 @@ namespace Assets.GearMind.DI
             builder.Register<JsonSerializer>(Lifetime.Scoped).AsImplementedInterfaces();
             builder.RegisterEndpoint<LevelProgressEndpoint, string>("LevelProgress");
 
-            builder.RegisterInstance(_audioVolumeControlComponent).AsImplementedInterfaces();
+            builder.RegisterInstance(_audioVolumeControl).AsImplementedInterfaces();
+            builder.RegisterInstance(_musicQueue).AsImplementedInterfaces();
+            builder.RegisterInstance(_musicControl).AsImplementedInterfaces();
+        }
+
+        protected override void Awake()
+        {
+            base.Awake();
+            _musicControl.Play();
         }
     }
 }
