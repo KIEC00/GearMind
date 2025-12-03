@@ -1,5 +1,7 @@
+using Assets.GearMind.Audio;
 using UnityEngine;
 using UnityEngine.UIElements;
+using VContainer;
 
 namespace Assets.GearMind.Scripts.UI
 {
@@ -9,23 +11,30 @@ namespace Assets.GearMind.Scripts.UI
         private Button _musicToggleButton;
         private Button _soundToggleButton;
 
+        private AudioVolumeControlComponent _volumeControl;
 
-        public bool IsMusicOn { get; private set; } = true;
-        public bool IsSoundOn { get; private set; } = true;
-
-        private void Awake()
+        [Inject]
+        public void Construct(AudioVolumeControlComponent volumeControl)
         {
-            _doc = GetComponent<UIDocument>();
+            _volumeControl = volumeControl;
         }
+
+        public bool IsMusicOn { get; private set; }
+        public bool IsSoundOn { get; private set; }
 
         private void OnEnable()
         {
+            _doc = GetComponent<UIDocument>();
             var root = _doc.rootVisualElement;
+
             _musicToggleButton = root.Q<Button>("MusicToggleSwitch");
             _soundToggleButton = root.Q<Button>("SoundToggleSwitch");
 
             _musicToggleButton.clicked += ToggleMusic;
             _soundToggleButton.clicked += ToggleSound;
+
+            IsMusicOn = _volumeControl[AudioChannel.Music] > 0;
+            IsSoundOn = _volumeControl[AudioChannel.SFX] > 0;
 
             UpdateToggleState(_musicToggleButton, IsMusicOn);
             UpdateToggleState(_soundToggleButton, IsSoundOn);
@@ -34,12 +43,14 @@ namespace Assets.GearMind.Scripts.UI
         private void ToggleMusic()
         {
             IsMusicOn = !IsMusicOn;
+            _volumeControl[AudioChannel.Music] = IsMusicOn ? _volumeControl.DefaultMusicVolume : 0f;
             UpdateToggleState(_musicToggleButton, IsMusicOn);
         }
 
         private void ToggleSound()
         {
             IsSoundOn = !IsSoundOn;
+            _volumeControl[AudioChannel.SFX] = IsSoundOn ? _volumeControl.DefaultSFXVolume : 0f;
             UpdateToggleState(_soundToggleButton, IsSoundOn);
         }
 
@@ -59,24 +70,10 @@ namespace Assets.GearMind.Scripts.UI
             }
         }
 
-
-
-        public void SetMusicState(bool isOn)
-        {
-            IsMusicOn = isOn;
-            UpdateToggleState(_musicToggleButton, isOn);
-        }
-
-        public void SetSoundState(bool isOn)
-        {
-            IsSoundOn = isOn;
-            UpdateToggleState(_soundToggleButton, isOn);
-        }
-
         private void OnDisable()
         {
             _musicToggleButton.clicked -= ToggleMusic;
             _soundToggleButton.clicked -= ToggleSound;
-        }   
+        }
     }
 }
