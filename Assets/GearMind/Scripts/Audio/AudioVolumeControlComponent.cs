@@ -23,7 +23,7 @@ namespace Assets.GearMind.Audio
         [SerializeField, Required]
         private AudioMixer _audioMixer;
 
-        private void Awake()
+        private void Start()
         {
             var musicVolume = GetChannelVolume(AudioChannel.Music, -1);
             var sfxVolume = GetChannelVolume(AudioChannel.SFX, -1);
@@ -32,9 +32,9 @@ namespace Assets.GearMind.Audio
             else
                 SetAudioMixerVolume(AudioChannel.Music, musicVolume);
             if (sfxVolume == -1)
-                SetChannelVolume(AudioChannel.Music, DefaultSFXVolume);
+                SetChannelVolume(AudioChannel.SFX, DefaultSFXVolume);
             else
-                SetAudioMixerVolume(AudioChannel.Music, sfxVolume);
+                SetAudioMixerVolume(AudioChannel.SFX, sfxVolume);
         }
 
         private string GetVolumeKey(AudioChannel channel) =>

@@ -39,9 +39,8 @@ namespace Assets.GearMind.DI
             builder.RegisterInstance(_musicControl).AsImplementedInterfaces();
         }
 
-        protected override void Awake()
+        protected void Start()
         {
-            base.Awake();
             _musicControl.Play();
         }
     }
