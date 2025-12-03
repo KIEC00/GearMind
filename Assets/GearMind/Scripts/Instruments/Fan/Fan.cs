@@ -1,18 +1,20 @@
-using System;
 using Assets.GearMind.Instruments;
 using EditorAttributes;
-using R3;
-using R3.Triggers;
 using UnityEngine;
 
 [SelectionBase]
 public class Fan : MonoBehaviour, IGameplayObject, ISwitchable, INotConnectedObject, IRotatable
 {
     [SerializeField]
-    private float _forceFan = 20;
+    private bool _activateOnStart = false;
 
-    [SerializeField]
-    private bool _isNeedTurnOn = false;
+#if UNITY_EDITOR
+    [SerializeField, Clamp(0f, 1000f), OnValueChanged(nameof(UpdateForce))]
+    private float _effectorForce = 20;
+
+    [SerializeField, Clamp(0f, 100f), OnValueChanged(nameof(UpdateSize))]
+    private float _effectorSize = 4;
+#endif
 
     [SerializeField, Required]
     private Collider2D _fanEffectCollider;
@@ -24,39 +26,32 @@ public class Fan : MonoBehaviour, IGameplayObject, ISwitchable, INotConnectedObj
     private Renderer _renderer;
 
     [SerializeField, Required]
-    private ParticleSystem _windEffect;
+    private FanParticleControls _particles;
 
     private Color _initialColor;
-    private IDisposable _disposable;
 
     public bool IsActive { get; private set; } = false;
 
     private void Awake()
     {
         _initialColor = _renderer.material.color;
-        _effector2D.forceMagnitude = _forceFan;
-        _windEffect.Stop(withChildren: true, ParticleSystemStopBehavior.StopEmittingAndClear);
-        if (_isNeedTurnOn)
+        _particles.StopEmmiting();
+        if (_activateOnStart)
             SetActive(true);
-    }
-
-    public void RegisterMethods()
-    {
-        _disposable = _fanEffectCollider
-            .OnTriggerStay2DAsObservable()
-            .Subscribe(colliderPush => PushInstrument(colliderPush))
-            .AddTo(this);
     }
 
     public void PushInstrument(Collider2D collider)
     {
         if (!collider.isTrigger)
-            collider.attachedRigidbody.AddForce(transform.right * _forceFan, ForceMode2D.Force);
+            collider.attachedRigidbody.AddForce(
+                transform.right * _effectorForce,
+                ForceMode2D.Force
+            );
     }
 
     public void EnterEditMode()
     {
-        SetActive(_isNeedTurnOn);
+        SetActive(_activateOnStart);
     }
 
     public void SetActive(bool isTurnOn)
@@ -66,12 +61,12 @@ public class Fan : MonoBehaviour, IGameplayObject, ISwitchable, INotConnectedObj
         if (isTurnOn)
         {
             _renderer.material.color = Color.green;
-            _windEffect.Play(withChildren: true);
+            _particles.StartEmmiting();
         }
         else
         {
             _renderer.material.color = _initialColor;
-            _windEffect.Stop(withChildren: true, ParticleSystemStopBehavior.StopEmitting);
+            _particles.StopEmmiting();
         }
     }
 
@@ -79,13 +74,22 @@ public class Fan : MonoBehaviour, IGameplayObject, ISwitchable, INotConnectedObj
 
     public void Rotate() => transform.Rotate(new Vector3(0f, 0f, -90f));
 
-    public void OnEnable()
+    private void UpdateForce()
     {
-        RegisterMethods();
+        _effector2D.forceMagnitude = _effectorForce;
     }
 
-    public void OnDisable()
+    private void UpdateSize()
     {
-        _disposable.Dispose();
+        var effectorScale = _effector2D.transform.localScale;
+        var effectorPosition = _effector2D.transform.localPosition;
+
+        effectorScale.x = _effectorSize;
+        effectorPosition.x = _effectorSize / 2f + .5f;
+
+        _effector2D.transform.localScale = effectorScale;
+        _effector2D.transform.localPosition = effectorPosition;
+
+        _particles.SetSize(_effectorSize);
     }
 }
