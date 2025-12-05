@@ -10,6 +10,8 @@ namespace Assets.GearMind.Instruments
 
         [SerializeField]
         private Collider2D _collider;
+        [SerializeField]
+        private Animator _animator;
 
         public void EnterEditMode() => _collider.isTrigger = false;
 
@@ -17,8 +19,13 @@ namespace Assets.GearMind.Instruments
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if(collision.CompareTag("Cheese"))
+            if (collision.CompareTag("Cheese"))
                 Trigger?.Invoke();
+
+            if (_animator != null)
+            {
+                _animator.SetTrigger("Goal");
+            }
         }
 
     }

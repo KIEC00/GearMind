@@ -18,8 +18,6 @@ public class CommonGridObject
     [SerializeField]
     private LayerMask ObstacleLayers;
 
-    [SerializeField]
-    private Material GridMaterial;
 
     [SerializeField]
     private bool IsNeedTrigerCollider;
@@ -38,7 +36,6 @@ public class CommonGridObject
     private Rigidbody2D Rigidbody;
     private const float DRAG_ALPHA = 0.5f;
     private Color InitialColor;
-    private Material InitialMaterial;
 
     [field: SerializeField]
     public bool IsDragable { get; set; } = false;
@@ -50,7 +47,6 @@ public class CommonGridObject
         Filter.SetLayerMask(ObstacleLayers);
         Filter.useTriggers = true;
         InitialColor = ObjectRenderer.material.color;
-        InitialMaterial = ObjectRenderer.material;
         TypeObjectRigidbody = Rigidbody.bodyType;
 
         EnterEditMode();
@@ -97,12 +93,11 @@ public class CommonGridObject
 
     public void OnDragEnd()
     {
-        ObjectRenderer.material = InitialMaterial;
+        ObjectRenderer.material.color = InitialColor.WithAlpha(1f);
     }
 
     public void OnDragStart()
     {
-        ObjectCollider.isTrigger = true;
-        ObjectRenderer.material = GridMaterial;
+        ObjectRenderer.material.color = InitialColor.WithAlpha(DRAG_ALPHA);
     }
 }
