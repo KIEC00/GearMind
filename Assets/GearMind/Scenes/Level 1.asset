@@ -15,4 +15,4 @@ MonoBehaviour:
   _inventory:
     _serializedList:
     - Key: {fileID: 5637799894335985506, guid: 6a44225e693563447a75394d681111cf, type: 3}
-      Value: 2
+      Value: 1

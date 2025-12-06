@@ -12,7 +12,7 @@ public class FanParticleControls : MonoBehaviour
     public void StartEmmiting()
     {
         _windParticles.Play(withChildren: false);
-        _windParticles.Play(withChildren: false);
+        _leafParticles.Play(withChildren: false);
     }
 
     public void StopEmmiting()
