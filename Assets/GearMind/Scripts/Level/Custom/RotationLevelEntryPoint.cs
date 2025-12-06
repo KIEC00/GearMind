@@ -88,7 +88,7 @@ namespace Assets.GearMind.Custom.Level
                 _levelProgressEndpoint.Save(passedLevelsIds);
             }
             _interfaceContoller.OnLevelPassed();
-            _pauseService.Pause();
+            _inputService.Disable();
         }
 
         private void OnPauseChange(bool isPaused)

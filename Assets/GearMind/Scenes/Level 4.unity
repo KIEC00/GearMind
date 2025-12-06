@@ -382,11 +382,11 @@ Transform:
   m_GameObject: {fileID: 246530016}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.9906, y: -5.9924, z: -0.5}
-  m_LocalScale: {x: 12.783954, y: 2.9849, z: 1}
+  m_LocalPosition: {x: 6, y: -6, z: -0.5}
+  m_LocalScale: {x: 13, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 808227209}
+  m_Father: {fileID: 787784652}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &246530018
 BoxCollider2D:
@@ -1239,7 +1239,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4999946502179242365, guid: 050608c78493f8940be3dd13cc020056, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.35
+      value: -4.5
       objectReference: {fileID: 0}
     - target: {fileID: 4999946502179242365, guid: 050608c78493f8940be3dd13cc020056, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1307,10 +1307,10 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: -3.5, y: 4.7503, z: -0.5}
-  m_LocalScale: {x: 10.499644, y: 1, z: 1}
+  m_LocalScale: {x: 10.499643, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 808227209}
+  m_Father: {fileID: 787784652}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!61 &562648794
 BoxCollider2D:
@@ -1622,6 +1622,8 @@ Transform:
   - {fileID: 462352359}
   - {fileID: 1106609483}
   - {fileID: 669181310}
+  - {fileID: 562648793}
+  - {fileID: 246530017}
   - {fileID: 1022703607}
   - {fileID: 1440721231}
   - {fileID: 239045678}
@@ -1659,13 +1661,11 @@ Transform:
   m_GameObject: {fileID: 808227208}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -1, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1633591813}
-  - {fileID: 562648793}
-  - {fileID: 246530017}
   m_Father: {fileID: 787784652}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &808227210
@@ -1680,7 +1680,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39cdaacc948984440a9ec38f318ced26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.GearMind.Grid.Components.GridComponent
-  _size: {x: 35, y: 35}
+  _size: {x: 23, y: 14}
   _cellSize: 1
   _debugShowAlways: 0
   _debugShowGrid: 0
@@ -1948,7 +1948,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventSystem
---- !u!21 &1271050903
+--- !u!21 &1293905739
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
@@ -1990,7 +1990,7 @@ Material:
     - _Thickness: 0.1
     m_Colors:
     - _Color: {r: 0, g: 1, b: 1, a: 0.5019608}
-    - _Size: {r: 35, g: 35, b: 0, a: 0}
+    - _Size: {r: 23, g: 14, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!1 &1387469225
@@ -2278,7 +2278,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.000000030908623, y: -0.7071068, z: 0.7071068, w: -0.000000030908623}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3.5, y: 1, z: 3.5}
+  m_LocalScale: {x: 2.3, y: 1, z: 1.4}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 808227209}
@@ -2308,7 +2308,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1271050903}
+  - {fileID: 1293905739}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2571,8 +2571,8 @@ Transform:
   m_GameObject: {fileID: 1942379888}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -9.0243, y: -5.9463, z: -0.5}
-  m_LocalScale: {x: 8.808768, y: -2.8142254, z: 1}
+  m_LocalPosition: {x: -9, y: -6, z: -0.5}
+  m_LocalScale: {x: 9, y: -3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 787784652}

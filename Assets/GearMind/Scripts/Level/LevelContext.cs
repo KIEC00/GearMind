@@ -18,12 +18,7 @@ namespace Assets.GearMind.Level
         public LevelContext(int levelIndex, ILevelProvider provider)
         {
             if (!IsValidIndex(levelIndex, provider))
-            {
-#if !UNITY_EDITOR
-                Debug.LogError($"LevelProvider does not contains level with index {levelIndex}");
-#endif
                 levelIndex = int.MinValue;
-            }
 
             _levelIndex = levelIndex;
             _provider = provider;

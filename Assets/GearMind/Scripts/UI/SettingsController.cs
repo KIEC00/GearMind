@@ -32,7 +32,10 @@ namespace Assets.GearMind.Scripts.UI
         {
             _pauseService = pauseService;
             _levelContext = levelContext;
+        }
 
+        private void Awake()
+        {
             _doc = GetComponent<UIDocument>();
 
             _settingsPanel = _doc.rootVisualElement;

@@ -31,9 +31,13 @@ namespace Assets.GearMind.Scripts.UI
             LevelProgressEndpoint levelProgressEndpoint
         )
         {
-            _doc = GetComponent<UIDocument>();
             _levelProvider = levelProvider;
             _passedLevels = levelProgressEndpoint.Load();
+        }
+
+        private void Awake()
+        {
+            _doc = GetComponent<UIDocument>();
 
             _playButton = _doc.rootVisualElement.Q<Button>("Play");
             _playButton.clicked += PlayClicked;

@@ -16,15 +16,21 @@ namespace Assets.GearMind.Scripts.UI
         private UIDocument _doc;
         private Button _closeLevelsMenuButton;
         private VisualElement _levelsPanel;
+        private ILevelProvider _levelProvider;
 
         public bool IsVisible => _levelsPanel.style.display == DisplayStyle.Flex;
 
         [Inject]
         public void Construct(ILevelProvider levelProvider)
         {
+            _levelProvider = levelProvider;
+        }
+
+        private void Awake()
+        {
             _doc = GetComponent<UIDocument>();
 
-            CreateButtons(levelProvider.Levels);
+            CreateButtons(_levelProvider.Levels);
 
             _levelsPanel = _doc.rootVisualElement;
             _closeLevelsMenuButton = _doc.rootVisualElement.Q<Button>("CloseButton");

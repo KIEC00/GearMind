@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Assets.GearMind.Level;
 using UnityEngine;
 
@@ -10,6 +11,7 @@ namespace Assets.GearMind.Instruments
 
         [SerializeField]
         private Collider2D _collider;
+
         [SerializeField]
         private Animator _animator;
 
@@ -20,13 +22,13 @@ namespace Assets.GearMind.Instruments
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.CompareTag("Cheese"))
+            {
                 Trigger?.Invoke();
+                collision.attachedRigidbody.simulated = false;
+            }
 
             if (_animator != null)
-            {
                 _animator.SetTrigger("Goal");
-            }
         }
-
     }
 }

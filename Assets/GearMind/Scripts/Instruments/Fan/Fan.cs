@@ -65,6 +65,7 @@ public class Fan : MonoBehaviour, IGameplayObject, ISwitchable, INotConnectedObj
 
     public void Rotate() => transform.Rotate(new Vector3(0f, 0f, -90f));
 
+#if UNITY_EDITOR
     private void UpdateForce()
     {
         _effector2D.forceMagnitude = _effectorForce;
@@ -83,4 +84,5 @@ public class Fan : MonoBehaviour, IGameplayObject, ISwitchable, INotConnectedObj
 
         _particles.SetSize(_effectorSize);
     }
+#endif
 }

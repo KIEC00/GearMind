@@ -1,6 +1,4 @@
-using System;
 using Assets.GearMind.Level;
-using UnityEditor.Build.Content;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -13,14 +11,13 @@ namespace Assets.GearMind.Scripts.UI
     {
         private UIDocument _doc;
         private Button _nextLevelButton;
-        private VisualElement _nextLevelPanel; 
+        private VisualElement _nextLevelPanel;
 
         private LevelContext _levelContext;
 
         [Inject]
         public void Construct(LevelContext levelContext)
         {
-            _doc = GetComponent<UIDocument>();
             _levelContext = levelContext;
         }
 
@@ -28,6 +25,7 @@ namespace Assets.GearMind.Scripts.UI
 
         private void OnEnable()
         {
+            _doc = GetComponent<UIDocument>();
             _nextLevelPanel = _doc.rootVisualElement;
             _nextLevelButton = _doc.rootVisualElement.Q<Button>("ExitToNextLevelButton");
             _nextLevelPanel.style.display = DisplayStyle.None;

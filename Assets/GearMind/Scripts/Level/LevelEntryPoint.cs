@@ -83,6 +83,7 @@ namespace Assets.GearMind.Level
 
         public void Dispose()
         {
+            _pauseService.Unpause();
             _uiManager.OnModeChanged -= OnModeChanged;
             _levelGoalTrigger.Trigger -= OnLevelPassed;
             _pauseService.OnPauseChange -= OnPauseChange;
