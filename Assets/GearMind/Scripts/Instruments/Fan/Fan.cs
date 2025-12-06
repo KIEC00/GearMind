@@ -9,7 +9,7 @@ public class Fan : MonoBehaviour, IGameplayObject, ISwitchable, INotConnectedObj
     private bool _activateOnStart = false;
 
 #if UNITY_EDITOR
-    [SerializeField, Clamp(0f, 1000f), OnValueChanged(nameof(UpdateForce))]
+    [SerializeField, Clamp(0f, 100000f), OnValueChanged(nameof(UpdateForce))]
     private float _effectorForce = 20;
 
     [SerializeField, Clamp(0f, 100f), OnValueChanged(nameof(UpdateSize))]
@@ -38,15 +38,6 @@ public class Fan : MonoBehaviour, IGameplayObject, ISwitchable, INotConnectedObj
         _particles.StopEmmiting();
         if (_activateOnStart)
             SetActive(true);
-    }
-
-    public void PushInstrument(Collider2D collider)
-    {
-        if (!collider.isTrigger)
-            collider.attachedRigidbody.AddForce(
-                transform.right * _effectorForce,
-                ForceMode2D.Force
-            );
     }
 
     public void EnterEditMode()

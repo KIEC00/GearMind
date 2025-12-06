@@ -13062,7 +13062,7 @@ AreaEffector2D:
   m_ForceMagnitude: 15
   m_ForceVariation: 0
   m_ForceTarget: 0
-  m_LinearDamping: 0
+  m_LinearDamping: 1
   m_AngularDamping: 0
 --- !u!1 &6037151342322387533
 GameObject:
