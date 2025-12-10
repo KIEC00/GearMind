@@ -36,11 +36,14 @@ public class Fan : MonoBehaviour, IGameplayObject, ISwitchable, INotConnectedObj
     {
         _initialColor = _renderer.material.color;
         _particles.StopEmmiting();
-        if (_activateOnStart)
-            SetActive(true);
     }
 
     public void EnterEditMode()
+    {
+        SetActive(false);
+    }
+
+    public void EnterPlayMode()
     {
         SetActive(_activateOnStart);
     }
@@ -60,8 +63,6 @@ public class Fan : MonoBehaviour, IGameplayObject, ISwitchable, INotConnectedObj
             _particles.StopEmmiting();
         }
     }
-
-    public void EnterPlayMode() { }
 
     public void Rotate() => transform.Rotate(new Vector3(0f, 0f, -90f));
 
