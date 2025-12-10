@@ -27,8 +27,8 @@ Transform:
   m_GameObject: {fileID: 1716380536151342558}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 0.3, z: 0.3}
+  m_LocalPosition: {x: 0, y: 0, z: -0.15}
+  m_LocalScale: {x: 4.99, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7253820767452311548}
@@ -135,26 +135,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff9b7dd8e22c64942baaf8be874df432, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RailPlatform
-  _widthRail: 5
-  _widthPlatform: 1
-  _platformObject: {fileID: 6607156242377815645}
-  _railObject: {fileID: 1716380536151342558}
-  _platformCollider: {fileID: 1788179761182729373}
-  _rectTransformPlatform: {fileID: 1520656277151970602}
-  _contactFilter:
-    useTriggers: 0
-    useLayerMask: 0
-    useDepth: 0
-    useOutsideDepth: 0
-    useNormalAngle: 0
-    useOutsideNormalAngle: 0
-    layerMask:
-      serializedVersion: 2
-      m_Bits: 0
-    minDepth: 0
-    maxDepth: 0
-    minNormalAngle: 0
-    maxNormalAngle: 0
+  _railLength: 5
+  _platformLength: 1
+  _platformRigidbody: {fileID: 408891710688672866}
+  _railTransform: {fileID: 8828495123587063811}
+  _platformRect: {fileID: 1520656277151970602}
 --- !u!1 &3484674800689538526
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,7 +166,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3484674800689538526}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -330,7 +315,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.95, y: 0.95}
   m_EdgeRadius: 0
 --- !u!50 &408891710688672866
 Rigidbody2D:
@@ -340,15 +325,15 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6607156242377815645}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 20
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 29bdc4fc3bd7a8342ba5ae4e2740b816, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

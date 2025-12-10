@@ -1,73 +1,104 @@
+using Assets.GearMind.Instruments;
 using EditorAttributes;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class RailPlatform : MonoBehaviour, IDragHandler
+public class RailPlatform : MonoBehaviour, IDragHandler, IEndDragHandler, IGameplayObject
 {
-    [SerializeField]
-    private float _widthRail = 3;
-    [SerializeField]
-    private float _widthPlatform = 1;
+    [SerializeField, OnValueChanged(nameof(UpdateWidth)), Min(1)]
+    private float _railLength = 3;
+
+    [SerializeField, OnValueChanged(nameof(UpdateWidth)), Min(1)]
+    private float _platformLength = 1;
 
     [SerializeField, Required]
-    private GameObject _platformObject;
+    private Rigidbody2D _platformRigidbody;
 
     [SerializeField, Required]
-    private GameObject _railObject;
+    private Transform _railTransform;
 
     [SerializeField, Required]
-    private Collider2D _platformCollider;
+    private RectTransform _platformRect;
 
-    [SerializeField, Required]
-    private RectTransform _rectTransformPlatform;
+    private Vector2 _editorPosition;
 
-    [SerializeField]
-    private ContactFilter2D _contactFilter;
+    private void Awake() => _editorPosition = _platformRigidbody.position;
 
-    [Button]
-    private void ChangeWidth()
+    private void UpdateWidth()
     {
-        var platformScale = _platformObject.transform.localScale;
-        _platformObject.transform.localScale = new Vector3(_widthPlatform, platformScale.y, platformScale.z);
-        var railScale = _railObject.transform.localScale;
-        _railObject.transform.localScale = new Vector3(_widthRail, railScale.y, railScale.z);
+        var newPlatformScale = _platformRigidbody.transform.localScale;
+        newPlatformScale.x = _platformLength;
+        _platformRigidbody.transform.localScale = newPlatformScale;
 
+        _railLength = Mathf.Max(_railLength, _platformLength);
+
+        var newRailScale = _railTransform.localScale;
+        newRailScale.x = _railLength - 0.01f;
+        _railTransform.localScale = newRailScale;
     }
-
-
-    private void ChangePosittionPlatform(Vector3 target)
-    {
-        var positionPlatform = _platformObject.transform.localPosition;
-
-        _platformCollider.attachedRigidbody.MovePosition(target);
-    }
-
 
     public void OnDrag(PointerEventData eventData)
     {
-        var positionPlatform = _rectTransformPlatform.localPosition.x;
+        _platformRigidbody.bodyType = RigidbodyType2D.Dynamic;
+
+        var positionPlatform = _platformRect.localPosition.x;
         var point = eventData.position;
-        Vector2 localPoint;
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(_platformCollider.GetComponent<RectTransform>(), point, Camera.main, out localPoint);
-        localPoint = localPoint * Vector2.right;
+        var localPosition = GetTargetPosition(point);
+        var localPoint = new Vector2(localPosition, 0);
 
-        if (Mathf.Abs(positionPlatform + localPoint.x) >= (_widthRail - _widthPlatform) / 2)
+        if (Mathf.Abs(positionPlatform + localPosition) >= (_railLength - _platformLength) / 2)
         {
-            var t = ((Mathf.Abs(positionPlatform) - (_widthRail - _widthPlatform) / 2)) / _widthPlatform;
-            localPoint = t * -Mathf.Sign(localPoint.x) * Vector2.right;
+            var t =
+                (Mathf.Abs(positionPlatform) - (_railLength - _platformLength) / 2)
+                / _platformLength;
+            localPoint = t * -Mathf.Sign(localPosition) * Vector2.right;
         }
-        var newLocal = _rectTransformPlatform.TransformPoint(localPoint);
-        
+        var newLocal = _platformRect.TransformPoint(localPoint);
 
-        ChangePosittionPlatform(newLocal);
+        _platformRigidbody.MovePosition(newLocal);
     }
 
-
-    public void Update()
+    public void OnEndDrag(PointerEventData eventData)
     {
-        _platformCollider.attachedRigidbody.linearVelocityY = 0;
-        _platformCollider.attachedRigidbody.linearVelocityX = 0;
-        _rectTransformPlatform.localPosition -= _rectTransformPlatform.localPosition.y * Vector3.up;
+        _platformRigidbody.linearVelocity = Vector2.zero;
+        _platformRigidbody.bodyType = RigidbodyType2D.Kinematic;
+    }
+
+    private float GetTargetPosition(Vector2 point)
+    {
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            _platformRect,
+            point,
+            Camera.main,
+            out var localPoint
+        );
+        return localPoint.x;
+    }
+
+    private void OnValidate()
+    {
+        if (!_platformRect)
+            _platformRect = GetComponentInChildren<RectTransform>();
+        if (!_platformRigidbody)
+            _platformRigidbody = GetComponentInChildren<Rigidbody2D>();
+
+        if (_platformRigidbody)
+        {
+            _platformRigidbody.gravityScale = 0;
+            _platformRigidbody.bodyType = RigidbodyType2D.Kinematic;
+        }
+    }
+
+    public void EnterEditMode()
+    {
+        _platformRigidbody.bodyType = RigidbodyType2D.Kinematic;
+        _platformRigidbody.position = _editorPosition;
+    }
+
+    public void EnterPlayMode()
+    {
+        _platformRigidbody.bodyType = RigidbodyType2D.Kinematic;
+        _editorPosition = _platformRigidbody.position;
     }
 }
-
