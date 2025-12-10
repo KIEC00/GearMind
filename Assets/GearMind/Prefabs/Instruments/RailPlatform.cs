@@ -1,5 +1,5 @@
-using System;
 using Assets.GearMind.Instruments;
+using Assets.Utils.Runtime;
 using EditorAttributes;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -20,73 +20,87 @@ public class RailPlatform : MonoBehaviour, IDragHandler, IEndDragHandler, IGamep
 
     [Space]
     [SerializeField, Required]
+    private Transform _platformTransform;
+
+    [SerializeField, Required]
     private Rigidbody2D _platformRigidbody;
 
     [SerializeField, Required]
     private Transform _railTransform;
 
-    [SerializeField, Required]
-    private RectTransform _platformRect;
+    private float _editorPositionX;
+    private readonly RaycastHit2D[] _castResult = new RaycastHit2D[1];
 
-    private Vector2 _editorPosition;
-
-    private void Awake() => _editorPosition = _platformRigidbody.position;
+    private void Awake()
+    {
+        _platformTransform = _platformRigidbody.transform;
+        _editorPositionX = _platformTransform.localPosition.x;
+    }
 
     public void OnDrag(PointerEventData eventData)
     {
-        _platformRigidbody.bodyType = RigidbodyType2D.Dynamic;
+        var newLocalPositionX = ClampPosition(GetTargetLocalPosition(eventData));
+        var newLocalPosition = GetPlatformLocalPosition(newLocalPositionX);
+        var newWorldPos = (Vector2)_platformTransform.parent.TransformPoint(newLocalPosition);
 
-        var positionPlatform = _platformRect.localPosition.x;
-        var point = eventData.position;
-        var localPosition = GetTargetPosition(point);
-        var localPoint = new Vector2(localPosition, 0);
+        var currentPos = _platformRigidbody.position;
+        var delta = newWorldPos - currentPos;
+        var direction = delta.normalized;
+        var hitCount = _platformRigidbody.Cast(direction, _castResult, delta.magnitude);
 
-        if (Mathf.Abs(positionPlatform + localPosition) >= (_railLength - _platformLength) / 2)
+        if (hitCount > 0)
         {
-            var t =
-                (Mathf.Abs(positionPlatform) - (_railLength - _platformLength) / 2)
-                / _platformLength;
-            localPoint = t * -Mathf.Sign(localPosition) * Vector2.right;
+            var dot = Vector2.Dot(direction, _castResult[0].normal);
+            if (dot >= 0f)
+            {
+                _platformRigidbody.MovePosition(newWorldPos);
+                return;
+            }
+
+            var allowedDist = _castResult[0].distance;
+            if (allowedDist <= 0f)
+                return;
+            var allowedWorldPos = currentPos + delta.normalized * allowedDist;
+            _platformRigidbody.MovePosition(allowedWorldPos);
+            return;
         }
-        var newLocal = _platformRect.TransformPoint(localPoint);
 
-        _platformRigidbody.MovePosition(newLocal);
+        _platformRigidbody.MovePosition(newWorldPos);
     }
 
-    public void OnEndDrag(PointerEventData eventData)
-    {
+    public void OnEndDrag(PointerEventData eventData) =>
         _platformRigidbody.linearVelocity = Vector2.zero;
-        _platformRigidbody.bodyType = RigidbodyType2D.Kinematic;
+
+    private float GetTargetLocalPosition(PointerEventData eventData)
+    {
+        var camera = eventData.pressEventCamera;
+        var pressZ = eventData.pointerPressRaycast.worldPosition.z;
+        var cameraZDistance = pressZ - camera.transform.position.z;
+        var cameraPosition = eventData.position;
+        var platformTransform = _platformTransform;
+        var worldPosition = (Vector2)
+            camera.ScreenToWorldPoint(cameraPosition.WithZ(cameraZDistance));
+        var localPosition = platformTransform.InverseTransformPoint(worldPosition);
+        return localPosition.x + platformTransform.localPosition.x;
     }
 
-    private float GetTargetPosition(Vector2 point)
-    {
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            _platformRect,
-            point,
-            Camera.main,
-            out var localPoint
-        );
-        return localPoint.x;
-    }
+    public void EnterEditMode() =>
+        _platformTransform.localPosition = GetPlatformLocalPosition(_editorPositionX);
 
-    public void EnterEditMode()
-    {
-        _platformRigidbody.bodyType = RigidbodyType2D.Kinematic;
-        _platformRigidbody.position = _editorPosition;
-    }
+    public void EnterPlayMode() => _editorPositionX = _platformTransform.localPosition.x;
 
-    public void EnterPlayMode()
+    private Vector3 GetPlatformLocalPosition(float localX)
     {
-        _platformRigidbody.bodyType = RigidbodyType2D.Kinematic;
-        _editorPosition = _platformRigidbody.position;
+        var position = _platformTransform.localPosition;
+        position.x = localX;
+        return position;
     }
 
     private void UpdateWidth()
     {
-        var newPlatformScale = _platformRigidbody.transform.localScale;
+        var newPlatformScale = _platformTransform.localScale;
         newPlatformScale.x = _platformLength;
-        _platformRigidbody.transform.localScale = newPlatformScale;
+        _platformTransform.localScale = newPlatformScale;
 
         _railLength = Mathf.Max(_railLength, _platformLength);
 
@@ -95,25 +109,27 @@ public class RailPlatform : MonoBehaviour, IDragHandler, IEndDragHandler, IGamep
         _railTransform.localScale = newRailScale;
     }
 
+    private float ClampPosition(float localX)
+    {
+        var railLengthHalf = (_railLength - _platformLength) / 2;
+        return Mathf.Clamp(localX, -railLengthHalf, railLengthHalf);
+    }
+
 #if UNITY_EDITOR
     private void UpdateInitialPosition()
     {
-        var railLengthHalf = (_railLength - _platformLength) / 2;
-        _initialPosition = Mathf.Clamp(_initialPosition, -railLengthHalf, railLengthHalf);
-        var position = _platformRigidbody.transform.localPosition;
-        position.x = _initialPosition;
-        _platformRigidbody.transform.localPosition = position;
+        _initialPosition = ClampPosition(_initialPosition);
+        _platformTransform.localPosition = GetPlatformLocalPosition(_initialPosition);
     }
 
     private void OnValidate()
     {
-        if (!_platformRect)
-            _platformRect = GetComponentInChildren<RectTransform>();
         if (!_platformRigidbody)
             _platformRigidbody = GetComponentInChildren<Rigidbody2D>();
-
         if (_platformRigidbody)
         {
+            if (!_platformTransform)
+                _platformTransform = _platformRigidbody.transform;
             _platformRigidbody.gravityScale = 0;
             _platformRigidbody.bodyType = RigidbodyType2D.Kinematic;
         }
