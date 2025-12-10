@@ -50,14 +50,22 @@ public class RailPlatform : MonoBehaviour, IDragHandler, IEndDragHandler, IGamep
 
         if (hitCount > 0)
         {
-            var dot = Vector2.Dot(direction, _castResult[0].normal);
+            var hit = _castResult[0];
+            var hitRigidbody = hit.collider.attachedRigidbody;
+            if (hitRigidbody && hitRigidbody.bodyType == RigidbodyType2D.Dynamic)
+            {
+                _platformRigidbody.MovePosition(newWorldPos);
+                return;
+            }
+
+            var dot = Vector2.Dot(direction, hit.normal);
             if (dot >= 0f)
             {
                 _platformRigidbody.MovePosition(newWorldPos);
                 return;
             }
 
-            var allowedDist = _castResult[0].distance;
+            var allowedDist = hit.distance;
             if (allowedDist <= 0f)
                 return;
             var allowedWorldPos = currentPos + delta.normalized * allowedDist;
@@ -96,8 +104,15 @@ public class RailPlatform : MonoBehaviour, IDragHandler, IEndDragHandler, IGamep
         return position;
     }
 
+    private float ClampPosition(float localX)
+    {
+        var railLengthHalf = (_railLength - _platformLength) / 2;
+        return Mathf.Clamp(localX, -railLengthHalf, railLengthHalf);
+    }
+
     private void UpdateWidth()
     {
+#if UNITY_EDITOR
         var newPlatformScale = _platformTransform.localScale;
         newPlatformScale.x = _platformLength;
         _platformTransform.localScale = newPlatformScale;
@@ -107,21 +122,24 @@ public class RailPlatform : MonoBehaviour, IDragHandler, IEndDragHandler, IGamep
         var newRailScale = _railTransform.localScale;
         newRailScale.x = _railLength - 0.01f;
         _railTransform.localScale = newRailScale;
+
+        _platformTransform.localPosition = GetPlatformLocalPosition(
+            ClampPosition(_platformTransform.localPosition.x)
+        );
+
+        UpdateInitialPosition();
+#endif
     }
 
-    private float ClampPosition(float localX)
+    private void UpdateInitialPosition()
     {
-        var railLengthHalf = (_railLength - _platformLength) / 2;
-        return Mathf.Clamp(localX, -railLengthHalf, railLengthHalf);
+#if UNITY_EDITOR
+        _initialPosition = ClampPosition(_initialPosition);
+        _platformTransform.localPosition = GetPlatformLocalPosition(_initialPosition);
+#endif
     }
 
 #if UNITY_EDITOR
-    private void UpdateInitialPosition()
-    {
-        _initialPosition = ClampPosition(_initialPosition);
-        _platformTransform.localPosition = GetPlatformLocalPosition(_initialPosition);
-    }
-
     private void OnValidate()
     {
         if (!_platformRigidbody)
