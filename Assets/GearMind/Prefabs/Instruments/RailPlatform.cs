@@ -1,9 +1,10 @@
+using System;
 using Assets.GearMind.Instruments;
 using EditorAttributes;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+[SelectionBase]
 public class RailPlatform : MonoBehaviour, IDragHandler, IEndDragHandler, IGameplayObject
 {
     [SerializeField, OnValueChanged(nameof(UpdateWidth)), Min(1)]
@@ -12,6 +13,12 @@ public class RailPlatform : MonoBehaviour, IDragHandler, IEndDragHandler, IGamep
     [SerializeField, OnValueChanged(nameof(UpdateWidth)), Min(1)]
     private float _platformLength = 1;
 
+#if UNITY_EDITOR
+    [SerializeField, OnValueChanged(nameof(UpdateInitialPosition))]
+    private float _initialPosition = 0;
+#endif
+
+    [Space]
     [SerializeField, Required]
     private Rigidbody2D _platformRigidbody;
 
@@ -24,19 +31,6 @@ public class RailPlatform : MonoBehaviour, IDragHandler, IEndDragHandler, IGamep
     private Vector2 _editorPosition;
 
     private void Awake() => _editorPosition = _platformRigidbody.position;
-
-    private void UpdateWidth()
-    {
-        var newPlatformScale = _platformRigidbody.transform.localScale;
-        newPlatformScale.x = _platformLength;
-        _platformRigidbody.transform.localScale = newPlatformScale;
-
-        _railLength = Mathf.Max(_railLength, _platformLength);
-
-        var newRailScale = _railTransform.localScale;
-        newRailScale.x = _railLength - 0.01f;
-        _railTransform.localScale = newRailScale;
-    }
 
     public void OnDrag(PointerEventData eventData)
     {
@@ -76,6 +70,41 @@ public class RailPlatform : MonoBehaviour, IDragHandler, IEndDragHandler, IGamep
         return localPoint.x;
     }
 
+    public void EnterEditMode()
+    {
+        _platformRigidbody.bodyType = RigidbodyType2D.Kinematic;
+        _platformRigidbody.position = _editorPosition;
+    }
+
+    public void EnterPlayMode()
+    {
+        _platformRigidbody.bodyType = RigidbodyType2D.Kinematic;
+        _editorPosition = _platformRigidbody.position;
+    }
+
+    private void UpdateWidth()
+    {
+        var newPlatformScale = _platformRigidbody.transform.localScale;
+        newPlatformScale.x = _platformLength;
+        _platformRigidbody.transform.localScale = newPlatformScale;
+
+        _railLength = Mathf.Max(_railLength, _platformLength);
+
+        var newRailScale = _railTransform.localScale;
+        newRailScale.x = _railLength - 0.01f;
+        _railTransform.localScale = newRailScale;
+    }
+
+#if UNITY_EDITOR
+    private void UpdateInitialPosition()
+    {
+        var railLengthHalf = (_railLength - _platformLength) / 2;
+        _initialPosition = Mathf.Clamp(_initialPosition, -railLengthHalf, railLengthHalf);
+        var position = _platformRigidbody.transform.localPosition;
+        position.x = _initialPosition;
+        _platformRigidbody.transform.localPosition = position;
+    }
+
     private void OnValidate()
     {
         if (!_platformRect)
@@ -89,16 +118,5 @@ public class RailPlatform : MonoBehaviour, IDragHandler, IEndDragHandler, IGamep
             _platformRigidbody.bodyType = RigidbodyType2D.Kinematic;
         }
     }
-
-    public void EnterEditMode()
-    {
-        _platformRigidbody.bodyType = RigidbodyType2D.Kinematic;
-        _platformRigidbody.position = _editorPosition;
-    }
-
-    public void EnterPlayMode()
-    {
-        _platformRigidbody.bodyType = RigidbodyType2D.Kinematic;
-        _editorPosition = _platformRigidbody.position;
-    }
+#endif
 }
