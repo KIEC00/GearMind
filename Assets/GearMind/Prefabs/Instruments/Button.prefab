@@ -610,7 +610,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 684bec6e7934a0f46b4b091a060ca984, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DownConnectRigidObject
-  <IsDragable>k__BackingField: 1
+  <IsDragable>k__BackingField: 0
   <_renderer>k__BackingField: {fileID: 232599761697575886}
   <_rigidbody>k__BackingField: {fileID: 2912999878322809634}
   <_collider>k__BackingField: {fileID: 7476390955502768585}
