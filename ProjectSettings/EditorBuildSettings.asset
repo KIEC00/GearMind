@@ -26,6 +26,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/GearMind/Scenes/Level 6.unity
     guid: 7d83dd0006095544a96311bdf9e40dab
+  - enabled: 1
+    path: Assets/GearMind/Scenes/Level 7.unity
+    guid: c1c8e08b3060e004587bca9da1cc2236
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
