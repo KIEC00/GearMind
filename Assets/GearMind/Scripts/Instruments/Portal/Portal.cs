@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Numerics;
 using Assets.GearMind.Instruments;
 using EditorAttributes;
 using UnityEngine;
@@ -18,17 +17,9 @@ public class Portal : MonoBehaviour, IGameplayObject
 
     private bool _isTeleporting;
 
-    public void EnterEditMode()
-    {
-        if (_collider != null)
-            _collider.enabled = false;
-    }
+    public void EnterEditMode() { }
 
-    public void EnterPlayMode()
-    {
-        if (_collider != null)
-            _collider.enabled = true;
-    }
+    public void EnterPlayMode() { }
 
     private void OnTriggerEnter2D(Collider2D other)
     {

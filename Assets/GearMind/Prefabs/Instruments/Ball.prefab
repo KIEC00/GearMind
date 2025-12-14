@@ -100,8 +100,9 @@ GameObject:
   - component: {fileID: 2832068844101325024}
   - component: {fileID: 2571482960436824630}
   - component: {fileID: 3561216923678289303}
-  - component: {fileID: 9181379982914247799}
   - component: {fileID: 4666209939045324369}
+  - component: {fileID: 4991096520293173286}
+  - component: {fileID: 2742191181891447281}
   m_Layer: 6
   m_Name: Ball
   m_TagString: Instrument
@@ -188,26 +189,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!114 &9181379982914247799
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5431714573158688104}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7d26c6dcaf8dd0408f797051722fbfc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CommonGridObject
-  ObstacleLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  IsNeedTrigerCollider: 0
-  ObjectCollider: {fileID: 2571482960436824630}
-  ObjectRenderer: {fileID: 792365228100337446}
-  Rigidbody: {fileID: 3561216923678289303}
-  <IsDragable>k__BackingField: 1
 --- !u!114 &4666209939045324369
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -221,3 +202,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Assets.GearMind.Inventory.InventoryIdentityComponent
   _inventoryIdentitySO: {fileID: 11400000, guid: 8f8bbff924b0cc14194a026a0e41ba86, type: 2}
+--- !u!114 &4991096520293173286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5431714573158688104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efc0ab50ca3a96a469fa100ba8ec4be9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.GearMind.Test.DefaultRigidObject
+  <IsDragable>k__BackingField: 1
+  <_renderer>k__BackingField: {fileID: 792365228100337446}
+  <_rigidbody>k__BackingField: {fileID: 3561216923678289303}
+  <_collider>k__BackingField: {fileID: 2571482960436824630}
+  <_contactFilter>k__BackingField:
+    useTriggers: 1
+    useLayerMask: 1
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 193
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
+--- !u!114 &2742191181891447281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5431714573158688104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fd161a520f32cb448f8e5b3ab2bd14e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DefaultGameplayObject
+  _isNeedKinematic: 0
+  _rigidbody: {fileID: 3561216923678289303}
