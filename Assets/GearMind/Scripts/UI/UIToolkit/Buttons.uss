@@ -14,10 +14,12 @@
     -unity-background-image-tint-color: rgb(246, 168, 0);
     color: rgb(255, 255, 255);
 }
-.main-button{
+
+.main-button {
     transition-duration: 200ms;
     transition-property: translate;
 }
+
 .button-mask {
 }
 
@@ -34,4 +36,29 @@
     -unity-background-image-tint-color: rgb(243, 211, 123);
     color: rgb(255, 255, 255);
     translate: 0 -10px;
+}
+
+.green-button {
+    background-image: url("project://database/Assets/GearMind/Textures/UI/ButtonWhite.png?fileID=2800000&guid=4a4169b7818ecf545bb4dfa5e8596390&type=3#ButtonWhite");
+    -unity-background-image-tint-color: rgb(106, 159, 65);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    -unity-font-definition: url("project://database/Assets/TextMesh%20Pro/Fonts/BoldPixels.ttf?fileID=12800000&guid=0da78171e9a8d374b8549aba0c2dd785&type=3#BoldPixels");
+    color: rgb(255, 255, 255);
+    font-size: 30px;
+}
+
+.green-button:hover {
+    -unity-background-image-tint-color: rgb(120, 181, 74);
+}
+
+.green-button:active {
+    background-color: rgb(255, 255, 255);
+    -unity-background-image-tint-color: rgb(106, 159, 65);
 }
