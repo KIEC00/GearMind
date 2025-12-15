@@ -846,6 +846,17 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!114 &451679094 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4447695855659557548, guid: 3b1a35b6831f2a442bd09110e87e5848, type: 3}
+  m_PrefabInstance: {fileID: 1413229643}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dd9ef7eb6282cf4aab0f4316912be4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Assets.GearMind.Common.FOVControlComponent
 --- !u!1001 &456110616
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1425,7 +1436,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1022703606}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!21 &1100176959
+--- !u!21 &1053141606
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
@@ -1807,6 +1818,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 4447695855659557548, guid: 3b1a35b6831f2a442bd09110e87e5848, type: 3}
+      propertyPath: _targetDepth
+      value: 17
+      objectReference: {fileID: 0}
     - target: {fileID: 5260181137210745233, guid: 3b1a35b6831f2a442bd09110e87e5848, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1989,7 +2004,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1100176959}
+  - {fileID: 1053141606}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2229,6 +2244,10 @@ PrefabInstance:
       propertyPath: _environmentAnchor
       value: 
       objectReference: {fileID: 787784652}
+    - target: {fileID: 6733023262518608234, guid: 4fde79c4efe641c4ebf39a815f19ab7e, type: 3}
+      propertyPath: _fovControlComponent
+      value: 
+      objectReference: {fileID: 451679094}
     - target: {fileID: 6733023262518608234, guid: 4fde79c4efe641c4ebf39a815f19ab7e, type: 3}
       propertyPath: _nextLevelController
       value: 
