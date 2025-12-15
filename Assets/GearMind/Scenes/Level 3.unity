@@ -379,6 +379,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 4447695855659557548, guid: 3b1a35b6831f2a442bd09110e87e5848, type: 3}
+      propertyPath: _targetDepth
+      value: 31
+      objectReference: {fileID: 0}
     - target: {fileID: 5260181137210745233, guid: 3b1a35b6831f2a442bd09110e87e5848, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -572,51 +576,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!21 &299609935
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Grid
-  m_Shader: {fileID: -6465566751694194690, guid: 2ca1bf1cd28498040bb9e6d093e0ded9, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - unity_Lightmaps:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - unity_LightmapsInd:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - unity_ShadowMasks:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _QueueControl: -1
-    - _QueueOffset: 0
-    - _Thickness: 0.1
-    m_Colors:
-    - _Color: {r: 0, g: 1, b: 1, a: 0.5019608}
-    - _Size: {r: 28, g: 14, b: 0, a: 0}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
 --- !u!1 &332831094
 GameObject:
   m_ObjectHideFlags: 0
@@ -763,6 +722,51 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5860981469629403040, guid: 10b992ca06131da4b8553885b1014d30, type: 3}
   m_PrefabInstance: {fileID: 1984211932}
   m_PrefabAsset: {fileID: 0}
+--- !u!21 &362775985
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Grid
+  m_Shader: {fileID: -6465566751694194690, guid: 2ca1bf1cd28498040bb9e6d093e0ded9, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _QueueControl: -1
+    - _QueueOffset: 0
+    - _Thickness: 0.1
+    m_Colors:
+    - _Color: {r: 0, g: 1, b: 1, a: 0.5019608}
+    - _Size: {r: 28, g: 14, b: 0, a: 0}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!95 &387008903 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 1596206583402421976, guid: 050608c78493f8940be3dd13cc020056, type: 3}
@@ -3338,7 +3342,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 299609935}
+  - {fileID: 362775985}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

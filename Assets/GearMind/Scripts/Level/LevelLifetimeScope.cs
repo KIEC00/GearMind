@@ -45,6 +45,9 @@ namespace Assets.GearMind.Level
         [SerializeField, Required]
         private NextLevelController _nextLevelController;
 
+        [SerializeField, Required]
+        private FOVControlComponent _fovControlComponent;
+
         [SerializeField, Required, TypeFilter(typeof(ILevelGoalTrigger))]
         private Component _levelGoalTrigger;
 
@@ -85,6 +88,8 @@ namespace Assets.GearMind.Level
             builder.Register<UIManager>(Lifetime.Singleton);
             builder.RegisterComponent(_nextLevelController);
             builder.RegisterComponent(_levelGoalTrigger).AsImplementedInterfaces();
+
+            builder.RegisterComponent(_fovControlComponent);
         }
 
         private static LevelStateMachine LevelStateMachineFactoryMethod(IObjectResolver c) =>
@@ -116,6 +121,8 @@ namespace Assets.GearMind.Level
             if (!_levelGoalTrigger && _environmentAnchor)
                 _levelGoalTrigger = (Component)
                     _environmentAnchor.GetComponentInChildren<ILevelGoalTrigger>();
+            if (!_fovControlComponent)
+                _fovControlComponent = FindFirstObjectByType<FOVControlComponent>();
         }
     }
 }

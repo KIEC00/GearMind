@@ -15,7 +15,7 @@ public static class CameraUtils
         new(orthographicSize * 2.0f * aspect, orthographicSize * 2.0f);
 
     public static Vector2 CalculateFrustumSize(this Camera camera, float distance) =>
-        CalculateFrustumSize(camera, distance);
+        CalculateFrustumSize(camera.fieldOfView, camera.aspect, distance);
 
     public static Vector2 CalculateOrthographicSize(this Camera camera) =>
         CalculateOrthographicSize(camera.orthographicSize, camera.aspect);
