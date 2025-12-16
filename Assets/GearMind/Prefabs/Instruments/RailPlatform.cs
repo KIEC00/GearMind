@@ -16,7 +16,7 @@ public class RailPlatform : MonoBehaviour, IDragHandler, IEndDragHandler, IGamep
     private float _platformLength = 1;
 
     [SerializeField, OnValueChanged(nameof(UpdatePlatform))]
-    private bool _isHorizontal = false;
+    private bool _isPerpendicularly = false;
 
 #if UNITY_EDITOR
     [SerializeField, OnValueChanged(nameof(UpdateInitialPosition))]
@@ -111,7 +111,7 @@ public class RailPlatform : MonoBehaviour, IDragHandler, IEndDragHandler, IGamep
 
     private float ClampPosition(float localX)
     {
-        var platformAlongRailLength = _isHorizontal ? 1f : _platformLength;
+        var platformAlongRailLength = _isPerpendicularly ? 1f : _platformLength;
         var railLengthHalf = (_railLength - platformAlongRailLength) / 2;
         return Mathf.Clamp(localX, -railLengthHalf, railLengthHalf);
     }
@@ -123,8 +123,8 @@ public class RailPlatform : MonoBehaviour, IDragHandler, IEndDragHandler, IGamep
         newPlatformScale.x = _platformLength;
         _platformTransform.localScale = newPlatformScale;
 
-        var platformAlongRailLength = _isHorizontal ? 1f : _platformLength;
-        _platformTransform.localRotation = _isHorizontal
+        var platformAlongRailLength = _isPerpendicularly ? 1f : _platformLength;
+        _platformTransform.localRotation = _isPerpendicularly
             ? Quaternion.Euler(new(0, 0, 90))
             : Quaternion.identity;
 
