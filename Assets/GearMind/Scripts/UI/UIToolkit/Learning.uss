@@ -1,0 +1,8 @@
+:root {
+    display: none;
+}
+#TrainingImage {
+     background-size: cover; 
+    background-size: stretch;
+    background-size: cover;
+}

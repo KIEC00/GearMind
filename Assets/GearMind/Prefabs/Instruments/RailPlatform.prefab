@@ -137,6 +137,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RailPlatform
   _railLength: 5
   _platformLength: 1
+  _isHorizontal: 0
   _initialPosition: 0
   _platformTransform: {fileID: 1520656277151970602}
   _platformRigidbody: {fileID: 408891710688672866}
