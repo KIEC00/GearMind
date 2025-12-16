@@ -77,9 +77,13 @@ public class Laser : MonoBehaviour, IGameplayObject, ISwitchable, INotConnectedO
             if(_updateLaserCoroutine == null)
                 _updateLaserCoroutine = StartCoroutine(UpdateLaserRoutine());
         }
-            
+
         else
+        {
             StopCoroutine(_updateLaserCoroutine);
+            _updateLaserCoroutine = null;
+        }
+            
     }
 
     public void EnterEditMode()
