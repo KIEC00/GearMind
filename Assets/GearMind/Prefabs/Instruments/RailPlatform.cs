@@ -7,6 +7,8 @@ using UnityEngine.EventSystems;
 [SelectionBase]
 public class RailPlatform : MonoBehaviour, IDragHandler, IEndDragHandler, IGameplayObject
 {
+    private static readonly ContactFilter2D _filter = new() { useTriggers = false };
+
     [SerializeField, OnValueChanged(nameof(UpdateWidth)), Min(1)]
     private float _railLength = 3;
 
@@ -46,7 +48,7 @@ public class RailPlatform : MonoBehaviour, IDragHandler, IEndDragHandler, IGamep
         var currentPos = _platformRigidbody.position;
         var delta = newWorldPos - currentPos;
         var direction = delta.normalized;
-        var hitCount = _platformRigidbody.Cast(direction, _castResult, delta.magnitude);
+        var hitCount = _platformRigidbody.Cast(direction, _filter, _castResult, delta.magnitude);
 
         if (hitCount > 0)
         {

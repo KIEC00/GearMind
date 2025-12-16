@@ -4896,7 +4896,7 @@ GameObject:
   - component: {fileID: 4554185999724717127}
   - component: {fileID: 7835043318914105262}
   - component: {fileID: 6688262489291349940}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: FanEffector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
