@@ -9,11 +9,14 @@ public class RailPlatform : MonoBehaviour, IDragHandler, IEndDragHandler, IGamep
 {
     private static readonly ContactFilter2D _filter = new() { useTriggers = false };
 
-    [SerializeField, OnValueChanged(nameof(UpdateWidth)), Min(1)]
+    [SerializeField, OnValueChanged(nameof(UpdatePlatform)), Min(1)]
     private float _railLength = 3;
 
-    [SerializeField, OnValueChanged(nameof(UpdateWidth)), Min(1)]
+    [SerializeField, OnValueChanged(nameof(UpdatePlatform)), Min(1)]
     private float _platformLength = 1;
+
+    [SerializeField, OnValueChanged(nameof(UpdatePlatform))]
+    private bool _isHorizontal = false;
 
 #if UNITY_EDITOR
     [SerializeField, OnValueChanged(nameof(UpdateInitialPosition))]
@@ -87,11 +90,11 @@ public class RailPlatform : MonoBehaviour, IDragHandler, IEndDragHandler, IGamep
         var pressZ = eventData.pointerPressRaycast.worldPosition.z;
         var cameraZDistance = pressZ - camera.transform.position.z;
         var cameraPosition = eventData.position;
-        var platformTransform = _platformTransform;
+        var platformParent = _platformTransform.parent;
         var worldPosition = (Vector2)
             camera.ScreenToWorldPoint(cameraPosition.WithZ(cameraZDistance));
-        var localPosition = platformTransform.InverseTransformPoint(worldPosition);
-        return localPosition.x + platformTransform.localPosition.x;
+        var localPosition = platformParent.InverseTransformPoint(worldPosition);
+        return localPosition.x;
     }
 
     public void EnterEditMode() =>
@@ -108,18 +111,24 @@ public class RailPlatform : MonoBehaviour, IDragHandler, IEndDragHandler, IGamep
 
     private float ClampPosition(float localX)
     {
-        var railLengthHalf = (_railLength - _platformLength) / 2;
+        var platformAlongRailLength = _isHorizontal ? 1f : _platformLength;
+        var railLengthHalf = (_railLength - platformAlongRailLength) / 2;
         return Mathf.Clamp(localX, -railLengthHalf, railLengthHalf);
     }
 
-    private void UpdateWidth()
+    private void UpdatePlatform()
     {
 #if UNITY_EDITOR
         var newPlatformScale = _platformTransform.localScale;
         newPlatformScale.x = _platformLength;
         _platformTransform.localScale = newPlatformScale;
 
-        _railLength = Mathf.Max(_railLength, _platformLength);
+        var platformAlongRailLength = _isHorizontal ? 1f : _platformLength;
+        _platformTransform.localRotation = _isHorizontal
+            ? Quaternion.Euler(new(0, 0, 90))
+            : Quaternion.identity;
+
+        _railLength = Mathf.Max(_railLength, platformAlongRailLength);
 
         var newRailScale = _railTransform.localScale;
         newRailScale.x = _railLength - 0.01f;
