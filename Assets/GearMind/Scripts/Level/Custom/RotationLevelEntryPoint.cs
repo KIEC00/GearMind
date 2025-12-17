@@ -19,6 +19,7 @@ namespace Assets.GearMind.Custom.Level
         private readonly LevelContext _levelContext;
         private readonly LevelProgressEndpoint _levelProgressEndpoint;
         private readonly InterfaceContoller _interfaceContoller;
+        private readonly LearningController _tutorialController;
 
         public RotationLevelEntryPoint(
             IRotationTarget rotationTarget,
@@ -27,7 +28,8 @@ namespace Assets.GearMind.Custom.Level
             IPauseService pauseService,
             LevelContext levelContext,
             LevelProgressEndpoint levelProgressEndpoint,
-            InterfaceContoller interfaceContoller
+            InterfaceContoller interfaceContoller,
+            LearningController tutorialController
         )
         {
             _rotationTarget = rotationTarget;
@@ -37,6 +39,7 @@ namespace Assets.GearMind.Custom.Level
             _levelContext = levelContext;
             _levelProgressEndpoint = levelProgressEndpoint;
             _interfaceContoller = interfaceContoller;
+            _tutorialController = tutorialController;
         }
 
         public void PostInitialize() { }
@@ -45,6 +48,11 @@ namespace Assets.GearMind.Custom.Level
         {
             Subscribe();
             _inputService.Enable();
+
+            if (_levelContext.Level.HasTutorial && _levelContext.Level.TutorialData != null)
+            {
+                _tutorialController.Show(_levelContext.Level.TutorialData);
+            }
         }
 
         private void Subscribe()

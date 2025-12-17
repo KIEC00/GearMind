@@ -28,6 +28,9 @@ namespace Assets.GearMind.Custom.Level
         [SerializeField, Required]
         private InterfaceContoller _interfaceContoller;
 
+        [SerializeField, Required]
+        private LearningController _trainingController;
+
         protected override void Configure(IContainerBuilder builder)
         {
             builder
@@ -42,6 +45,7 @@ namespace Assets.GearMind.Custom.Level
 
             builder.Register<UIManager>(Lifetime.Singleton);
             builder.RegisterComponent(_interfaceContoller);
+            builder.RegisterComponent(_trainingController);
             builder.RegisterComponent(_nextLevelController);
         }
 

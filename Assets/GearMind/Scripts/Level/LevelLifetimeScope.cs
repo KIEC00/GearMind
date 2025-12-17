@@ -42,11 +42,15 @@ namespace Assets.GearMind.Level
         [SerializeField, Required]
         private GridComponent _grid;
 
+
         [SerializeField, Required]
         private NextLevelController _nextLevelController;
 
         [SerializeField, Required]
         private FOVControlComponent _fovControlComponent;
+
+        [SerializeField, Required]
+        private LearningController _trainingController;
 
         [SerializeField, Required, TypeFilter(typeof(ILevelGoalTrigger))]
         private Component _levelGoalTrigger;
@@ -87,6 +91,7 @@ namespace Assets.GearMind.Level
 
             builder.Register<UIManager>(Lifetime.Singleton);
             builder.RegisterComponent(_nextLevelController);
+            builder.RegisterComponent(_trainingController);
             builder.RegisterComponent(_levelGoalTrigger).AsImplementedInterfaces();
 
             builder.RegisterComponent(_fovControlComponent);

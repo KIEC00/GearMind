@@ -21,6 +21,8 @@ namespace Assets.GearMind.Level
         private readonly LevelContext _levelContext;
         private readonly LevelProgressEndpoint _levelProgressEndpoint;
 
+        private readonly LearningController _tutorialController;
+
         public LevelEntryPoint(
             Transform anchor,
             LevelStateMachine levelStateMachine,
@@ -30,7 +32,8 @@ namespace Assets.GearMind.Level
             ILevelGoalTrigger levelGoalTrigger,
             IPauseService pauseService,
             LevelProgressEndpoint levelProgressEndpoint,
-            LevelContext levelContext
+            LevelContext levelContext,
+            LearningController tutorialController
         )
         {
             _anchor = anchor;
@@ -42,6 +45,7 @@ namespace Assets.GearMind.Level
             _pauseService = pauseService;
             _levelContext = levelContext;
             _levelProgressEndpoint = levelProgressEndpoint;
+            _tutorialController = tutorialController;
         }
 
         public void PostInitialize()
@@ -60,7 +64,14 @@ namespace Assets.GearMind.Level
         private void OnModeChanged(bool IsEditMode) =>
             _levelStateMachine.TransitionTo(IsEditMode ? LevelState.Edit : LevelState.Simulate);
 
-        public void Start() => _levelStateMachine.TransitionTo(LevelState.Edit);
+        public void Start()
+        {
+            _levelStateMachine.TransitionTo(LevelState.Edit);
+            if (_levelContext.Level.HasTutorial && _levelContext.Level.TutorialData != null)
+            {
+                _tutorialController.Show(_levelContext.Level.TutorialData);
+            }
+        }
 
         private void OnLevelPassed()
         {
