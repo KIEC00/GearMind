@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 355b1492bd3793e418ef390e14d913be, type: 3}
-  m_Name: Level 3 Tutorial
+  m_Name: Level 8 Tutorial
   m_EditorClassIdentifier: Assembly-CSharp::TutorialDataSO
   Slides:
   - Image: {fileID: 21300000, guid: 5349b17ea3be7d74cbe486e7648f6bda, type: 3}

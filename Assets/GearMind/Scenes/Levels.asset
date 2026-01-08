@@ -21,8 +21,8 @@ MonoBehaviour:
     _hasTutorial: 1
     _tutorialData: {fileID: 11400000, guid: 11cacd1108a4d384da17c31e4cedba09, type: 2}
   - _scene: 3
-    _hasTutorial: 1
-    _tutorialData: {fileID: 11400000, guid: a7d03f5d34af7a140b34e73bfd38914d, type: 2}
+    _hasTutorial: 0
+    _tutorialData: {fileID: 0}
   - _scene: 4
     _hasTutorial: 0
     _tutorialData: {fileID: 0}
@@ -33,11 +33,11 @@ MonoBehaviour:
     _hasTutorial: 1
     _tutorialData: {fileID: 11400000, guid: a93b28aa20740ef44a28ec9b903579bc, type: 2}
   - _scene: 7
-    _hasTutorial: 0
-    _tutorialData: {fileID: 0}
+    _hasTutorial: 1
+    _tutorialData: {fileID: 11400000, guid: 2b62b4e9c7217de4aadaea48161eb9b7, type: 2}
   - _scene: 8
-    _hasTutorial: 0
-    _tutorialData: {fileID: 0}
+    _hasTutorial: 1
+    _tutorialData: {fileID: 11400000, guid: a7d03f5d34af7a140b34e73bfd38914d, type: 2}
   - _scene: 9
     _hasTutorial: 0
     _tutorialData: {fileID: 0}
