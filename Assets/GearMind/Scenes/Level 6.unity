@@ -2913,6 +2913,7 @@ MonoBehaviour:
   _levelGoalTrigger: {fileID: 1697652659}
   _nextLevelController: {fileID: 401930080}
   _interfaceContoller: {fileID: 21784200}
+  _trainingController: {fileID: 1250658780008050143}
 --- !u!4 &1201755098
 Transform:
   m_ObjectHideFlags: 0
@@ -5019,6 +5020,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fe80cbf298841d4fa80507aabadf11a, type: 3}
+--- !u!114 &1250658780008050143 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4420218881593997489, guid: 8fe80cbf298841d4fa80507aabadf11a, type: 3}
+  m_PrefabInstance: {fileID: 1250658780008050142}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80ac8fd1761e739439fa38ae1490f14e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TutorialController
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

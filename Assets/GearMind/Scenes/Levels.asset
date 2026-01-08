@@ -15,11 +15,22 @@ MonoBehaviour:
   <MenuSceneID>k__BackingField: 0
   _levels:
   - _scene: 1
+    _tutorialData: {fileID: 11400000, guid: 4e8b078b1c9c5794f8d67d15b7d59a70, type: 2}
   - _scene: 2
+    _tutorialData: {fileID: 11400000, guid: 11cacd1108a4d384da17c31e4cedba09, type: 2}
   - _scene: 3
+    _tutorialData: {fileID: 0}
   - _scene: 4
+    _tutorialData: {fileID: 0}
   - _scene: 5
+    _tutorialData: {fileID: 0}
   - _scene: 6
+    _tutorialData: {fileID: 11400000, guid: a93b28aa20740ef44a28ec9b903579bc, type: 2}
   - _scene: 7
+    _tutorialData: {fileID: 11400000, guid: 2b62b4e9c7217de4aadaea48161eb9b7, type: 2}
   - _scene: 8
+    _tutorialData: {fileID: 11400000, guid: a7d03f5d34af7a140b34e73bfd38914d, type: 2}
   - _scene: 9
+    _tutorialData: {fileID: 0}
+  - _scene: 10
+    _tutorialData: {fileID: 0}
