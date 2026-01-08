@@ -32,3 +32,5 @@ MonoBehaviour:
     _tutorialData: {fileID: 11400000, guid: a7d03f5d34af7a140b34e73bfd38914d, type: 2}
   - _scene: 9
     _tutorialData: {fileID: 0}
+  - _scene: 10
+    _tutorialData: {fileID: 0}
